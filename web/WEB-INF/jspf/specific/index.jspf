@@ -1,0 +1,752 @@
+<%-- any content can be specified here e.g.: --%>
+<%@ page pageEncoding="UTF-8" %>
+<!-- Banner Conference -->
+<section class="banner-conference">
+
+    <!-- Icons -->
+    <div class="icons parallax-scene-1">
+        <!-- Icon One -->
+
+        <div data-depth="0.20" class="icon-one parallax-layer"
+             style="background-image:url(assets/img/icons/icon-1.png)"></div>
+        <!-- Icon Two -->
+        <div data-depth="0.50" class="icon-two parallax-layer"
+             style="background-image:url(assets/img/icons/icon-2.png)"></div>
+        <!-- Icon Three -->
+        <div data-depth="0.10" class="icon-three parallax-layer"
+             style="background-image:url(assets/img/icons/icon-3.png)"></div>
+        <!-- Icon Four -->
+        <div data-depth="0.30" class="icon-four parallax-layer"
+             style="background-image:url(assets/img/icons/icon-4.png)"></div>
+        <!-- Icon Five -->
+        <div data-depth="0.10" class="icon-five parallax-layer"
+             style="background-image:url(assets/img/icons/icon-5.png)"></div>
+        <!-- Icon Six -->
+        <div data-depth="0.20" class="icon-six parallax-layer"
+             style="background-image:url(assets/img/icons/icon-6.png)"></div>
+        <!-- Icon Seven -->
+        <div data-depth="0.10" class="icon-seven parallax-layer"
+             style="background-image:url(assets/img/icons/icon-7.png)"></div>
+        <!-- Icon One -->
+        <div data-depth="0.20" class="icon-eight parallax-layer"
+             style="background-image:url(assets/img/icons/icon-1.png)"></div>
+        <!-- Icon Two -->
+        <div data-depth="0.50" class="icon-nine parallax-layer"
+             style="background-image:url(assets/img/icons/icon-8.png)"></div>
+        <!-- Icon Three -->
+        <div data-depth="0.10" class="icon-ten parallax-layer"
+             style="background-image:url(assets/img/icons/icon-3.png)"></div>
+        <!-- Icon Four -->
+        <div data-depth="0.30" class="icon-eleven parallax-layer"
+             style="background-image:url(assets/img/icons/icon-4.png)"></div>
+        <!-- Icon Five -->
+        <div data-depth="0.10" class="icon-twelve parallax-layer"
+             style="background-image:url(assets/img/icons/icon-5.png)"></div>
+        <!-- Icon Six -->
+        <div data-depth="0.20" class="icon-thirteen parallax-layer"
+             style="background-image:url(assets/img/icons/icon-6.png)"></div>
+        <!-- Icon Seven -->
+        <div data-depth="0.10" class="icon-fourteen parallax-layer"
+             style="background-image:url(assets/img/icons/icon-7.png)"></div>
+    </div>
+
+    <div class="layer-outer">
+        <div class="gradient-layer"></div>
+    </div>
+
+    <div class="images-outer">
+        <figure class="speaker-img"><img src="assets/img/main-slider/speaker.png" alt=""></figure>
+    </div>
+
+    <div class="anim-icons full-width">
+        <span class="icon icon-circle-3 wow zoomIn"></span>
+        <span class="icon icon-dots wow zoomIn"></span>
+    </div>
+
+    <div class="auto-container">
+        <div class="content-box">
+            <span class="title">December 25, 2019</span>
+            <h2> PeinMoney <br>Event 2019</h2>
+            <div class="time-counter">
+                <div class="time-countdown clearfix" data-countdown="12/25/2019"></div>
+            </div>
+            <div class="btn-box"><a href="#tickets" class="theme-btn btn-style-three"><span class="btn-title">Buy Ticket</span></a></div>
+        </div>
+    </div>
+</section>
+<!--End Banner Conference -->
+
+<!-- How to play -->
+<section class="features-section" id="howtoplay">
+    <div class="auto-container">
+        <div class="anim-icons">
+            <span class="icon icon-shape-3 wow fadeIn"></span>
+            <span class="icon icon-line-1 wow fadeIn"></span>
+        </div>
+        <div class="sec-title text-center">
+            <h2>How to play</h2>
+        </div>
+
+        <div class="row">
+            <!-- Feature Block -->
+            <div class="feature-block col-lg-4 col-md-6 col-sm-12 wow fadeInUp">
+                <div class="inner-box">
+                    <div class="icon-box"><span class="icon flaticon-connection"></span></div>
+                    <h4><a href="about.html">Register</a></h4>
+                    <div class="text">Dolor sit amet consectetur elit sed do eiusmod tempor incd idunt labore et
+                        dolore magna aliqua.</div>
+                </div>
+            </div>
+
+            <!-- Feature Block -->
+            <div class="feature-block col-lg-4 col-md-6 col-sm-12 wow fadeInUp" data-wow-delay="400ms">
+                <div class="inner-box">
+                    <div class="icon-box"><span class="icon flaticon-business"></span></div>
+                    <h4><a href="about.html">Buy Ticket</a></h4>
+                    <div class="text">Dolor sit amet consectetur elit sed do eiusmod tempor incd idunt labore et
+                        dolore magna aliqua.</div>
+                </div>
+            </div>
+
+            <!-- Feature Block -->
+            <div class="feature-block col-lg-4 col-md-6 col-sm-12 wow fadeInUp" data-wow-delay="800ms">
+                <div class="inner-box">
+                    <div class="icon-box"><span class="icon flaticon-gift"></span></div>
+                    <h4><a href="about.html">Win</a></h4>
+                    <div class="text">Dolor sit amet consectetur elit sed do eiusmod tempor incd idunt labore et
+                        dolore magna aliqua.</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- End How to play -->
+
+<!-- Influencer -->
+<section class="about-section">
+    <div class="anim-icons full-width">
+        <span class="icon icon-circle-blue wow fadeIn"></span>
+        <span class="icon icon-dots wow fadeInleft"></span>
+        <span class="icon icon-circle-1 wow zoomIn"></span>
+    </div>
+    <div class="auto-container">
+        <div class="row">
+            <!-- Content Column -->
+            <div class="content-column col-lg-6 col-md-12 col-sm-12">
+                <div class="inner-column">
+                    <div class="sec-title">
+                        <span class="title mt-6">INFLUENCER</span>
+                        <h2>Welcome to the World Digital Conference 2020</h2>
+                        <div class="text">Dolor sit amet consectetur elit sed do eiusmod tempor incd idunt
+                            labore et dolore magna aliqua enim ad minim veniam quis nostrud exercitation ullamco
+                            laboris nisi ut aliquip exea commodo consequat.</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Image Column -->
+            <div class="image-column col-lg-6 col-md-12 col-sm-12">
+                <div class="image-box">
+                    <figure class="image wow fadeIn"><img src="assets/img/resource/about-img-1.jpg" alt=""></figure>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!--End Influencer -->
+
+<!-- Event location -->
+<section class="event-info-section">
+    <div class="auto-container">
+        <div class="anim-icons">
+            <span class="icon twist-line-1 wow zoomIn"></span>
+            <span class="icon twist-line-2 wow zoomIn" data-wow-delay="1s"></span>
+            <span class="icon twist-line-3 wow zoomIn" data-wow-delay="4s"></span>
+        </div>
+
+        <div class="row">
+            <!-- Image Column -->
+            <div class="image-column col-lg-6 col-md-12 col-sm-12">
+                <figure class="image"><img src="assets/img/icons/map-4.png" alt=""></figure>
+            </div>
+
+            <!-- Info Column -->
+            <div class="info-column col-lg-6 col-md-12 col-sm-12">
+                <div class="inner-column">
+                    <div class="sec-title style-two">
+                        <span class="title">Locate us</span>
+                        <h2>Direction / Date & time to<br>The event</h2>
+                    </div>
+
+                    <div class="event-info-tabs tabs-box">
+                        <!--Tabs Box-->
+                        <ul class="tab-buttons clearfix">
+                            <li class="tab-btn active-btn" data-tab="#tab1">Time</li>
+                            <li class="tab-btn" data-tab="#tab2">Venue</li>
+<!--                            <li class="tab-btn" data-tab="#tab3">How to</li>-->
+                        </ul>
+
+                        <div class="tabs-content">
+                            <!--Tab-->
+                            <div class="tab active-tab" id="tab1">
+                                <h4><span class="icon far fa-calendar"></span> Decenber 25, 2019</h4>
+                                <div class="text">10.00 AM - 05.00 PM</div>
+                                <ul class="info-list">
+                                    <li><span class="icon icon_profile"></span> PeinMoney</li>
+                                    <li><span class="icon icon_phone"></span> <a
+                                            href="tel:+690-147-265-345">+234-706-428-8888</a></li>
+                                    <li><span class="icon icon_mail"></span> <a
+                                            href="mailto:sopport@Eventrox.com">info@pienmoney.com</a></li>
+                                </ul>
+                            </div>
+
+                            <!--Tab-->
+                            <div class="tab" id="tab2">
+                                <h4><span class="icon fa fa-map-marker-alt"></span>Oriental hotel, Victoris Island, Lagos.
+                                </h4>
+                                <div class="text">From Ajah take a bus going to CMS, Drop at Law School Bus/stop,
+                                then you can ask for oriental hotel</div>
+                            </div>
+
+                            <!--Tab-->
+<!--                            <div class="tab" id="tab3">
+                                <h4><span class="icon fa fa-directions"></span> How to get there</h4>
+                                <div class="text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
+                                    do eiusmod tempor incididunt labore et dolore magna aliqua. Aliquip ex ea
+                                    commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit
+                                    esse cillum dolore.</div>
+                            </div>-->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!--End Event location -->
+
+<!-- Ticket Pricing Section -->
+<section class="pricing-section" id="tickets">
+    <div class="anim-icons">
+        <span class="icon icon-circle-green wow fadeIn"></span>
+        <span class="icon icon-circle-blue wow fadeIn"></span>
+        <span class="icon icon-circle-pink wow fadeIn"></span>
+    </div>
+
+    <div class="auto-container">
+        <div class="sec-title text-center">
+            <span class="title">Get Ticket</span>
+            <h2>Choose a Ticket</h2>
+        </div>
+
+        <div class="outer-box">
+            <div class="row">
+                <!-- Pricing Block -->
+                <div class="pricing-block col-lg-4 col-md-6 col-sm-12 wow fadeInUp">
+                    <div class="inner-box">
+                        <div class="icon-box">
+                            <div class="icon-outer"><span class="icon flaticon-paper-plane"></span></div>
+                        </div>
+                        <div class="price-box">
+                            <div class="title"> Single Ticket</div>
+                            <h4 class="price">&#x20A6; 2,000</h4>
+                        </div>
+                        <ul class="features">
+                            <li class="true">Conference Tickets</li>
+                            <li class="true">Food & Drinks</li>
+                            <li class="true">Win An Award</li>
+                            <div class="col-lg-12 mt-3" style="padding: 0px !important;">
+                                <div class="input-group">
+                                    <span class="input-group-btn">
+                                        <button type="button"
+                                                class="quantity-left-minus btn btn-danger btn-number"
+                                                data-type="minus" data-field="">
+                                            <span class="glyphicon glyphicon-minus">-</span>
+                                        </button>
+                                    </span>
+                                    <input type="text" id="quantity" name="quantity"
+                                           class="form-control input-number text-center" value="1" min="1" max="100"
+                                           style="border: 1px dashed #ced4da !important;">
+                                    <span class="input-group-btn">
+                                        <button type="button"
+                                                class="quantity-right-plus btn btn-success btn-number"
+                                                data-type="plus" data-field="">
+                                            <span class="glyphicon glyphicon-plus">+</span>
+                                        </button>
+                                    </span>
+                                </div>
+                            </div>
+                        </ul>
+                        <div class="btn-box">
+                            <a href="buy-ticket.html" class="theme-btn">BUY Ticket</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Pricing Block -->
+                <div class="pricing-block col-lg-4 col-md-6 col-sm-12 wow fadeInUp" data-wow-delay="400ms">
+                    <div class="inner-box">
+                        <div class="icon-box">
+                            <div class="icon-outer"><span class="icon flaticon-diamond-1"></span></div>
+                        </div>
+                        <div class="price-box">
+                            <div class="title">5 - in - 1 Ticket</div>
+                            <h4 class="price">&#x20A6; 10,000</h4>
+                        </div>
+                        <ul class="features">
+                            <li class="true">Conference Tickets</li>
+                            <li class="true">One Free Ticket</li>
+                            <li class="true">Food & Drink</li>
+                            <li class="true">Win An Award</li>
+                        </ul>
+                        <div class="btn-box">
+                            <a href="#" class="theme-btn">BUY Ticket</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Pricing Block -->
+                <div class="pricing-block col-lg-4 col-md-6 col-sm-12 wow fadeInUp" data-wow-delay="800ms">
+                    <div class="inner-box">
+                        <div class="icon-box">
+                            <div class="icon-outer"><span class="icon flaticon-rocket-ship"></span></div>
+                        </div>
+                        <div class="price-box">
+                            <div class="title">10 - in - 1</div>
+                            <h4 class="price">&#x20A6; 20,000</h4>
+                        </div>
+                        <ul class="features">
+                            <li class="true">Conference Tickets</li>
+                            <li class="true">Win A Max Tipper</li>
+                            <li class="true">Food & Drink</li>
+                            <li class="true">Win An Award</li>
+                        </ul>
+                        <div class="btn-box">
+                            <a href="buy-ticket.html" class="theme-btn">BUY Ticket</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!--End Ticket Pricing Section -->
+
+<!-- Gallery Section -->
+<section class="gallery-section style-two" id="gallery">
+    <div class="gallery-carousel owl-carousel owl-theme">
+        <!-- Gallery Item -->
+        <div class="gallery-item">
+            <div class="image-box">
+                <figure class="image"><img src="assets/img/gallery/1.jpg" alt=""></figure>
+                <div class="overlay-box"><a href="assets/img/gallery/1.jpg" class="lightbox-image"
+                                            data-fancybox='gallery'><span class="icon fa fa-expand-arrows-alt"></span></a></div>
+            </div>
+        </div>
+
+        <!-- Gallery Item -->
+        <div class="gallery-item">
+            <div class="image-box">
+                <figure class="image"><img src="assets/img/gallery/2.jpg" alt=""></figure>
+                <div class="overlay-box"><a href="assets/img/gallery/2.jpg" class="lightbox-image"
+                                            data-fancybox='gallery'><span class="icon fa fa-expand-arrows-alt"></span></a></div>
+            </div>
+        </div>
+
+        <!-- Gallery Item -->
+        <div class="gallery-item">
+            <div class="image-box">
+                <figure class="image"><img src="assets/img/gallery/3.jpg" alt=""></figure>
+                <div class="overlay-box"><a href="assets/img/gallery/3.jpg" class="lightbox-image"
+                                            data-fancybox='gallery'><span class="icon fa fa-expand-arrows-alt"></span></a></div>
+            </div>
+        </div>
+
+        <!-- Gallery Item -->
+        <div class="gallery-item">
+            <div class="image-box">
+                <figure class="image"><img src="assets/img/gallery/4.jpg" alt=""></figure>
+                <div class="overlay-box"><a href="assets/img/gallery/4.jpg" class="lightbox-image"
+                                            data-fancybox='gallery'><span class="icon fa fa-expand-arrows-alt"></span></a></div>
+            </div>
+        </div>
+
+        <!-- Gallery Item -->
+        <div class="gallery-item">
+            <div class="image-box">
+                <figure class="image"><img src="assets/img/gallery/5.jpg" alt=""></figure>
+                <div class="overlay-box"><a href="assets/img/gallery/5.jpg" class="lightbox-image"
+                                            data-fancybox='gallery'><span class="icon fa fa-expand-arrows-alt"></span></a></div>
+            </div>
+        </div>
+
+        <!-- Gallery Item -->
+        <div class="gallery-item">
+            <div class="image-box">
+                <figure class="image"><img src="assets/img/gallery/6.jpg" alt=""></figure>
+                <div class="overlay-box"><a href="assets/img/gallery/6.jpg" class="lightbox-image"
+                                            data-fancybox='gallery'><span class="icon fa fa-expand-arrows-alt"></span></a></div>
+            </div>
+        </div>
+    </div>
+</section>
+<!--End Gallery Section -->
+
+<!-- Gallery Section 2 -->
+<section class="gallery-section style-two mt-3">
+    <div class="gallery-carousel owl-carousel owl-theme">
+        <!-- Gallery Item -->
+        <div class="gallery-item">
+            <div class="image-box">
+                <figure class="image"><img src="assets/img/gallery/1.jpg" alt=""></figure>
+                <div class="overlay-box"><a href="assets/img/gallery/1.jpg" class="lightbox-image"
+                                            data-fancybox='gallery'><span class="icon fa fa-expand-arrows-alt"></span></a></div>
+            </div>
+        </div>
+
+        <!-- Gallery Item -->
+        <div class="gallery-item">
+            <div class="image-box">
+                <figure class="image"><img src="assets/img/gallery/2.jpg" alt=""></figure>
+                <div class="overlay-box"><a href="assets/img/gallery/2.jpg" class="lightbox-image"
+                                            data-fancybox='gallery'><span class="icon fa fa-expand-arrows-alt"></span></a></div>
+            </div>
+        </div>
+
+        <!-- Gallery Item -->
+        <div class="gallery-item">
+            <div class="image-box">
+                <figure class="image"><img src="assets/img/gallery/3.jpg" alt=""></figure>
+                <div class="overlay-box"><a href="assets/img/gallery/3.jpg" class="lightbox-image"
+                                            data-fancybox='gallery'><span class="icon fa fa-expand-arrows-alt"></span></a></div>
+            </div>
+        </div>
+
+        <!-- Gallery Item -->
+        <div class="gallery-item">
+            <div class="image-box">
+                <figure class="image"><img src="assets/img/gallery/4.jpg" alt=""></figure>
+                <div class="overlay-box"><a href="assets/img/gallery/4.jpg" class="lightbox-image"
+                                            data-fancybox='gallery'><span class="icon fa fa-expand-arrows-alt"></span></a></div>
+            </div>
+        </div>
+
+        <!-- Gallery Item -->
+        <div class="gallery-item">
+            <div class="image-box">
+                <figure class="image"><img src="assets/img/gallery/5.jpg" alt=""></figure>
+                <div class="overlay-box"><a href="assets/img/gallery/5.jpg" class="lightbox-image"
+                                            data-fancybox='gallery'><span class="icon fa fa-expand-arrows-alt"></span></a></div>
+            </div>
+        </div>
+
+        <!-- Gallery Item -->
+        <div class="gallery-item">
+            <div class="image-box">
+                <figure class="image"><img src="assets/img/gallery/6.jpg" alt=""></figure>
+                <div class="overlay-box"><a href="assets/img/gallery/6.jpg" class="lightbox-image"
+                                            data-fancybox='gallery'><span class="icon fa fa-expand-arrows-alt"></span></a></div>
+            </div>
+        </div>
+    </div>
+</section>
+<!--End Gallery Section 2 -->
+
+<!-- Gallery Section 3 -->
+<section class="gallery-section style-two mt-3 mb-6">
+    <div class="gallery-carousel owl-carousel owl-theme">
+        <!-- Gallery Item -->
+        <div class="gallery-item">
+            <div class="image-box">
+                <figure class="image"><img src="assets/img/gallery/1.jpg" alt=""></figure>
+                <div class="overlay-box"><a href="assets/img/gallery/1.jpg" class="lightbox-image"
+                                            data-fancybox='gallery'><span class="icon fa fa-expand-arrows-alt"></span></a></div>
+            </div>
+        </div>
+
+        <!-- Gallery Item -->
+        <div class="gallery-item">
+            <div class="image-box">
+                <figure class="image"><img src="assets/img/gallery/2.jpg" alt=""></figure>
+                <div class="overlay-box"><a href="assets/img/gallery/2.jpg" class="lightbox-image"
+                                            data-fancybox='gallery'><span class="icon fa fa-expand-arrows-alt"></span></a></div>
+            </div>
+        </div>
+
+        <!-- Gallery Item -->
+        <div class="gallery-item">
+            <div class="image-box">
+                <figure class="image"><img src="assets/img/gallery/3.jpg" alt=""></figure>
+                <div class="overlay-box"><a href="assets/img/gallery/3.jpg" class="lightbox-image"
+                                            data-fancybox='gallery'><span class="icon fa fa-expand-arrows-alt"></span></a></div>
+            </div>
+        </div>
+
+        <!-- Gallery Item -->
+        <div class="gallery-item">
+            <div class="image-box">
+                <figure class="image"><img src="assets/img/gallery/4.jpg" alt=""></figure>
+                <div class="overlay-box"><a href="assets/img/gallery/4.jpg" class="lightbox-image"
+                                            data-fancybox='gallery'><span class="icon fa fa-expand-arrows-alt"></span></a></div>
+            </div>
+        </div>
+
+        <!-- Gallery Item -->
+        <div class="gallery-item">
+            <div class="image-box">
+                <figure class="image"><img src="assets/img/gallery/5.jpg" alt=""></figure>
+                <div class="overlay-box"><a href="assets/img/gallery/5.jpg" class="lightbox-image"
+                                            data-fancybox='gallery'><span class="icon fa fa-expand-arrows-alt"></span></a></div>
+            </div>
+        </div>
+
+        <!-- Gallery Item -->
+        <div class="gallery-item">
+            <div class="image-box">
+                <figure class="image"><img src="assets/img/gallery/6.jpg" alt=""></figure>
+                <div class="overlay-box"><a href="assets/img/gallery/6.jpg" class="lightbox-image"
+                                            data-fancybox='gallery'><span class="icon fa fa-expand-arrows-alt"></span></a></div>
+            </div>
+        </div>
+    </div>
+</section>
+<!--End Gallery Section 3 -->
+
+<!-- Video Section -->
+<section class="video-section" style="background-image: url(assets/img/background/1.jpg);">
+    <div class="auto-container">
+        <div class="content-box">
+            <div class="text">WE’RE A LEADING INDUSTRY COMPANY</div>
+            <h2>We Are Always at The <br>Forefront of The Business Conference !</h2>
+            <a href="https://www.youtube.com/watch?v=Fvae8nxzVz4" class="play-now mr-4" data-fancybox="gallery"
+               data-caption=""><i class="icon flaticon-play-button-3" aria-hidden="true"></i><span
+                    class="ripple"></span></a>
+            <a href="https://www.youtube.com/watch?v=Fvae8nxzVz4" class="play-now mr-4" data-fancybox="gallery"
+               data-caption=""><i class="icon flaticon-play-button-3 ved2" aria-hidden="true"></i><span
+                    class="ripple"></span></a>
+            <a href="https://www.youtube.com/watch?v=Fvae8nxzVz4" class="play-now mr-4" data-fancybox="gallery"
+               data-caption=""><i class="icon flaticon-play-button-3 ved3" aria-hidden="true"></i><span
+                    class="ripple"></span></a>
+            <a href="https://www.youtube.com/watch?v=Fvae8nxzVz4" class="play-now mr-4" data-fancybox="gallery"
+               data-caption=""><i class="icon flaticon-play-button-3 ved4" aria-hidden="true"></i><span
+                    class="ripple"></span></a>
+            <a href="https://www.youtube.com/watch?v=Fvae8nxzVz4" class="play-now" data-fancybox="gallery"
+               data-caption=""><i class="icon flaticon-play-button-3 ved5" aria-hidden="true"></i><span
+                    class="ripple"></span></a>
+        </div>
+    </div>
+</section>
+<!--End Video Section -->
+
+<!--Sponsors Section-->
+<section class="clients-section">
+    <div class="anim-icons">
+        <span class="icon icon-dots-3 wow zoomIn"></span>
+        <span class="icon icon-circle-blue wow zoomIn"></span>
+    </div>
+    <div class="auto-container">
+        <div class="sec-title">
+            <h2>Official Sponsors</h2>
+        </div>
+
+        <div class="sponsors-outer">
+            <div class="row">
+                <!-- Client Block -->
+                <div class="client-block col-lg-3 col-md-6 col-sm-12">
+                    <figure class="image-box"><a href="#"><img src="assets/img/clients/1.png" alt=""></a></figure>
+                </div>
+
+                <!-- Client Block -->
+                <div class="client-block col-lg-3 col-md-6 col-sm-12">
+                    <figure class="image-box"><a href="#"><img src="assets/img/clients/2.png" alt=""></a></figure>
+                </div>
+
+                <!-- Client Block -->
+                <div class="client-block col-lg-3 col-md-6 col-sm-12">
+                    <figure class="image-box"><a href="#"><img src="assets/img/clients/3.png" alt=""></a></figure>
+                </div>
+
+                <!-- Client Block -->
+                <div class="client-block col-lg-3 col-md-6 col-sm-12">
+                    <figure class="image-box"><a href="#"><img src="assets/img/clients/4.png" alt=""></a></figure>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!--End Sponsors Section-->
+
+<!-- FAQ's Section -->
+<section class="faq-section" id="faq">
+    <div class="auto-container">
+        <!-- Sec Title -->
+        <div class="sec-title">
+            <span class="title">FAQ'S</span>
+            <h2>General Questions</h2>
+        </div>
+
+        <div class="row clearfix">
+            <!-- Content Column -->
+            <div class="content-column col-lg-6 col-md-12 col-sm-12">
+                <div class="inner-column">
+                    <!--Accordian Box-->
+                    <ul class="accordion-box">
+                        <!--Block-->
+                        <li class="accordion block wow fadeInUp">
+                            <div class="acc-btn">
+                                <div class="icon-outer"><span class="icon icon-plus fa fa-angle-down"></span>
+                                </div>What is Cohousing?
+                            </div>
+                            <div class="acc-content">
+                                <div class="content">
+                                    <div class="text">Lorem ipsum dolor amet consectur adipicing elit eiusmod
+                                        tempor incididunt ut labore dolore magna aliqua.enim minim veniam quis
+                                        nostrud exercitation ullamco laboris.</div>
+                                </div>
+                            </div>
+                        </li>
+
+                        <!--Block-->
+                        <li class="accordion block active-block wow fadeInUp">
+                            <div class="acc-btn active">
+                                <div class="icon-outer"><span class="icon icon-plus fa fa-angle-down"></span>
+                                </div>Can we change the design?
+                            </div>
+                            <div class="acc-content current">
+                                <div class="content">
+                                    <div class="text">Lorem ipsum dolor amet consectur adipicing elit eiusmod
+                                        tempor incididunt ut labore dolore magna aliqua.enim minim veniam quis
+                                        nostrud exercitation ullamco laboris.</div>
+                                </div>
+                            </div>
+                        </li>
+
+                        <!--Block-->
+                        <li class="accordion block wow fadeInUp">
+                            <div class="acc-btn">
+                                <div class="icon-outer"><span class="icon icon-plus fa fa-angle-down"></span>
+                                </div>How is the privacy issues?
+                            </div>
+                            <div class="acc-content">
+                                <div class="content">
+                                    <div class="text">Lorem ipsum dolor amet consectur adipicing elit eiusmod
+                                        tempor incididunt ut labore dolore magna aliqua.enim minim veniam quis
+                                        nostrud exercitation ullamco laboris.</div>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Content Column -->
+            <div class="content-column col-lg-6 col-md-12 col-sm-12">
+                <div class="inner-column">
+                    <!--Accordian Box-->
+                    <ul class="accordion-box">
+                        <!--Block-->
+                        <li class="accordion block active-block wow fadeInUp">
+                            <div class="acc-btn active">
+                                <div class="icon-outer"><span class="icon icon-plus fa fa-angle-down"></span>
+                                </div>What is Cancelation Period?
+                            </div>
+                            <div class="acc-content current">
+                                <div class="content">
+                                    <div class="text">Lorem ipsum dolor amet consectur adipicing elit eiusmod
+                                        tempor incididunt ut labore dolore magna aliqua.enim minim veniam quis
+                                        nostrud exercitation ullamco laboris.</div>
+                                </div>
+                            </div>
+                        </li>
+
+                        <!--Block-->
+                        <li class="accordion block wow fadeInUp">
+                            <div class="acc-btn">
+                                <div class="icon-outer"><span class="icon icon-plus fa fa-angle-down"></span>
+                                </div>What is Cohousing?
+                            </div>
+                            <div class="acc-content">
+                                <div class="content">
+                                    <div class="text">Lorem ipsum dolor amet consectur adipicing elit eiusmod
+                                        tempor incididunt ut labore dolore magna aliqua.enim minim veniam quis
+                                        nostrud exercitation ullamco laboris.</div>
+                                </div>
+                            </div>
+                        </li>
+
+                        <!--Block-->
+                        <li class="accordion block wow fadeInUp">
+                            <div class="acc-btn">
+                                <div class="icon-outer"><span class="icon icon-plus fa fa-angle-down"></span>
+                                </div>How is the privacy issues?
+                            </div>
+                            <div class="acc-content">
+                                <div class="content">
+                                    <div class="text">Lorem ipsum dolor amet consectur adipicing elit eiusmod
+                                        tempor incididunt ut labore dolore magna aliqua.enim minim veniam quis
+                                        nostrud exercitation ullamco laboris.</div>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- End FAQ's Section -->
+
+<!-- Contact Us Section -->
+<section class="register-section" id="contact">
+    <div class="auto-container">
+        <div class="anim-icons full-width">
+            <span class="icon icon-circle-3 wow zoomIn"></span>
+        </div>
+        <div class="outer-box">
+            <div class="row no-gutters">
+                <div class="title-column col-lg-4 col-md-6 col-sm-12">
+                    <div class="inner">
+                        <div class="sec-title light">
+                            <div class="icon-box"><span class="icon flaticon-rocket-ship"></span></div>
+                            <h2>Contact Us</h2>
+                            <div class="text">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
+                                eiusmtempor incididunt labore et dolore magna.</div>
+                        </div>
+                    </div>
+                </div>
+                <!--Register Form-->
+                <div class="register-form col-lg-8 col-md-6 col-sm-12">
+                    <div class="form-inner">
+                        <form method="post" action="#">
+                            <div class="form-group">
+                                <span class="icon fa fa-user"></span>
+                                <input type="text" name="username" placeholder="Full name" required="">
+                            </div>
+
+                            <div class="form-group">
+                                <span class="icon fa fa-envelope"></span>
+                                <input type="email" name="email" value="" placeholder="Email address" required>
+                            </div>
+
+                            <div class="form-group">
+                                <span class="icon fa fa-phone"></span>
+                                <input type="text" name="phone" placeholder="Phone" required="">
+                            </div>
+
+                            <div class="form-group">
+                                <span class="icon fa fa-edit"></span>
+                                <textarea name="message" placeholder="Additional Message"></textarea>
+                            </div>
+
+                            <div class="form-group text-right">
+                                <button type="submit" class="theme-btn btn-style-four"><span
+                                        class="btn-title">Submit Form</span></button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!--End Contact Section -->

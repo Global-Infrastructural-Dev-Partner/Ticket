@@ -1,0 +1,84 @@
+<%-- any content can be specified here e.g.: --%>
+<%@ page pageEncoding="UTF-8" %>
+<!-- Contact Page Section -->
+<section class="contact-page-section">
+    <div class="auto-container">
+        <div class="row clearfix">
+            <div class="contact-column col-lg-6 col-md-12 col-sm-12 order-2">
+                <div class="card pl-4 pr-4 pt-4 pb-4">
+                    <div class="inner-column">
+                        <div class="contact-form">
+                            <div class="sec-title text-right">
+                                <h2>Register</h2>
+                            </div>
+                            <form method="post" action="#" id="contact-form">
+                                <div class="row clearfix">
+                                    <div class="col-lg-6 col-md-6 col-sm-12 form-group">
+                                        <input type="text" name="firstname" placeholder="First Name" required="">
+                                    </div>
+
+                                    <div class="col-lg-6 col-md-6 col-sm-12 form-group">
+                                        <input type="text" name="lastname" placeholder="Last Name" required="">
+                                    </div>
+
+                                    <div class="col-lg-12 col-md-6 col-sm-12 form-group">
+                                        <input type="email" name="email" placeholder="Email" required="">
+                                    </div>
+
+                                    <div class="col-lg-12 col-md-6 col-sm-12 form-group">
+                                        <input type="text" name="phone" placeholder="Phone" required="">
+                                    </div>
+
+                                    <div class="col-lg-12 col-md-12 col-sm-12 form-group">
+                                        <input type="password" name="password" placeholder="Password" required="">
+                                    </div>
+                                    
+                                    <div class="col-lg-12 col-md-12 col-sm-12 form-group">
+                                        <input type="text" name="referrallink" placeholder="Referral Link" required="">
+                                    </div>
+
+                                    <div class="col-lg-12 col-md-12 col-sm-12 form-group">
+                                        <a href=""><button class="theme-btn btn-style-one" style="width: 100%;"
+                                                           type="submit" name="submit-form"><span
+                                                    class="btn-title">Register</span></button></a>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Form Column -->
+            <div class="form-column col-lg-6 col-md-12 col-sm-12">
+                <div class="card pl-4 pr-4 pt-4 pb-4">
+                    <div class="inner-column">
+                        <div class="contact-form">
+                            <div class="sec-title">
+                                <h2>Login</h2>
+                            </div>
+                            <form method="post" action="#" id="contact-form">
+                                <div class="row clearfix">
+                                    <div class="col-lg-12 col-md-6 col-sm-12 form-group">
+                                        <input type="text" name="email" placeholder="Email" required="">
+                                    </div>
+
+                                    <div class="col-lg-12 col-md-6 col-sm-12 form-group">
+                                        <input type="password" name="password" placeholder="Password" required="">
+                                    </div>
+
+                                    <div class="col-lg-12 col-md-12 col-sm-12 form-group">
+                                        <a href=""><button class="theme-btn btn-style-one" style="width: 100%;"
+                                                           type="submit" name="submit-form"><span
+                                                    class="btn-title">Login</span></button></a>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!--End Contact Page Section -->
