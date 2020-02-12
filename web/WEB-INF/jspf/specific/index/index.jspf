@@ -6,7 +6,6 @@
     <!-- Icons -->
     <div class="icons parallax-scene-1">
         <!-- Icon One -->
-
         <div data-depth="0.20" class="icon-one parallax-layer"
              style="background-image:url(assets/img/icons/icon-1.png)"></div>
         <!-- Icon Two -->

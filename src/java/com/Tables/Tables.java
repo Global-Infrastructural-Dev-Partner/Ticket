@@ -96,4 +96,13 @@ public class Tables {
         public static String UserID = "userid";
         public static String Balance = "balance";
     }
+    public static class SessionTable {
+
+        public static String Table = "session";
+        public static String ID = "id";
+        public static String SessionID = "sessionid";
+        public static String UserID = "userid";
+        public static String Time = "time";
+        public static String Date = "date";
+    }
 }

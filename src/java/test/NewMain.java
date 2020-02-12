@@ -21,13 +21,13 @@ public class NewMain {
      */
     public static void main(String[] args) throws ClassNotFoundException, SQLException, UnsupportedEncodingException, ParseException {
         // TODO code application logic here
-//        int userid = UserManager.CreateUser("Admin", "Admin", "Admin", "admin@peinmoney.com", "07082828244", "admin", "");
+        int userid = UserManager.CreateUser("Admin", "Admin", "Admin", "admin@peinmoney.com", "07082828244", "admin", "");
 //        int userid = UserManager.CreateUser("Subscriber", "Saint", "Deemene", "st.deemene@gmail.com", "07082828249", "saint", "");
 
 //        int userid = UserManager.CreateUser("Subscriber", "Pinky", "Saint", "st.pinky@gmail.com", "07082828240", "pinky", "8DQE3C0PH");
-        String result = TicketManager.CreateTicket(2, 4000, 1, 2, "Test343", "test232");
+  //      String result = TicketManager.CreateTicket(2, 4000, 1, 2, "Test343", "test232");
 //         HashMap
-        System.out.println(result);
+        System.out.println(userid);
     }
 
 }

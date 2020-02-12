@@ -1,0 +1,35 @@
+<%-- any content can be specified here e.g.: --%>
+<%@ page pageEncoding="UTF-8" %>
+<input type="hidden" value="<%= session.getAttribute("sessionid")%>" id="sessionid"/>
+<header class="main-header">
+    <!-- Logo -->
+    <a href="#" class="logo">
+        <!-- mini logo for sidebar mini 50x50 pixels -->
+        <span class="logo-mini"><b>T</b>App</span>
+        <!-- logo for regular state and mobile devices -->
+        <span class="logo-lg"><b>Ticket</b>App</span>
+    </a>
+    <!-- Header Navbar: style can be found in header.less -->
+    <nav class="navbar navbar-static-top">
+        <!-- Sidebar toggle button-->
+        <a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+        </a>
+
+        <button type="button" class="btn btn-outline-danger pull-right logOutBtn" style="margin-top: 8px; margin-right: 15px;"><i class="icon-cog3 mr-2"></i> Log Out</button>
+        <div class="navbar-custom-menu">
+            <ul class="nav navbar-nav">
+                <!-- User Account: style can be found in dropdown.less -->
+                <li class=" user user-menu">
+                    <a href="#">
+                        <img src="../../../assets/img/user7-128x128.jpg" class="user-image" alt="User Image">
+                        <span class="hidden-xs user-name">Loading Name</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+</header>

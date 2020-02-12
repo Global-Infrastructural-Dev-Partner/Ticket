@@ -19,23 +19,24 @@
 
         <link rel="shortcut icon" href="../../assets/img/favicon.png" type="image/x-icon">
         <link rel="icon" href="../../assets/img/favicon.png" type="image/x-icon">
+        <link href="../../assets/css/sweetalert2.min.css" rel="stylesheet" type="text/css"/>
 
         <!-- Responsive -->
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
     </head>
     <body>
-        
+
         <div id="page-wrapper">
             <!-- Preloader -->
             <div class="preloader"></div>
-            
+
             <jsp:include page="../../WEB-INF/static_pages/general/loginAndRegistraton.jsp"></jsp:include>
         </div>
-        
-        
-        
-        
+
+
+
+
         <!--Scroll to top-->
         <div class="scroll-to-top scroll-to-target" data-target="html"><span class="fa fa-angle-double-up"></span></div>
         <script src="../../assets/js/jquery.js"></script>
@@ -50,7 +51,11 @@
         <script src="../../assets/js/parallax.min.js"></script>
         <script src="../../assets/js/validate.js"></script>
         <script src="../../assets/js/script.js"></script>
+        <script src="../../assets/js/appScript.js"></script>
+        <script src="../../assets/js/helper.js"></script>
         <!-- Color Setting -->
         <script src="../../assets/js/color-settings.js"></script>
+        <script src="../../assets/js/sweetalert2.min.js" type="text/javascript"></script>
+        <script src="https://js.paystack.co/v1/inline.js"></script>
     </body>
 </html>

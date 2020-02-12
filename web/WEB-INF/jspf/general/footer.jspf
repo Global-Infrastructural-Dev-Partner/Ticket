@@ -5,16 +5,15 @@
     <div class="auto-container">
         <!-- Footer Content -->
         <div class="footer-content">
-            <div class="footer-logo"><a href="#"><img src="assets/img/logo.png" alt=""></a></div>
+            <div class="footer-logo"><a href="${pageContext.request.contextPath}/ControllerServlet?action=Link&type=Index"><img class="footerImage"  alt=""></a></div>
             <ul class="footer-nav">
-                <li><a href="#">Home</a></li>
-                <li><a href="#howtoplay">How To Play</a></li>
-                <li><a href="#tickets">Ticket</a></li>
-                <li><a href="#gallery">Gallery</a></li>
-                <li><a href="#contact">Contact Us</a></li>
+                <li><a href="${pageContext.request.contextPath}/ControllerServlet?action=Link&type=Index">Home</a></li>
+                <li><a href="${pageContext.request.contextPath}/ControllerServlet?action=Link&type=Index#howtoplay">How To Play</a></li>
+                <li><a href="${pageContext.request.contextPath}/ControllerServlet?action=Link&type=Index#tickets">Ticket</a></li>
+                <li><a href="${pageContext.request.contextPath}/ControllerServlet?action=Link&type=Index#gallery">Gallery</a></li>
+                <li><a href="${pageContext.request.contextPath}/ControllerServlet?action=Link&type=Index#contact">Contact Us</a></li>
             </ul>
-            <div class="copyright-text">© Copyright 2019 All Rights Reserved by <a
-                    href="#">Peinmoney</a></div>
+            <div class="copyright-text">© Copyright 2020 All Rights Reserved by <a href="https://www.peinmoney.com/" target="blank">Peinmoney</a> </div>
             <ul class="social-icon-one">
                 <li><a href="#"><span class="fab fa-facebook-f"></span></a></li>
                 <li><a href="#"><span class="fab fa-twitter"></span></a></li>
