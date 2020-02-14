@@ -192,7 +192,7 @@ public class TicketManager {
 
     public static int GetTicketTypeByName(String TicketTypeName) throws ClassNotFoundException, SQLException, UnsupportedEncodingException {
         int result = 0;
-        result = DBManager.GetInt(Tables.TicketTypeTable.ID, Tables.TicketTypeTable.Table, "where " + Tables.TicketTypeTable.ID + " = '" + TicketTypeName + "'");
+        result = DBManager.GetInt(Tables.TicketTypeTable.ID, Tables.TicketTypeTable.Table, "where " + Tables.TicketTypeTable.Name + " = '" + TicketTypeName + "'");
         return result;
     }
 }

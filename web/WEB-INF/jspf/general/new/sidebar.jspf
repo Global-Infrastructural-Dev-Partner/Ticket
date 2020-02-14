@@ -34,7 +34,7 @@
                     <span>Wallet</span>
                 </a>
             </li>
-            <li class="treeview admin_view" >
+            <li class="treeview admin_view hide" >
                 <a href="#nav-subscribers-tab"  id="subscribers-tab">
                     <i class="fa fa-users"></i>
                     <span>Subscribers</span>

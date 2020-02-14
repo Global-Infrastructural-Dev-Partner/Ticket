@@ -25,7 +25,7 @@ public class NewMain {
 //        int userid = UserManager.CreateUser("Subscriber", "Saint", "Deemene", "st.deemene@gmail.com", "07082828249", "saint", "");
 
 //        int userid = UserManager.CreateUser("Subscriber", "Pinky", "Saint", "st.pinky@gmail.com", "07082828240", "pinky", "8DQE3C0PH");
-        String result = TicketManager.CreateTicket(2, 4000, 1, 2, "Test343", "test232");
+        String result = TicketManager.CreateTicket(4, 4000, 1, 2, "Test343", "test232");
 //         HashMap
         System.out.println(userid);
     }

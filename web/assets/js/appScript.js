@@ -431,14 +431,13 @@ function DisplayMemberDetails(data) {
 //    alert(JSON.stringify(data));
 //    if (data !== "none") {
     var utype = data["usertype"];
-//    alert(utype);
-//    if (utype === "Admin") {
-//        $(".admin_view").removeClass("hide");
-//        $(".admin_view").show();
-//    } else {
-//        $(".admin_view").addClass("hide");
-//        $(".admin_view").hide();
-//    }
+    if (utype === "Admin") {
+        $(".admin_view").removeClass("hide");
+        $(".admin_view").show();
+    } else {
+        $(".admin_view").addClass("hide");
+        $(".admin_view").hide();
+    }
 //        var image_url = extension + "global_assets/img/ProfilePicture/user-" + data["userID"] + ".png";
 //        if (imageExists(image_url) === false) {
 //            image_url = extension + "global_assets/img/ProfilePicture/user-0.png";
