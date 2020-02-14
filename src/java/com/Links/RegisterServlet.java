@@ -35,8 +35,8 @@ public class RegisterServlet extends HttpServlet {
            HttpSession session = request.getSession(true);
             String type = request.getParameter("type");
             switch (type) {
-                case "Register": {
-                    session.setAttribute("userOnlineReferralLink", request.getParameter("userOnlineReferralLink"));
+                case "Referral": {
+                    session.setAttribute("userOnlineReferralCode", request.getParameter("userOnlineReferralCode"));
                     response.sendRedirect("pages/general/loginAndRegistration.jsp");
                     break;
                 }

@@ -5,7 +5,7 @@
  */
 
 
-var sessionid, userOnlineReferralLink;
+var sessionid, userOnlineReferralCode;
 var extension = "";
 function performPageActions() {
     verifyUser();
@@ -35,14 +35,10 @@ function performPageActions() {
         $(".footerImage").attr("src", footerImage1);
     }
     sessionid = $("#sessionid").val();
-    userOnlineReferralLink = $("#userOnlineReferralLink").val();
-    if (userOnlineReferralLink === null || userOnlineReferralLink === "null") {
-        $("#regRegLink").hide();
-        $("#regRegLink").addClass("hide");
+    userOnlineReferralCode = $("#userOnlineReferralCode").val();
+    if (userOnlineReferralCode) {
+        $("#regrefcode").val(userOnlineReferralCode);
     } else {
-        $("#regRegLink").show();
-        $("#regRegLink").removeClass("hide");
-        $("#reglink").val(userOnlineReferralLink);
 
     }
     btnEvents();
@@ -104,7 +100,7 @@ function btnEvents() {
     });
 
     $("form[name=registerForm]").submit(function (e) {
-        var link = "";
+        var referalCode = "";
         var regform = $(this);
         regform.parsley().validate();
         if (regform.parsley().isValid()) {
@@ -113,13 +109,15 @@ function btnEvents() {
             var phonenumber = $("#regphone").val();
             var password = $("#regpassword").val();
             var emailaddress = $("#regemail").val();
-            if (userOnlineReferralLink) {
-                link = userOnlineReferralLink;
+            if (userOnlineReferralCode) {
+                referalCode = userOnlineReferralCode;
+            } else if ($("#regrefcode").val() === "NIL") {
+                referalCode = "";
             } else {
-                link = $("#reglink").val();
+                referalCode = $("#regrefcode").val();
             }
             if ($("#checkTerms").is(':checked')) {
-                var data = [firstname, lastname, emailaddress, phonenumber, password, link];
+                var data = [firstname, lastname, emailaddress, phonenumber, password, referalCode];
                 showLoader();
                 GetData("User", "MemberRegistration", "LoadRegistration", data);
             } else {
@@ -251,15 +249,21 @@ function PreparePaymentInfo(newQty, paymenttype, numberofticket) {
             title: 'Password',
             input: 'password',
             text: 'Please type your password'
+        },
+        {
+            title: 'Referal Code',
+            input: 'text',
+            text: 'Please type the Referal Code if you have',
+            value: "NIL"
         }
     ]).then((result) => {
         if (result.value) {
             const answers = JSON.stringify(result.value);
             Swal.fire({
                 title: 'All Done!',
-                html: `Your Details:<br/>FirstName: ${result.value[0]}<br/>LastName: ${result.value[1]}
-                                        <br/>Email: ${result.value[2]}<br/>Phone: ${result.value[3]} 
-                                        <br/>Password: ${result.value[4]}<br/><b>Amount To Pay: ₦${newQty}</b>`,
+                html: `Your Details:<br/>FirstName: <b>${result.value[0]}</b><br/>LastName: <b>${result.value[1]}</b>
+                                        <br/>Email: <b>${result.value[2]}</b><br/>Phone<b>: ${result.value[3]} </b>
+                                        <br/>Password: <b>${result.value[4]}</b><br/>Referal Code:<b> ${result.value[5]}</b><br/><b>Amount To Pay: ₦${newQty}</b>`,
                 icon: 'info',
                 showCancelButton: true,
                 confirmButtonText: '<i class="fa fa-thumbs-up"></i> Continue to payment!',
@@ -273,8 +277,9 @@ function PreparePaymentInfo(newQty, paymenttype, numberofticket) {
                     var email = result.value[2];
                     var phone = result.value[3];
                     var password = result.value[4];
+                    var regrefcode = result.value[5];
                     var amount = newQty;
-                    payWithPaystack(fname, lname, email, phone, password, amount, paymenttype, numberofticket);
+                    payWithPaystack(fname, lname, email, phone, password, amount, paymenttype, numberofticket, regrefcode);
                 } else {
                     Swal.fire('Cancelled!', 'Nothing has been saved, you can try again later.', 'info');
                 }
@@ -284,11 +289,11 @@ function PreparePaymentInfo(newQty, paymenttype, numberofticket) {
 }
 
 
-function payWithPaystack(userfirstname, userlastname, useremail, userphone, userpassword, amount, paymenttype, numberofticket) {
+function payWithPaystack(userfirstname, userlastname, useremail, userphone, userpassword, amount, paymenttype, numberofticket, regrefcode) {
     var lname = userlastname;
     var fname = userfirstname;
     var handler = PaystackPop.setup({
-        key: 'pk_test_290ed7ac03485f7891f42fba7c49da7cd93e0a59', //menegbo
+        key: 'pk_test_9c32fd37430710c4b34c9376c8133c7925e899a7',
         email: useremail,
         amount: amount + "00",
         ref: '' + Math.floor((Math.random() * 1000000000) + 1), // generates a pseudo-unique reference. Please replace with a reference you generated. Or remove the line entirely so our API will generate one for you
@@ -307,7 +312,7 @@ function payWithPaystack(userfirstname, userlastname, useremail, userphone, user
             ]
         },
         callback: function (response) {
-            var data = [fname, lname, useremail, userphone, userpassword, paymenttype, amount, response.reference, numberofticket, response.trans];
+            var data = [fname, lname, useremail, userphone, userpassword, paymenttype, amount, response.reference, numberofticket, response.trans, regrefcode];
             showLoader();
             GetData("User", "RegistrationAndPayment", "LoadRegistrationAndPayment", data);
         },

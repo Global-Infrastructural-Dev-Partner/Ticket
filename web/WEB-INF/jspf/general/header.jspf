@@ -1,6 +1,6 @@
 <%-- any content can be specified here e.g.: --%>
 <%@ page pageEncoding="UTF-8" %>
-<input type="hidden" value="<%= session.getAttribute("userOnlineReferralLink")%>" id="userOnlineReferralLink"/>
+<input type="hidden" value="<%= session.getAttribute("userOnlineReferralCode")%>" id="userOnlineReferralLink"/>
 <!-- Header Span -->
 <span class="header-span"></span>
 

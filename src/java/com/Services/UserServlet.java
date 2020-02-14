@@ -5,6 +5,8 @@
  */
 package com.Services;
 
+import com.Managers.PayStackManager;
+import com.Managers.TicketManager;
 import com.Managers.UserManager;
 import com.google.gson.Gson;
 import java.io.IOException;
@@ -22,6 +24,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
 
 /**
  *
@@ -76,10 +80,127 @@ public class UserServlet extends HttpServlet {
                     }
                     break;
                 }
+                case "MemberRegistration": {
+                    String[] data = request.getParameterValues("data[]");
+                    String regfirstname = data[0].trim();
+                    String reglastname = data[1].trim();
+                    String regemail = data[2].trim();
+                    String regphone = data[3].trim();
+                    String regpassword = data[4].trim();
+                    String regrefcode = data[5].trim();
+                    String Subclass = "Subscriber";
+                    int MemberUserID = 0;
+                    if (!UserManager.checkEmailAddressOrPhoneNumberExist(regemail)) {
+                        if (!UserManager.checkEmailAddressOrPhoneNumberExist(regphone)) {
+                            MemberUserID = UserManager.CreateUser(Subclass, regfirstname, reglastname, regemail, regphone, regpassword, regrefcode);
+                            if (MemberUserID != 0) {
+                                String sessionid = session.getId();
+                                UserManager.UpdateSessionID(sessionid, MemberUserID);
+                                session.setMaxInactiveInterval(2 * 60);
+                                session.setAttribute("sessionid", sessionid);
+                                String status = UserManager.getUserStatus(MemberUserID);
+                                result = "success";
+                                json1 = new Gson().toJson(result);
+                                json2 = new Gson().toJson(status);
+                                json = "[" + json1 + "," + json2 + "]";
+                            } else {
+                                result = "Something went wrong while creating User Account";
+                                json1 = new Gson().toJson("failed");
+                                json2 = new Gson().toJson(result);
+                                json = "[" + json1 + "," + json2 + "]";
+                            }
+                        } else {
+                            result = "Account with Phone Number already Exists";
+                            json1 = new Gson().toJson("failed");
+                            json2 = new Gson().toJson(result);
+                            json = "[" + json1 + "," + json2 + "]";
+                        }
+                    } else {
+                        result = "Account with Email Address already Exists";
+                        json1 = new Gson().toJson("failed");
+                        json2 = new Gson().toJson(result);
+                        json = "[" + json1 + "," + json2 + "]";
+                    }
+                    break;
+                }
+                case "RegistrationAndPayment": {
+                    String[] data = request.getParameterValues("data[]");
+                    String regfirstname = data[0].trim();
+                    String reglastname = data[1].trim();
+                    String regemail = data[2].trim();
+                    String regphone = data[3].trim();
+                    String regpassword = data[4].trim();
+                    String tickettype = data[5].trim();
+                    String amount = data[6].trim();
+                    String reference = data[7].trim();
+                    String numberofticket = data[8].trim();
+                    String transref = data[9].trim();
+                    String regrefcode = data[10].trim();
+                    String Subclass = "Subscriber";
+                    int MemberUserID = 0;
+                    if (!UserManager.checkEmailAddressOrPhoneNumberExist(regemail)) {
+                        if (!UserManager.checkEmailAddressOrPhoneNumberExist(regphone)) {
+                            String payresult = PayStackManager.getInstance().PayStackPay(reference);
+                            JSONParser parser = new JSONParser();
+                            JSONObject jsonParameter = null;
+                            try {
+                                jsonParameter = (JSONObject) parser.parse(payresult);
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                                String message = "Your payment validation was not successful, Please contact the admin if your account was debited and send prove of payment!";
+                                json1 = new Gson().toJson("success");
+                                json2 = new Gson().toJson(message);
+                                json = "[" + json1 + "," + json2 + "]";
+                                break;
+                            }
+                            String Status = jsonParameter.get("status").toString();
+                            if (Status.equals("false")) {
+                                String message = "Your payment validation was not successful, Please contact the admin if your account was debited and send prove of payment!";
+                                json1 = new Gson().toJson("success");
+                                json2 = new Gson().toJson(message);
+                                json = "[" + json1 + "," + json2 + "]";
+                                break;
+                            } else if (Status.equals("true")) {
+                                MemberUserID = UserManager.CreateUser(Subclass, regfirstname, reglastname, regemail, regphone, regpassword, regrefcode);
+                                if (MemberUserID != 0) {
+                                    String sessionid = session.getId();
+                                    int Amount = Integer.parseInt(amount);
+                                    int NumberOfTickets = Integer.parseInt(numberofticket);
+                                    int TicketTypeID = TicketManager.GetTicketTypeByName(tickettype);
+                                    TicketManager.CreateTicket(MemberUserID, Amount, TicketTypeID, NumberOfTickets, reference, transref);
+                                    UserManager.UpdateSessionID(sessionid, MemberUserID);
+                                    session.setMaxInactiveInterval(2 * 60);
+                                    session.setAttribute("sessionid", sessionid);
+                                    String status = UserManager.getUserStatus(MemberUserID);
+                                    result = "success";
+                                    json1 = new Gson().toJson(result);
+                                    json2 = new Gson().toJson(status);
+                                    json = "[" + json1 + "," + json2 + "]";
+                                } else {
+                                    result = "Something went wrong while creating User Account";
+                                    json1 = new Gson().toJson("failed");
+                                    json2 = new Gson().toJson(result);
+                                    json = "[" + json1 + "," + json2 + "]";
+                                }
+                            }
+                        } else {
+                            result = "Account with Phone Number already Exists";
+                            json1 = new Gson().toJson("failed");
+                            json2 = new Gson().toJson(result);
+                            json = "[" + json1 + "," + json2 + "]";
+                        }
+                    } else {
+                        result = "Account with Email Address already Exists";
+                        json1 = new Gson().toJson("failed");
+                        json2 = new Gson().toJson(result);
+                        json = "[" + json1 + "," + json2 + "]";
+                    }
+                    break;
+                }
+
                 case "GetMemberDetails": {
-                    String userid = request.getParameter("data");
-                    int id = Integer.parseInt(userid);
-                    HashMap<String, String> memberdetails = UserManager.GetUserDetails(id);
+                    String sessionid = request.getParameter("data");
+                    HashMap<String, String> memberdetails = UserManager.GetUserDetails(sessionid);
                     json = new Gson().toJson(memberdetails);
                     break;
                 }
@@ -88,7 +209,7 @@ public class UserServlet extends HttpServlet {
                     HashMap<Integer, HashMap<String, String>> users = new HashMap<>();
                     if (!ids.isEmpty()) {
                         for (int id : ids) {
-                            HashMap<String, String> det = UserManager.GetUserDetails(id);
+                            HashMap<String, String> det = UserManager.GetUserDetails("" + id);
                             users.put(id, det);
                         }
 
@@ -173,49 +294,7 @@ public class UserServlet extends HttpServlet {
                     json = new Gson().toJson(details);
                     break;
                 }
-                case "MemberRegistration": {
-                    String[] data = request.getParameterValues("data[]");
-                    String regfirstname = data[0].trim();
-                    String reglastname = data[1].trim();
-                    String regemail = data[2].trim();
-                    String regphone = data[3].trim();
-                    String regpassword = data[4].trim();
-                    String regreflink = data[5].trim();
-                    String Subclass = "Subscriber";
-                    int MemberUserID = 0;
-                    if (!UserManager.checkEmailAddressOrPhoneNumberExist(regemail)) {
-                        if (!UserManager.checkEmailAddressOrPhoneNumberExist(regphone)) {
-                            MemberUserID = UserManager.CreateUser(Subclass, regfirstname, reglastname, regemail, regphone, regpassword, regreflink);
-                            if (MemberUserID != 0) {
-                                String sessionid = session.getId();
-                                UserManager.UpdateSessionID(sessionid, MemberUserID);
-                                session.setMaxInactiveInterval(2 * 60);
-                                session.setAttribute("sessionid", sessionid);
-                                String status = UserManager.getUserStatus(MemberUserID);
-                                result = "success";
-                                json1 = new Gson().toJson(result);
-                                json2 = new Gson().toJson(status);
-                                json = "[" + json1 + "," + json2 + "]";
-                            } else {
-                                result = "Something went wrong while creating User Account";
-                                json1 = new Gson().toJson("failed");
-                                json2 = new Gson().toJson(result);
-                                json = "[" + json1 + "," + json2 + "]";
-                            }
-                        } else {
-                            result = "Account with Phone Number already Exists";
-                            json1 = new Gson().toJson("failed");
-                            json2 = new Gson().toJson(result);
-                            json = "[" + json1 + "," + json2 + "]";
-                        }
-                    } else {
-                        result = "Account with Email Address already Exists";
-                        json1 = new Gson().toJson("failed");
-                        json2 = new Gson().toJson(result);
-                        json = "[" + json1 + "," + json2 + "]";
-                    }
-                    break;
-                }
+
                 case "GetMemberCounts": {
 //                    ArrayList<Integer> OnlineIDs = new ArrayList<>();
 //                    ArrayList<Integer> MemberIDs = new ArrayList<>();

@@ -60,11 +60,9 @@ public class TicketManager {
     }
 
     public static String CreateTicket(int UserID, int Amount, int TicketTypeID, int NumberOfTickets, String TxnRef, String TxnCode) throws ClassNotFoundException, SQLException, UnsupportedEncodingException, ParseException {
-
         String tickets = GetPaidAndFreeTicketNumbers(TicketTypeID, NumberOfTickets);
         int freeTicket = Integer.parseInt(tickets.split("-")[0]);
         int paidForTicket = Integer.parseInt(tickets.split("-")[1]);
-
         HashMap<String, Object> tableData = new HashMap<>();
         tableData.put(Tables.TicketsTable.UserID, UserID);
         tableData.put(Tables.TicketsTable.TicketTypeID, TicketTypeID);
@@ -76,7 +74,6 @@ public class TicketManager {
         DBManager.UpdateCurrentDate(Tables.TicketsTable.Table, Tables.TicketsTable.Date, "where " + Tables.TicketsTable.ID + " = " + TicketID);
         DBManager.UpdateCurrentTime(Tables.TicketsTable.Table, Tables.TicketsTable.Time, "where " + Tables.TicketsTable.ID + " = " + TicketID);
         String result = PaymentsManager.CreatePayment(UserID, Amount, TxnRef, TxnCode, TicketID);
-
         for (int i = 0; i < NumberOfTickets; i++) {
             CreateTicketHistory(TicketID, UserID, TicketTypeID, Amount);
         }
@@ -90,26 +87,26 @@ public class TicketManager {
         int TkID = DBManager.insertTableDataReturnID(Tables.TicketHistoryTable.Table, tableData, "");
         String TicketNumber = GenerateTicketNumber(TkID);
         String result = DBManager.UpdateStringData(Tables.TicketHistoryTable.Table, Tables.TicketHistoryTable.TicketNumber, TicketNumber, "where " + Tables.TicketHistoryTable.ID + " = " + TkID);
-        String TicketType = GetTicketTypeName(TicketTypeID);
+        String TicketType = GetTicketTypeNameByID(TicketTypeID);
         String Email = UserManager.getUserEmail(UserID);
         String UserName = UserManager.getUserName(UserID);
         String currentDate = "" + UtilityManager.CurrentDate();
         String currentTime = "" + UtilityManager.CurrentTime();
-        htmlBuilder.append("<!DOCTYPE html><html>");
+        htmlBuilder.append("<!DOCTYPE html> <html>");
         htmlBuilder.append("<body>"
-                + "<h2 style='color:#d85a33'> Dear " + UserName + "</h2>"
-                + "<div style='margin-bottom:2em'> "
-                + "<h3>Congratulations!!! </h3>"
-                + "<p>Your have successfully paid for a ticket at PeinMoney Event."
+                + "<h2 style='color:#d85a33'> Dear " + UserName + ",</h2>"
+                + "<div style='margin-bottom:1em'> "
+                + "<h4>Congratulations!!! </h4>"
+                + "<p>Your have successfully paid for a ticket for the PeinMoney Event."
                 + "<strong><u>Ticket Details</u> </strong><br/>"
-                + "<strong>Ticket Number:<strong>" + TicketNumber
-                + "<br/><strong>Ticket Type:</strong>" + TicketType + "</p>"
-                + "<br/><strong>Ticket Amount:</strong>" + TicketAmount + "</p>"
-                + "<br/><strong>Payment Date:</strong>" + UtilityManager.readDate(currentDate) + "</p>"
-                + "<br/><strong>Payment Time:</strong>" + UtilityManager.readTime(currentTime) + "</p>"
+                + "Ticket Number:" + TicketNumber
+                + "<br/><strong>Ticket Type:</strong>" + TicketType
+                + "<br/><strong>Ticket Amount:</strong>" + TicketAmount
+                + "<br/><strong>Payment Date:</strong>" + UtilityManager.readDate(currentDate)
+                + "<br/><strong>Payment Time:</strong>" + UtilityManager.readTime(currentTime)
                 + "<br/>"
-                + "<br/><strong>Event Date:</strong> 25th March, 2020</p>"
-                + "<br/><strong>Event Time:</strong> 10am Prompt</p>"
+                + "<br/><strong>Event Date:</strong> 25th March, 2020"
+                + "<br/><strong>Event Time:</strong> 10am Prompt"
                 + "<br/><strong>Event Venue:</strong>Hotel De Oriental Lekki Phase 1</p>"
                 + "</div>"
                 + "<div style='text-align:center'>"
@@ -119,8 +116,11 @@ public class TicketManager {
                 + "</div></body>");
         htmlBuilder.append("</html>");
         String Body = htmlBuilder.toString();
-        // call send ticket to email  method
-        SendEmail(Email, "Event Ticket", Body);
+        try {
+            SendEmail(Email, Body, "Event Ticket");
+        } catch (Exception ex) {
+
+        }
         UserManager.sendMemberMessage(1, Body, "Event Ticket", UserID);
         return result;
     }
@@ -155,7 +155,7 @@ public class TicketManager {
         Properties props = new Properties();
         props.put("mail.smtp.auth", true);
         props.put("mail.transport.protocol", "smtp");
-        props.put("mail.smtp.starttls.enable", true);
+//        props.put("mail.smtp.starttls.enable", true);
         props.put("mail.smtp.host", host);
         props.put("mail.smtp.port", 25);
         props.put("mail.smtp.user", username);
@@ -175,7 +175,7 @@ public class TicketManager {
             message.setFrom(new InternetAddress(from));
             message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(To));
             message.setSubject(Subject);
-            message.setText(Body);
+            message.setContent(Body, "text/html");
             // Send message
             Transport.send(message);
             System.out.println("Sent message successfully....");
@@ -184,9 +184,15 @@ public class TicketManager {
         }
     }
 
-    public static String GetTicketTypeName(int TicketTypeID) throws ClassNotFoundException, SQLException, UnsupportedEncodingException {
+    public static String GetTicketTypeNameByID(int TicketTypeID) throws ClassNotFoundException, SQLException, UnsupportedEncodingException {
         String result = "";
         result = DBManager.GetString(Tables.TicketTypeTable.Name, Tables.TicketTypeTable.Table, "where " + Tables.TicketTypeTable.ID + " = " + TicketTypeID);
+        return result;
+    }
+
+    public static int GetTicketTypeByName(String TicketTypeName) throws ClassNotFoundException, SQLException, UnsupportedEncodingException {
+        int result = 0;
+        result = DBManager.GetInt(Tables.TicketTypeTable.ID, Tables.TicketTypeTable.Table, "where " + Tables.TicketTypeTable.ID + " = '" + TicketTypeName + "'");
         return result;
     }
 }

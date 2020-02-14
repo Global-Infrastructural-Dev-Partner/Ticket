@@ -39,7 +39,7 @@ public class LinksServlet extends HttpServlet {
             String type = request.getParameter("type");
             switch (type) {
                 case "Register": {
-                    session.setAttribute("userOnlineReferralLink", request.getParameter("userOnlineReferralLink"));
+                    session.setAttribute("userOnlineReferralCode", request.getParameter("userOnlineReferralCode"));
                     response.sendRedirect("pages/general/loginAndRegistration.jsp");
                     break;
                 }

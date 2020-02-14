@@ -62,10 +62,11 @@ public class UserManager {
         return IDs;
     }
 
-    public static HashMap<String, String> GetUserDetails(int objID) throws ClassNotFoundException, SQLException, UnsupportedEncodingException {
+    public static HashMap<String, String> GetUserDetails(String SessionID) throws ClassNotFoundException, SQLException, UnsupportedEncodingException {
         HashMap<String, String> FavDetails = new HashMap<>();
         HashMap<String, String> Details = new HashMap<>();
-        FavDetails = DBManager.GetTableData(Tables.UsersTable.Table, "where " + Tables.UsersTable.ID + " = " + objID);
+        int UserID = GetUserIDBySessionID(SessionID);
+        FavDetails = DBManager.GetTableData(Tables.UsersTable.Table, "where " + Tables.UsersTable.ID + " = " + UserID);
         FavDetails.putAll(Details);
         return FavDetails;
     }
@@ -179,9 +180,9 @@ public class UserManager {
         return Email;
     }
 
-    public static int CreateUser(String UserType, String FirstName, String LastName, String EmailAddress, String PhoneNumber, String Password, String ReferralUserLink) throws ClassNotFoundException, SQLException, UnsupportedEncodingException, ParseException {
-        String myReferralLink = CreateUserReferralLink();
-        int ReferralUserID = GetReferralUserID(ReferralUserLink);
+    public static int CreateUser(String UserType, String FirstName, String LastName, String EmailAddress, String PhoneNumber, String Password, String ReferralUserCode) throws ClassNotFoundException, SQLException, UnsupportedEncodingException, ParseException {
+        String UserReferralCode = CreateUserReferralCode();
+        int ReferralUserID = GetReferralUserID(ReferralUserCode);
         HashMap<String, Object> tableData = new HashMap<>();
         tableData.put(Tables.UsersTable.UserType, UserType);
         tableData.put(Tables.UsersTable.FirstName, FirstName);
@@ -189,17 +190,19 @@ public class UserManager {
         tableData.put(Tables.UsersTable.Email, EmailAddress);
         tableData.put(Tables.UsersTable.PhoneNumber, PhoneNumber);
         tableData.put(Tables.UsersTable.Password, Password);
-        tableData.put(Tables.UsersTable.ReferralLink, myReferralLink);
+        tableData.put(Tables.UsersTable.ReferralCode, UserReferralCode);
         tableData.put(Tables.UsersTable.ReferralUserID, ReferralUserID);
         int UserID = DBManager.insertTableDataReturnID(Tables.UsersTable.Table, tableData, "");
-        UpdateCreateUser(UserID, ReferralUserLink, ReferralUserID);
+        DBManager.UpdateCurrentDate(Tables.UsersTable.Table, Tables.UsersTable.DateRegistered, "where " + Tables.UsersTable.ID + " = " + UserID);
+        DBManager.UpdateCurrentTime(Tables.UsersTable.Table, Tables.UsersTable.TimeRegistered, "where " + Tables.UsersTable.ID + " = " + UserID);
+        UpdateCreateUser(UserID, UserReferralCode, ReferralUserCode, ReferralUserID);
         return UserID;
     }
 
-    public static String UpdateCreateUser(int UserID, String ReferralUserLink, int ReferralUserID) throws ClassNotFoundException, SQLException, UnsupportedEncodingException, ParseException {
+    public static String UpdateCreateUser(int UserID, String UserReferralCode, String ReferralUserCode, int ReferralUserID) throws ClassNotFoundException, SQLException, UnsupportedEncodingException, ParseException {
         String result = "";
         StringBuilder htmlBuilder = new StringBuilder();
-        if (!ReferralUserLink.equals("")) {
+        if (!ReferralUserCode.equals("")) {
             int refCount = DBManager.GetInt(Tables.UsersTable.ReferralCount, Tables.UsersTable.Table, "where " + Tables.UsersTable.ID + " = " + ReferralUserID);
             int newrefCount = 0;
             if (refCount == 10) {
@@ -209,46 +212,48 @@ public class UserManager {
                 refCount++;
                 DBManager.UpdateIntData(Tables.UsersTable.ReferralCount, refCount, Tables.UsersTable.Table, "where " + Tables.UsersTable.ID + " = " + ReferralUserID);
             }
+            String UserName = UserManager.getUserName(ReferralUserID);
+            String UserEmail = UserManager.getUserEmail(ReferralUserID);
+            htmlBuilder.append("<!DOCTYPE html>");
+            htmlBuilder.append("<body><h4> Dear ").append(UserName).append(",</h4><div style='margin-bottom:1em'> <h4>Congratulations!!! </h4><p>Your Referal Code has been used for registration for the PeinMoney Event.<br/>Number of registration(s) with your Referal Code :<strong> ").append(refCount).append("</strong><br/>Your Referral Code:<strong> ").append(ReferralUserCode).append("</strong></div><div style='text-align:center'><hr style='width:35em'><p>Thank you for sharing your Referral Code.</p><p>If you need any further assistance, please contact us by email at support@eventticket.com or call 0809 460 5555, or visit <a href='http://www.eventticket.com/'>http://www.eventticket.com/</a> </p></div></body>");
+            htmlBuilder.append("</html>");
+            String Body = htmlBuilder.toString();
+            try {
+                TicketManager.SendEmail(UserEmail, Body, "Referral Account Created - PeinMoney Event");
+            } catch (Exception ex) {
+
+            }
         }
-        DBManager.UpdateCurrentDate(Tables.UsersTable.Table, Tables.UsersTable.DateRegistered, "where " + Tables.UsersTable.ID + " = " + UserID);
-        DBManager.UpdateCurrentTime(Tables.UsersTable.Table, Tables.UsersTable.TimeRegistered, "where " + Tables.UsersTable.ID + " = " + UserID);
-        String msgbdy = "Congratulations!!! Your account has been created successfully for the PeinMoney Event.";
-        sendMemberMessage(1, msgbdy, "PeinMoney Subscriber Account Created", UserID);
+
         String UserName = UserManager.getUserName(UserID);
         String UserEmail = UserManager.getUserEmail(UserID);
         String UserPassword = UserManager.getUserPassword(UserID);
-        String ReferalEmailLink = "http://localhost:8084/Ticket/Register?action=Register&userOnlineReferralLink=" + ReferralUserLink;
-        htmlBuilder.append("<!DOCTYPE html><html>");
-        htmlBuilder.append("<body>"
-                + "<h2 style='color:#d85a33'> Dear " + UserName + "</h2>"
-                + "<div style='margin-bottom:2em'> "
-                + "<h3>Congratulations!!! </h3>"
-                + "<p>Your account has been created successfully for the PeinMoney Event. <br/>"
-                + "<strong><u>Login Details</u> </strong><br/>"
-                + "<strong>Email:<strong> " + UserEmail + "<br/>"
-                + "<strong>Password:</strong> " + UserPassword + "</br>"
-                + "<br/><strong>Referral Link:</strong>  <a href=" + ReferalEmailLink + " target='blank'>Referal Link</a> </p>"
-                + "</div>"
-                + "<div style='text-align:center'>"
-                + "<hr style='width:35em'>"
-                + "<p>Thank you for registering.</p>"
-                + "<p>If you need any further assistance, please contact us by email at support@eventticket.com or call 0809 460 5555, or visit <a href='http://www.eventticket.com/'>http://www.eventticket.com/</a> </p>"
-                + "</div></body>");
+//            String ReferalEmailLink = "https://4d31160b.ngrok.io/Ticket/Register?type=Referral&userOnlineReferralCode=" + UserReferralCode;
+        htmlBuilder.append("<!DOCTYPE html>");
+        htmlBuilder.append("<html>");
+        htmlBuilder.append("<body><h4> Dear ").append(UserName).append(",</h4><div style='margin-bottom:1em'> <h4>Congratulations!!! </h4><p>Your account has been created successfully for the PeinMoney Event. </br><br/><strong><u>Login Details:</u> </strong><br/>Email:<strong> ").append(UserEmail).append("</strong></br><br/>Password:<strong> ").append(UserPassword).append("</strong></br><br/>Referral Code:<strong>  ").append(UserReferralCode).append("</strong> </p></div><div style='text-align:center'><hr style='width:35em'><p>Thank you for registering.</p><p>If you need any further assistance, please contact us by email at support@eventticket.com or call 0809 460 5555, or visit <a href='http://www.eventticket.com/'>http://www.eventticket.com/</a> </p></div></body>");
         htmlBuilder.append("</html>");
         String Body = htmlBuilder.toString();
-        TicketManager.SendEmail(UserEmail, "Subscriber Account Created - PeinMoney Event", Body);
+        try {
+            TicketManager.SendEmail(UserEmail, Body, "Subscriber Account Created - PeinMoney Event");
+        } catch (Exception ex) {
+
+        }
+
+        String msgbdy = "Congratulations!!! Your account has been created successfully for the PeinMoney Event.";
+        sendMemberMessage(1, msgbdy, "PeinMoney Subscriber Account Created", UserID);
         result = WalletManager.CreateWallet(UserID);
         return result;
     }
 
-    public static String CreateUserReferralLink() throws ClassNotFoundException, SQLException, UnsupportedEncodingException {
+    public static String CreateUserReferralCode() throws ClassNotFoundException, SQLException, UnsupportedEncodingException {
         String reflink = "";
         String myReferralLink = UtilityManager.GenerateAlphaNumericCode(9);
-        ArrayList<String> RLinks = DBManager.GetStringArrayList(Tables.UsersTable.ReferralLink, Tables.UsersTable.Table, "");
+        ArrayList<String> RLinks = DBManager.GetStringArrayList(Tables.UsersTable.ReferralCode, Tables.UsersTable.Table, "");
         if (!RLinks.isEmpty()) {
             for (String link : RLinks) {
                 if (link.equals(myReferralLink)) {
-                    CreateUserReferralLink();
+                    CreateUserReferralCode();
                 } else {
                     reflink = myReferralLink;
                 }
@@ -261,7 +266,7 @@ public class UserManager {
 
     public static int GetReferralUserID(String ReferralUserLink) throws ClassNotFoundException, SQLException, UnsupportedEncodingException {
         int userid = 0;
-        userid = DBManager.GetInt(Tables.UsersTable.ID, Tables.UsersTable.Table, "where " + Tables.UsersTable.ReferralLink + " = '" + ReferralUserLink + "'");
+        userid = DBManager.GetInt(Tables.UsersTable.ID, Tables.UsersTable.Table, "where " + Tables.UsersTable.ReferralCode + " = '" + ReferralUserLink + "'");
         return userid;
     }
 

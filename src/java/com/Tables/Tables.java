@@ -75,7 +75,7 @@ public class Tables {
         public static String Email = "email";
         public static String PhoneNumber = "phone";
         public static String Password = "password";
-        public static String ReferralLink = "referral_link";
+        public static String ReferralCode = "referral_code";
         public static String ReferralCount = "referral_count";
         public static String ReferralUserID = "referral_userid";
         public static String DateRegistered = "date_registered";
