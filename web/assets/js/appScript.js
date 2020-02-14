@@ -36,8 +36,14 @@ function performPageActions() {
     }
     sessionid = $("#sessionid").val();
     userOnlineReferralLink = $("#userOnlineReferralLink").val();
-    if (userOnlineReferralLink) {
+    if (userOnlineReferralLink === null || userOnlineReferralLink === "null") {
+        $("#regRegLink").hide();
+        $("#regRegLink").addClass("hide");
+    } else {
+        $("#regRegLink").show();
+        $("#regRegLink").removeClass("hide");
         $("#reglink").val(userOnlineReferralLink);
+
     }
     btnEvents();
     AppFunctions();
@@ -383,7 +389,6 @@ function DisplayRegistration(data) {
             },
             buttonsStyling: false
         });
-
         swalWithBootstrapButtons.fire({
             title: 'Welcome',
             text: "Successful Registration!",
@@ -392,7 +397,7 @@ function DisplayRegistration(data) {
             confirmButtonText: 'Continue!'
         }).then((result) => {
             verifyUser();
-            if (data === "Admin") {
+            if (data[1] === "Admin") {
                 window.location = extension + "ControllerServlet?action=Link&type=AdminDashboard";
             } else {
                 window.location = extension + "ControllerServlet?action=Link&type=SubDashboard";
@@ -405,7 +410,6 @@ function DisplayRegistration(data) {
             },
             buttonsStyling: false
         });
-
         swalWithBootstrapButtons.fire({
             title: 'Uh Oh?',
             text: data[1],

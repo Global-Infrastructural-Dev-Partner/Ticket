@@ -32,6 +32,11 @@ public class UserManager {
         return usid;
     }
 
+    public static String getUserStatus(int UserID) throws ClassNotFoundException, SQLException, UnsupportedEncodingException {
+        String result = DBManager.GetString(Tables.UsersTable.UserType, Tables.UsersTable.Table, "where " + Tables.UsersTable.ID + " = " + UserID);
+        return result;
+    }
+
     public static int checkPasswordEmailMatch(String Password, String Email_PhoneNum) throws ClassNotFoundException, SQLException, UnsupportedEncodingException {
         int result = 0;
         String memPassword = "";
@@ -163,6 +168,12 @@ public class UserManager {
         return benid;
     }
 
+    public static String getUserPassword(int UserID) throws ClassNotFoundException, SQLException, UnsupportedEncodingException {
+        String benid = "";
+        benid = DBManager.GetString(Tables.UsersTable.Password, Tables.UsersTable.Table, "where " + Tables.UsersTable.ID + " = " + UserID);
+        return benid;
+    }
+
     public static String getUserEmail(int UserID) throws ClassNotFoundException, SQLException, UnsupportedEncodingException {
         String Email = DBManager.GetString(Tables.UsersTable.Email, Tables.UsersTable.Table, "where " + Tables.UsersTable.ID + " = " + UserID);
         return Email;
@@ -187,6 +198,7 @@ public class UserManager {
 
     public static String UpdateCreateUser(int UserID, String ReferralUserLink, int ReferralUserID) throws ClassNotFoundException, SQLException, UnsupportedEncodingException, ParseException {
         String result = "";
+        StringBuilder htmlBuilder = new StringBuilder();
         if (!ReferralUserLink.equals("")) {
             int refCount = DBManager.GetInt(Tables.UsersTable.ReferralCount, Tables.UsersTable.Table, "where " + Tables.UsersTable.ID + " = " + ReferralUserID);
             int newrefCount = 0;
@@ -200,8 +212,31 @@ public class UserManager {
         }
         DBManager.UpdateCurrentDate(Tables.UsersTable.Table, Tables.UsersTable.DateRegistered, "where " + Tables.UsersTable.ID + " = " + UserID);
         DBManager.UpdateCurrentTime(Tables.UsersTable.Table, Tables.UsersTable.TimeRegistered, "where " + Tables.UsersTable.ID + " = " + UserID);
-        String msgbdy = "Congratulations!!! You have been created successfully for PeinMoney Event.";
-        sendMemberMessage(1, msgbdy, "Subscriber Account Created", UserID);
+        String msgbdy = "Congratulations!!! Your account has been created successfully for the PeinMoney Event.";
+        sendMemberMessage(1, msgbdy, "PeinMoney Subscriber Account Created", UserID);
+        String UserName = UserManager.getUserName(UserID);
+        String UserEmail = UserManager.getUserEmail(UserID);
+        String UserPassword = UserManager.getUserPassword(UserID);
+        String ReferalEmailLink = "http://localhost:8084/Ticket/Register?action=Register&userOnlineReferralLink=" + ReferralUserLink;
+        htmlBuilder.append("<!DOCTYPE html><html>");
+        htmlBuilder.append("<body>"
+                + "<h2 style='color:#d85a33'> Dear " + UserName + "</h2>"
+                + "<div style='margin-bottom:2em'> "
+                + "<h3>Congratulations!!! </h3>"
+                + "<p>Your account has been created successfully for the PeinMoney Event. <br/>"
+                + "<strong><u>Login Details</u> </strong><br/>"
+                + "<strong>Email:<strong> " + UserEmail + "<br/>"
+                + "<strong>Password:</strong> " + UserPassword + "</br>"
+                + "<br/><strong>Referral Link:</strong>  <a href=" + ReferalEmailLink + " target='blank'>Referal Link</a> </p>"
+                + "</div>"
+                + "<div style='text-align:center'>"
+                + "<hr style='width:35em'>"
+                + "<p>Thank you for registering.</p>"
+                + "<p>If you need any further assistance, please contact us by email at support@eventticket.com or call 0809 460 5555, or visit <a href='http://www.eventticket.com/'>http://www.eventticket.com/</a> </p>"
+                + "</div></body>");
+        htmlBuilder.append("</html>");
+        String Body = htmlBuilder.toString();
+        TicketManager.SendEmail(UserEmail, "Subscriber Account Created - PeinMoney Event", Body);
         result = WalletManager.CreateWallet(UserID);
         return result;
     }
@@ -229,4 +264,22 @@ public class UserManager {
         userid = DBManager.GetInt(Tables.UsersTable.ID, Tables.UsersTable.Table, "where " + Tables.UsersTable.ReferralLink + " = '" + ReferralUserLink + "'");
         return userid;
     }
+
+    public static String UpdateSessionID(String SessionID, int UserID) throws ClassNotFoundException, SQLException, UnsupportedEncodingException {
+        String result = "";
+        HashMap<String, Object> tableData = new HashMap<>();
+        tableData.put(Tables.SessionTable.SessionID, SessionID);
+        tableData.put(Tables.SessionTable.UserID, UserID);
+        int id = DBManager.insertTableDataReturnID(Tables.SessionTable.Table, tableData, "");
+        result = DBManager.UpdateCurrentTime(Tables.SessionTable.Table, Tables.SessionTable.Time, "where " + Tables.SessionTable.ID + " = " + id);
+        DBManager.UpdateCurrentDate(Tables.SessionTable.Table, Tables.SessionTable.Date, "where " + Tables.SessionTable.ID + " = " + id);
+        return result;
+    }
+
+    public static int GetUserIDBySessionID(String SessionID) throws ClassNotFoundException, SQLException, UnsupportedEncodingException {
+        int userid = 0;
+        userid = DBManager.GetInt(Tables.SessionTable.UserID, Tables.SessionTable.Table, "where " + Tables.SessionTable.SessionID + " = '" + SessionID + "'");
+        return userid;
+    }
+
 }

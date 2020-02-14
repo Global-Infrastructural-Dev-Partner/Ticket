@@ -5,9 +5,12 @@
  */
 package com.Managers;
 
+import com.Tables.Tables;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
+import java.sql.SQLException;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
@@ -19,13 +22,9 @@ import org.apache.http.impl.client.DefaultHttpClient;
  * @author ndfmac
  */
 public class PayStackManager {
-    
+
     public static PayStackManager instance = null;
     HttpClient client = new DefaultHttpClient();
-
-    public static final String MY_PAY_STACK_SECRET_KEY = "sk_test_a77df3ccb0244eb036d487a692492ca08a9c8ebe";
-//    public static final String MY_PAY_STACK_SECRET_KEY = "sk_live_83df404b50192677bad56d0f25581b64badb8641";
-
 
     public PayStackManager() {
 
@@ -38,12 +37,24 @@ public class PayStackManager {
         return instance;
     }
 
-    public String PayStackPay(String trxref) {
+    public static String GetPayStackSecretKey() throws ClassNotFoundException, SQLException, UnsupportedEncodingException {
+        String result = DBManager.GetString(Tables.ParameterTable.SecretKet, Tables.ParameterTable.Table, "where " + Tables.ParameterTable.ID + " = " + 1);
+        return result;
+    }
+
+    public String PayStackPay(String trxref) throws ClassNotFoundException, SQLException, UnsupportedEncodingException {
+        String payres = "";
+        String secretkey = GetPayStackSecretKey();
+        payres = Pay(trxref, secretkey);
+        return payres;
+    }
+
+    public String Pay(String trxref, String secretkey) {
         String payres = "";
         try {
             HttpGet newRequest = new HttpGet("https://api.paystack.co/transaction/verify/" + trxref);
             newRequest.addHeader("Content-type", "application/json");
-            newRequest.addHeader("Authorization", "Bearer " + PayStackManager.MY_PAY_STACK_SECRET_KEY);
+            newRequest.addHeader("Authorization", "Bearer " + secretkey);
             newRequest.addHeader("Cache-Control", "no-cache");
             HttpResponse newResponse = client.execute(newRequest);
             HttpEntity entity = newResponse.getEntity();
@@ -68,4 +79,5 @@ public class PayStackManager {
         }
         return payres;
     }
+
 }

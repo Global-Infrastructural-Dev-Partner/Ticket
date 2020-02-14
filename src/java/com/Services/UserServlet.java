@@ -60,9 +60,12 @@ public class UserServlet extends HttpServlet {
                     if (UserManager.checkEmailAddressOrPhoneNumberExist(Email_PhoneNumber)) {
                         UserID = UserManager.checkPasswordEmailMatch(Password, Email_PhoneNumber);
                         if (UserID != 0) {
-                            session.setAttribute("Id", UserID);
-                            result = "success";
-                            json = new Gson().toJson(result);
+                            String sessionid = session.getId();
+                            UserManager.UpdateSessionID(sessionid, UserID);
+                            session.setMaxInactiveInterval(2 * 60);
+                            session.setAttribute("sessionid", sessionid);
+                            String status = UserManager.getUserStatus(UserID);
+                            json = new Gson().toJson(status);
                         } else {
                             result = "Incorrect Login Details";
                             json = new Gson().toJson(result);
@@ -170,7 +173,7 @@ public class UserServlet extends HttpServlet {
                     json = new Gson().toJson(details);
                     break;
                 }
-                case "Register": {
+                case "MemberRegistration": {
                     String[] data = request.getParameterValues("data[]");
                     String regfirstname = data[0].trim();
                     String reglastname = data[1].trim();
@@ -184,23 +187,32 @@ public class UserServlet extends HttpServlet {
                         if (!UserManager.checkEmailAddressOrPhoneNumberExist(regphone)) {
                             MemberUserID = UserManager.CreateUser(Subclass, regfirstname, reglastname, regemail, regphone, regpassword, regreflink);
                             if (MemberUserID != 0) {
-                                session.setAttribute("Id", MemberUserID);
+                                String sessionid = session.getId();
+                                UserManager.UpdateSessionID(sessionid, MemberUserID);
+                                session.setMaxInactiveInterval(2 * 60);
+                                session.setAttribute("sessionid", sessionid);
+                                String status = UserManager.getUserStatus(MemberUserID);
                                 result = "success";
                                 json1 = new Gson().toJson(result);
-                                json2 = new Gson().toJson(regemail);
-                                json3 = new Gson().toJson(regpassword);
-                                json = "[" + json1 + "," + json2 + "," + json3 + "]";
+                                json2 = new Gson().toJson(status);
+                                json = "[" + json1 + "," + json2 + "]";
                             } else {
                                 result = "Something went wrong while creating User Account";
-                                json = new Gson().toJson(result);
+                                json1 = new Gson().toJson("failed");
+                                json2 = new Gson().toJson(result);
+                                json = "[" + json1 + "," + json2 + "]";
                             }
                         } else {
                             result = "Account with Phone Number already Exists";
-                            json = new Gson().toJson(result);
+                            json1 = new Gson().toJson("failed");
+                            json2 = new Gson().toJson(result);
+                            json = "[" + json1 + "," + json2 + "]";
                         }
                     } else {
                         result = "Account with Email Address already Exists";
-                        json = new Gson().toJson(result);
+                        json1 = new Gson().toJson("failed");
+                        json2 = new Gson().toJson(result);
+                        json = "[" + json1 + "," + json2 + "]";
                     }
                     break;
                 }

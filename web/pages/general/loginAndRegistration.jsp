@@ -57,5 +57,6 @@
         <script src="../../assets/js/color-settings.js"></script>
         <script src="../../assets/js/sweetalert2.min.js" type="text/javascript"></script>
         <script src="https://js.paystack.co/v1/inline.js"></script>
+        <script src="../../assets/js/parsley.min.js" type="text/javascript"></script>
     </body>
 </html>

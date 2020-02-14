@@ -7,9 +7,6 @@ package com.Links;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -18,9 +15,9 @@ import javax.servlet.http.HttpSession;
 
 /**
  *
- * @author ndfmac
+ * @author mac
  */
-public class LinksServlet extends HttpServlet {
+public class RegisterServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -32,36 +29,16 @@ public class LinksServlet extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException, ClassNotFoundException, SQLException {
+            throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
-            HttpSession session = request.getSession(true);
+           HttpSession session = request.getSession(true);
             String type = request.getParameter("type");
             switch (type) {
                 case "Register": {
                     session.setAttribute("userOnlineReferralLink", request.getParameter("userOnlineReferralLink"));
                     response.sendRedirect("pages/general/loginAndRegistration.jsp");
                     break;
-                }
-                case "Index": {
-                    response.sendRedirect("index.jsp");
-                    break;
-                }
-                case "AdminDashboard": {
-                    response.sendRedirect("pages/specific/admin/admin_profile.jsp");
-                    break;
-                }
-                case "SubDashboard": {
-                    response.sendRedirect("pages/specific/subscribers/sub_profile.jsp");
-                    break;
-                }
-                case "LogOut": {
-                    session.removeAttribute("sessionid");
-                    response.sendRedirect("index.jsp");
-                    break;
-                }
-                default: {
-                    response.sendRedirect(request.getHeader("referer"));
                 }
             }
         }
@@ -79,13 +56,7 @@ public class LinksServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        try {
-            processRequest(request, response);
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(LinksServlet.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (SQLException ex) {
-            Logger.getLogger(LinksServlet.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        processRequest(request, response);
     }
 
     /**
@@ -99,13 +70,7 @@ public class LinksServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        try {
-            processRequest(request, response);
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(LinksServlet.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (SQLException ex) {
-            Logger.getLogger(LinksServlet.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        processRequest(request, response);
     }
 
     /**

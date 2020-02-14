@@ -105,4 +105,10 @@ public class Tables {
         public static String Time = "time";
         public static String Date = "date";
     }
+    public static class ParameterTable {
+
+        public static String Table = "parameters";
+        public static String ID = "id";
+        public static String SecretKet = "secretkey";
+    }
 }

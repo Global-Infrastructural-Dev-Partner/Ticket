@@ -1,5 +1,6 @@
 <%-- any content can be specified here e.g.: --%>
 <%@ page pageEncoding="UTF-8" %>
+<input type="hidden" value="<%= session.getAttribute("userOnlineReferralLink")%>" id="userOnlineReferralLink"/>
 <!-- Header Span -->
 <span class="header-span"></span>
 
@@ -59,7 +60,7 @@
 
         <!--Here Menu Will Come Automatically Via Javascript / Same Menu as in Header-->
         <nav class="menu-box">
-            <div class="nav-logo"><a href="#"><img src="assets/img/logo-2.png" alt="" title=""></a></div>
+            <div class="nav-logo"><a href="#"><img class="headerImage" alt="" title=""></a></div>
 
             <ul class="navigation clearfix">
                 <!--Keep This Empty / Menu will come through Javascript-->

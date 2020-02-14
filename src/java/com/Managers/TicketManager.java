@@ -108,7 +108,7 @@ public class TicketManager {
                 + "<br/><strong>Payment Date:</strong>" + UtilityManager.readDate(currentDate) + "</p>"
                 + "<br/><strong>Payment Time:</strong>" + UtilityManager.readTime(currentTime) + "</p>"
                 + "<br/>"
-                + "<br/><strong>Event Date:</strong> 25th December, 2019</p>"
+                + "<br/><strong>Event Date:</strong> 25th March, 2020</p>"
                 + "<br/><strong>Event Time:</strong> 10am Prompt</p>"
                 + "<br/><strong>Event Venue:</strong>Hotel De Oriental Lekki Phase 1</p>"
                 + "</div>"
@@ -120,7 +120,7 @@ public class TicketManager {
         htmlBuilder.append("</html>");
         String Body = htmlBuilder.toString();
         // call send ticket to email  method
-//        SendTicketToEmail(Email, "Event Ticket", Body);
+        SendEmail(Email, "Event Ticket", Body);
         UserManager.sendMemberMessage(1, Body, "Event Ticket", UserID);
         return result;
     }
@@ -144,7 +144,7 @@ public class TicketManager {
         return result;
     }
 
-    public static void SendTicketToEmail(String To, String Body, String Subject) {
+    public static void SendEmail(String To, String Body, String Subject) {
         String from = "info@thewealthmarket.com";
 
         final String username = "info@thewealthmarket.com";//change accordingly

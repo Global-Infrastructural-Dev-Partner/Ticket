@@ -24,6 +24,8 @@
         <link href="../../../assets/css/AdminLTE.min.css" rel="stylesheet" type="text/css"/>
         <!-- AdminLTE Skins. Choose a skin from the css/skins
              folder instead of downloading all of them to reduce the load. -->
+        <link rel="shortcut icon" href="../../../assets/img/favicon.png" type="image/x-icon">
+        <link rel="icon" href="../../../assets/img/favicon.png" type="image/x-icon">
         <link href="../../../assets/css/_all-skins.min.css" rel="stylesheet" type="text/css"/>
         <link href="../../../assets/css/sweetalert2.min.css" rel="stylesheet" type="text/css"/>
 

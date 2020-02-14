@@ -64,10 +64,10 @@
 
     <div class="auto-container">
         <div class="content-box">
-            <span class="title">December 25, 2019</span>
-            <h2> PeinMoney <br>Event 2019</h2>
+            <span class="title">March  25, 2020</span>
+            <h2> PeinMoney <br>Event 2020</h2>
             <div class="time-counter">
-                <div class="time-countdown clearfix" data-countdown="12/25/2019"></div>
+                <div class="time-countdown clearfix" data-countdown="03/25/2020"></div>
             </div>
             <div class="btn-box"><a href="#tickets" class="theme-btn btn-style-three"><span class="btn-title">Buy Ticket</span></a></div>
         </div>
@@ -207,14 +207,6 @@
                                 then you can ask for oriental hotel</div>
                             </div>
 
-                            <!--Tab-->
-<!--                            <div class="tab" id="tab3">
-                                <h4><span class="icon fa fa-directions"></span> How to get there</h4>
-                                <div class="text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-                                    do eiusmod tempor incididunt labore et dolore magna aliqua. Aliquip ex ea
-                                    commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit
-                                    esse cillum dolore.</div>
-                            </div>-->
                         </div>
                     </div>
                 </div>
@@ -277,7 +269,7 @@
                             </div>
                         </ul>
                         <div class="btn-box">
-                            <a href="buy-ticket.html" class="theme-btn">BUY Ticket</a>
+                            <a href="#" class="theme-btn" id="BuySingleTicket">Buy Ticket</a>
                         </div>
                     </div>
                 </div>
@@ -299,7 +291,7 @@
                             <li class="true">Win An Award</li>
                         </ul>
                         <div class="btn-box">
-                            <a href="#" class="theme-btn">BUY Ticket</a>
+                            <a href="#" class="theme-btn" id="Buy5in1Ticket">Buy Ticket</a>
                         </div>
                     </div>
                 </div>
@@ -321,7 +313,7 @@
                             <li class="true">Win An Award</li>
                         </ul>
                         <div class="btn-box">
-                            <a href="buy-ticket.html" class="theme-btn">BUY Ticket</a>
+                            <a href="#" class="theme-btn" id="Buy10in1Ticket">BUY Ticket</a>
                         </div>
                     </div>
                 </div>
