@@ -65,7 +65,7 @@ public class UserServlet extends HttpServlet {
                         if (UserID != 0) {
                             String sessionid = session.getId();
                             UserManager.UpdateSessionID(sessionid, UserID);
-                            session.setMaxInactiveInterval(1 * 60);
+                            session.setMaxInactiveInterval(5 * 60);
                             session.setAttribute("sessionid", sessionid);
                             String status = UserManager.getUserStatus(UserID);
                             json = new Gson().toJson(status);
