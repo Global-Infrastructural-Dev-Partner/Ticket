@@ -50,7 +50,7 @@
 
                                     </div>
                                     <div class="col-lg-12 col-md-12 col-sm-12 form-group">
-                                        <a href=""><button class="theme-btn btn-style-one" style="width: 100%;"
+                                        <a href="#"><button class="theme-btn btn-style-one" style="width: 100%;"
                                                            type="submit" name="submit-form"><span
                                                     class="btn-title">Register</span></button></a>
                                     </div>
@@ -80,7 +80,7 @@
                                     </div>
 
                                     <div class="col-lg-12 col-md-12 col-sm-12 form-group">
-                                        <a href=""><button class="theme-btn btn-style-one" style="width: 100%;"
+                                        <a href="#"><button class="theme-btn btn-style-one" style="width: 100%;"
                                                            type="submit" name="submit-form"><span
                                                     class="btn-title">Login</span></button></a>
                                     </div>

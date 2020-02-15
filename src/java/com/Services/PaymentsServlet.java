@@ -12,6 +12,8 @@ import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 import java.sql.SQLException;
 import java.text.ParseException;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
@@ -49,56 +51,45 @@ public class PaymentsServlet extends HttpServlet {
             String result = "";
             String empty = "none";
             switch (type) {
-                case "ValidatePaystackTransaction": {
-                    String[] data = request.getParameterValues("data[]");
-                    String userid = data[0].trim();
-                    String actualamount = data[1].trim();
-                    String trxref = data[2].trim();
-                    String transcode = data[3].trim();
-                    String paytype = data[4].trim();
-                    String tickettypeid = data[5].trim();
-                    String numberoftickets = data[6].trim();
-                    int TicketTypeID = Integer.parseInt(tickettypeid);
-                    int NumberOfTickets = Integer.parseInt(numberoftickets);
-                    int MemberUserID = Integer.parseInt(userid);
-                    int Amount = Integer.parseInt(actualamount);
-                    String message = "";
-                    String payresult = PayStackManager.getInstance().PayStackPay(trxref);
-                    JSONParser parser = new JSONParser();
-                    JSONObject jsonParameter = null;
-                    try {
-                        jsonParameter = (JSONObject) parser.parse(payresult);
-                    } catch (Exception e) {
-                        message = "Your payment validation was not successful, Please contact the admin if your account was debited and send prove of payment!";
-                        json1 = new Gson().toJson(paytype);
-                        json2 = new Gson().toJson(result);
-                        String json3 = new Gson().toJson(message);
-                        json = "[" + json1 + "," + json2 + "," + json3 + "]";
-                        e.printStackTrace();
-                    }
-                    String Status = jsonParameter.get("status").toString();
-                    if (Status.equals("false")) {
-                        message = "Your payment validation was not successful, Please contact the admin if your account was debited and send prove of payment!";
-                        json1 = new Gson().toJson(paytype);
-                        json2 = new Gson().toJson(result);
-                        String json3 = new Gson().toJson(message);
-                        json = "[" + json1 + "," + json2 + "," + json3 + "]";
-
-                    } else if (Status.equals("true")) {
-                        if (paytype.equals("Ticket Fees")) {
-                            result = TicketManager.CreateTicket(MemberUserID, Amount, TicketTypeID, NumberOfTickets, trxref, transcode);
-                            if (result.equals("success")) {
-                                result = "success";
-                                message = "Your Payment was Successful and your Ticket(s) has been sent to the registered Email.";
-                            } else {
-                                result = "error";
-                                message = "Something went wrong! We would fix it in no time!";
-                            }
-                            json1 = new Gson().toJson(paytype);
-                            json2 = new Gson().toJson(result);
-                            String json3 = new Gson().toJson(message);
-                            json = "[" + json1 + "," + json2 + "," + json3 + "]";
+                case "GetUserPayments": {
+                    String sessionid = request.getParameter("data");
+                    int userid = UserManager.GetUserIDBySessionID(sessionid);
+                    int totalamout = 0;
+                    ArrayList<Integer> ids = PaymentsManager.GetUserPayments(userid);
+                    HashMap<Integer, HashMap<String, Object>> payments = new HashMap<>();
+                    if (!ids.isEmpty()) {
+                        for (int id : ids) {
+                            HashMap<String, Object> det = PaymentsManager.GetPaymentDetails(id);
+                            int tamount = PaymentsManager.GetTotalPaymentAmount(id);
+                            totalamout = totalamout + tamount;
+                            payments.put(id, det);
                         }
+                        json1 = new Gson().toJson(payments);
+                        json2 = new Gson().toJson(ids.size());
+                        String json3 = new Gson().toJson(totalamout);
+                        json = "[" + json1 + "," + json2 + "," + json3 + "]";
+                    } else {
+                        json = new Gson().toJson(empty);
+                    }
+                    break;
+                }
+                case "GetAllPayments": {
+                    int totalamout = 0;
+                    ArrayList<Integer> ids = PaymentsManager.GetAllPayments();
+                    HashMap<Integer, HashMap<String, Object>> payments = new HashMap<>();
+                    if (!ids.isEmpty()) {
+                        for (int id : ids) {
+                            HashMap<String, Object> det = PaymentsManager.GetPaymentDetails(id);
+                            int tamount = PaymentsManager.GetTotalPaymentAmount(id);
+                            totalamout = totalamout + tamount;
+                            payments.put(id, det);
+                        }
+                        json1 = new Gson().toJson(payments);
+                        json2 = new Gson().toJson(totalamout);
+                        String json3 = new Gson().toJson(ids.size());
+                        json = "[" + json1 + "," + json2 + "," + json3 + "]";
+                    } else {
+                        json = new Gson().toJson(empty);
                     }
                     break;
                 }

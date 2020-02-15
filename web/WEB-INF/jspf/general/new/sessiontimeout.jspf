@@ -1,0 +1,29 @@
+<%-- any content can be specified here e.g.: --%>
+<%@ page pageEncoding="UTF-8" %>
+
+
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+ 
+
+    <!-- Main content -->
+    <section class="content">
+      <div class="error-page">
+        <h2 class="headline text-yellow"> 404</h2>
+
+        <div class="error-content" style="margin-top: 15em;">
+          <h3><i class="fa fa-warning text-yellow"></i> Oops! Your Session has Expired.</h3>
+
+          <p>
+            We could not find the page you were looking for.
+            Meanwhile, you may <a  href="${pageContext.request.contextPath}/ControllerServlet?action=Link&type=Index">return to the home page</a> or try a new session.
+          </p>
+        </div>
+        <!-- /.error-content -->
+      </div>
+      <!-- /.error-page -->
+    </section>
+    <!-- /.content -->
+  </div>
+  <!-- /.content-wrapper -->

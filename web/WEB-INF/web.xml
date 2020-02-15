@@ -13,10 +13,6 @@
         <servlet-class>com.Services.UserServlet</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>WalletServlet</servlet-name>
-        <servlet-class>com.Services.WalletServlet</servlet-class>
-    </servlet>
-    <servlet>
         <servlet-name>TicketServlet</servlet-name>
         <servlet-class>com.Services.TicketServlet</servlet-class>
     </servlet>
@@ -39,10 +35,6 @@
     <servlet-mapping>
         <servlet-name>UserServlet</servlet-name>
         <url-pattern>/UserServlet</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>WalletServlet</servlet-name>
-        <url-pattern>/WalletServlet</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>TicketServlet</servlet-name>

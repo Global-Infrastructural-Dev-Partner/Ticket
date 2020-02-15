@@ -30,6 +30,7 @@ function performPageActions() {
         subscriberPageFunctions();
     } else if (page === "admin_profile.jsp") {
         extension = "../../../";
+        adminPageFunctions();
     } else {
         var headerImage = "../../assets/img/logo-2.png";
         $(".headerImage").attr("src", headerImage);
@@ -58,9 +59,6 @@ function btnEvents() {
     });
     $("#payments-tab").click(function () {
         $('#nav-tab a[href="#nav-payments"]').tab('show');
-    });
-    $("#wallet-tab").click(function () {
-        $('#nav-tab a[href="#nav-wallet"]').tab('show');
     });
     $("#subscribers-tab").click(function () {
         $('#nav-tab a[href="#nav-subscribers"]').tab('show');
@@ -200,8 +198,6 @@ function btnEvents() {
         PreparePaymentInfo(newQty, "Ten-In-One", 10);
     });
 
-
-
     $("#buySingleTicket").click(function () {
         buySingleTicket("Single");
     });
@@ -258,10 +254,18 @@ function buySingleTicket(paymenttype) {
     });
 }
 
-
 function subscriberPageFunctions() {
     GetData("User", "GetMemberDetails", "LoadMemberDetails", sessionid);
     GetData("Ticket", "GetUserTickets", "LoadUserTickets", sessionid);
+    GetData("Payment", "GetUserPayments", "LoadUserPayments", sessionid);
+    GetData("User", "GetUserNotifications", "LoadUserNotifications", sessionid);
+}
+function adminPageFunctions() {
+    GetData("User", "GetMemberDetails", "LoadMemberDetails", sessionid);
+    GetData("Ticket", "GetAllTickets", "LoadAllTickets");
+    GetData("Payment", "GetAllPayments", "LoadAllPayments");
+    GetData("User", "GetAllUsers", "LoadAllUsers");
+    GetData("User", "GetAllNotifications", "LoadAllNotifications");
 }
 
 function PreparePaymentInfo(newQty, paymenttype, numberofticket) {
@@ -335,7 +339,6 @@ function PreparePaymentInfo(newQty, paymenttype, numberofticket) {
     });
 }
 
-
 function PaystackPay(amount, paymenttype, numberofticket) {
     var handler = PaystackPop.setup({
         key: 'pk_test_9c32fd37430710c4b34c9376c8133c7925e899a7',
@@ -367,7 +370,6 @@ function PaystackPay(amount, paymenttype, numberofticket) {
     });
     handler.openIframe();
 }
-
 
 function payWithPaystack(userfirstname, userlastname, useremail, userphone, userpassword, amount, paymenttype, numberofticket, regrefcode) {
     var lname = userlastname;
@@ -620,11 +622,230 @@ function DisplayBuyTicket(data) {
     }
 }
 
-
-
 function DisplayUserTickets(data) {
-//    alert("hey" +JSON.stringify(data));
+    var parent = $("#UserTicketList");
+    if (data[0]) {
+        var childclone = parent.find(".clone");
+        var count = 0;
+        $.each(data[0], function (id, details) {
+            count++;
+            var newchild = childclone.clone();
+            newchild.removeClass("clone");
+            newchild.removeClass("hide");
+            newchild.find(".ticket_count").text(count);
+            newchild.find(".ticket_tickettype").text(details["TicketName"]);
+            newchild.find(".ticket_ticketbought").text(details["number_of_ticket_bought"]);
+            newchild.find(".ticket_amountpaid").text(PriceFormat(details["amount_paid"]));
+            newchild.find(".ticket_paidforticket").text(details["ticket_paid_for"]);
+            newchild.find(".ticket_freeticket").text(details["free_ticket"]);
+            newchild.find(".ticket_date").text(details["date"]);
+            newchild.find(".ticket_time").text(details["time"]);
+            newchild.find(".ticket_detailsbtn").click(function () {
+                var parent2 = $("#UserTicketHistoryList");
+                DisplayUserTicketHistoryDetails(parent2, details["historyDetails"]);
+            });
+            newchild.appendTo(parent);
+        });
+        childclone.hide();
+    } else {
+        $("#UserTicketList").text("No Tickets");
+    }
+    $("#totalTicketCount").text(data[1]);
+    $("#totalTicketPaidForCount").text(data[2]);
+    $("#totalTicketFreeCount").text(data[3]);
 }
+
+function DisplayUserTicketHistoryDetails(parent, data) {
+    parent.find(".newclone").remove();
+    var count = 0;
+    $.each(data, function (id, details) {
+        var childclone = parent.find(".histclone");
+        count++;
+        var newchild = childclone.clone();
+        newchild.removeClass("histclone");
+        newchild.removeClass("hide");
+        newchild.addClass("newclone");
+        newchild.find(".ticket_hcount").text(count);
+        newchild.find(".ticket_hnumber").text(details["ticket_number"]);
+        newchild.appendTo(parent).show();
+        childclone.hide();
+    });
+}
+
+function DisplayAllTickets(data) {
+    var parent = $("#AllTicketList");
+    if (data[0]) {
+        var childclone = parent.find(".clone");
+        var count = 0;
+        $.each(data[0], function (id, details) {
+            count++;
+            var newchild = childclone.clone();
+            newchild.removeClass("clone");
+            newchild.removeClass("hide");
+            newchild.find(".ticket_count").text(count);
+            newchild.find(".ticket_tickettype").text(details["TicketName"]);
+            newchild.find(".ticket_ticketbought").text(details["number_of_ticket_bought"]);
+            newchild.find(".ticket_amountpaid").text(PriceFormat(details["amount_paid"]));
+            newchild.find(".ticket_paidforticket").text(details["ticket_paid_for"]);
+            newchild.find(".ticket_freeticket").text(details["free_ticket"]);
+            newchild.find(".ticket_date").text(details["date"]);
+            newchild.find(".ticket_time").text(details["time"]);
+            newchild.find(".ticket_detailsbtn").click(function () {
+                var parent2 = $("#AllTicketHistoryList");
+                DisplayUserTicketHistoryDetails(parent2, details["historyDetails"]);
+            });
+            newchild.appendTo(parent);
+        });
+        childclone.hide();
+    } else {
+        $("#AllTicketList").text("No Tickets");
+    }
+    $("#allTotalTicketCount").text(data[1]);
+    $("#allTotalTicketPaidForCount").text(data[2]);
+    $("#allTotalTicketFreeCount").text(data[3]);
+    $("#allTotalSingleTicketCount").text(data[4]);
+    $("#allTotalFiveInOneTicketCount").text(data[5]);
+    $("#allTotalTenInOneTicketCount").text(data[6]);
+}
+
+function DisplayAllPayments(data) {
+    var parent = $("#AllPaymentList");
+    if (data[0]) {
+        var childclone = parent.find(".payClone");
+        var count = 0;
+        $.each(data[0], function (id, details) {
+            count++;
+            var newchild = childclone.clone();
+            newchild.removeClass("payClone");
+            newchild.removeClass("hide");
+            newchild.find(".pay_count").text(count);
+            newchild.find(".pay_username").text(details["UserName"]);
+            newchild.find(".pay_amount").text(PriceFormat(details["amount_paid"]));
+            newchild.find(".pay_tickettype").text(details["TicketName"]);
+            newchild.find(".pay_ticketbought").text(details["TicketBought"]);
+            newchild.find(".pay_date").text(details["date"]);
+            newchild.find(".pay_time").text(details["time"]);
+            newchild.appendTo(parent);
+        });
+        childclone.hide();
+    } else {
+        $("#AllPaymentList").text("No Payments");
+    }
+    $("#allTotalPaymentAmountCount").text(PriceFormat(data[1]));
+    $("#allTotalPaymentCount").text(data[2]);
+}
+
+function DisplayUserPayments(data) {
+    var parent = $("#UserPaymentList");
+    if (data[0]) {
+        var childclone = parent.find(".payclone");
+        var count = 0;
+        $.each(data[0], function (id, details) {
+            count++;
+            var newchild = childclone.clone();
+            newchild.removeClass("payclone");
+            newchild.removeClass("hide");
+            newchild.find(".pay_count").text(count);
+            newchild.find(".pay_username").text(details["UserName"]);
+            newchild.find(".pay_amount").text(PriceFormat(details["amount_paid"]));
+            newchild.find(".pay_tickettype").text(details["TicketName"]);
+            newchild.find(".pay_ticketbought").text(details["TicketBought"]);
+            newchild.find(".pay_date").text(details["date"]);
+            newchild.find(".pay_time").text(details["time"]);
+            newchild.appendTo(parent);
+        });
+        childclone.hide();
+    } else {
+        $("#UserPaymentList").text("No Payments");
+    }
+    $("#TotalPaymentCount").text(data[1]);
+    $("#TotalPaymentAmount").text(PriceFormat(data[2]));
+}
+
+function DisplayAllUsers(data) {
+    var parent = $("#UserList");
+    if (data[0]) {
+        var childclone = parent.find(".userclone");
+        var count = 0;
+        $.each(data[0], function (id, details) {
+            count++;
+            var newchild = childclone.clone();
+            newchild.removeClass("userclone");
+            newchild.removeClass("hide");
+            newchild.find(".user_count").text(count);
+            newchild.find(".user_username").text(details["UserName"]);
+            newchild.find(".user_email").text(details["email"]);
+            newchild.find(".user_phone").text(details["phone"]);
+            newchild.find(".user_refcode").text(details["referral_code"]);
+            var referal = details["ReferralUserName"];
+            if (referal === "none none") {
+                newchild.find(".user_referral").text("NIL");
+            } else {
+                newchild.find(".user_referral").text(referal);
+            }
+
+            newchild.find(".user_refcount").text(details["referral_count"]);
+            newchild.find(".user_ticketbought").text(details["NumberOfTicketsBourght"]);
+            newchild.find(".user_date").text(details["date_registered"]);
+            newchild.appendTo(parent);
+        });
+        childclone.hide();
+    } else {
+        $("#UserList").text("No Users");
+    }
+    $("#totalSubscribers").text(PriceFormat(data[1]));
+}
+
+function DisplayAllNotifications(data) {
+    var parent = $("#AllNotificationList");
+    if (data[0]) {
+        var childclone = parent.find(".noticlone");
+        var count = 0;
+        $.each(data[0], function (id, details) {
+            count++;
+            var newchild = childclone.clone();
+            newchild.removeClass("noticlone");
+            newchild.removeClass("hide");
+            newchild.find(".noti_count").text(count);
+            newchild.find(".noti_name").text(details["ReceiverName"]);
+            newchild.find(".noti_subject").text(details["subject"]);
+            newchild.find(".noti_body").html(details["body"]);
+            newchild.find(".noti_date").text(details["date"]);
+            newchild.find(".noti_time").text(details["time"]);
+            newchild.appendTo(parent);
+        });
+        childclone.hide();
+    } else {
+        $("#AllNotificationList").text("No Users");
+    }
+    $("#allTotalNotification").text(data[1]);
+}
+
+function DisplayUserNotifications(data) {
+    var parent = $("#UserNotificationList");
+    if (data[0]) {
+        var childclone = parent.find(".noticlone");
+        var count = 0;
+        $.each(data[0], function (id, details) {
+            count++;
+            var newchild = childclone.clone();
+            newchild.removeClass("noticlone");
+            newchild.removeClass("hide");
+            newchild.find(".noti_count").text(count);
+            newchild.find(".noti_name").text(details["SenderName"]);
+            newchild.find(".noti_subject").text(details["subject"]);
+            newchild.find(".noti_body").html(details["body"]);
+            newchild.find(".noti_date").text(details["date"]);
+            newchild.find(".noti_time").text(details["time"]);
+            newchild.appendTo(parent);
+        });
+        childclone.hide();
+    } else {
+        $("#UserNotificationList").text("No Users");
+    }
+    $("#TotalUserNotification").text(data[1]);
+}
+
 function linkToFunction(action, params) {
     switch (action) {
         case "LoadUserLogin":
@@ -657,5 +878,36 @@ function linkToFunction(action, params) {
             DisplayBuyTicket(params);
             break;
         }
+        case "LoadAllTickets":
+        {
+            DisplayAllTickets(params);
+            break;
+        }
+        case "LoadAllPayments":
+        {
+            DisplayAllPayments(params);
+            break;
+        }
+        case "LoadUserPayments":
+        {
+            DisplayUserPayments(params);
+            break;
+        }
+        case "LoadAllUsers":
+        {
+            DisplayAllUsers(params);
+            break;
+        }
+        case "LoadAllNotifications":
+        {
+            DisplayAllNotifications(params);
+            break;
+        }
+        case "LoadUserNotifications":
+        {
+            DisplayUserNotifications(params);
+            break;
+        }
+
     }
 }

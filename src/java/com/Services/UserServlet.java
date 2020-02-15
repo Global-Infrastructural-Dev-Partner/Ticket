@@ -12,7 +12,6 @@ import com.google.gson.Gson;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
-import java.sql.Date;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.util.ArrayList;
@@ -66,7 +65,7 @@ public class UserServlet extends HttpServlet {
                         if (UserID != 0) {
                             String sessionid = session.getId();
                             UserManager.UpdateSessionID(sessionid, UserID);
-//                            session.setMaxInactiveInterval(10 * 60);
+                            session.setMaxInactiveInterval(1 * 60);
                             session.setAttribute("sessionid", sessionid);
                             String status = UserManager.getUserStatus(UserID);
                             json = new Gson().toJson(status);
@@ -210,10 +209,9 @@ public class UserServlet extends HttpServlet {
                     HashMap<Integer, HashMap<String, String>> users = new HashMap<>();
                     if (!ids.isEmpty()) {
                         for (int id : ids) {
-                            HashMap<String, String> det = UserManager.GetUserDetails( id);
+                            HashMap<String, String> det = UserManager.GetUserDetails(id);
                             users.put(id, det);
                         }
-
                         json1 = new Gson().toJson(users);
                         json2 = new Gson().toJson(ids.size());
                         json = "[" + json1 + "," + json2 + "]";
@@ -222,96 +220,41 @@ public class UserServlet extends HttpServlet {
                     }
                     break;
                 }
-                case "GetMessages": {
-//                    String[] params = request.getParameterValues("data");
-//                    String[] data = null;
-//                    for (String param : params) {
-//                        data = param.split(",");
-//                    }
-//                    String userid = data[0].trim();
-//                    String option = data[1].trim();
-//                    int userId = Integer.parseInt(userid);
-//                    ArrayList<Integer> IDS = new ArrayList<>();
-//                    HashMap<Integer, HashMap<String, String>> MessageList = new HashMap<>();
-//                    String mtype = "";
-//                    if (option.equals("inbox")) {
-//                        mtype = "inbox";
-//                        IDS = UserManager.getInboxMessageIDs(userId);
-//                    } else if (option.equals("sent")) {
-//                        mtype = "sent";
-//                        IDS = UserManager.getSentMessageIDs(userId);
-//                    }
-//                    if (!IDS.isEmpty()) {
-//                        for (int id : IDS) {
-//                            HashMap<String, String> msgdetails = UserManager.GetMessageDetails(id);
-//                            MessageList.put(id, msgdetails);
-//                        }
-//                        json1 = new Gson().toJson(MessageList);
-//                        json2 = new Gson().toJson(mtype);
-//                        json = "[" + json1 + "," + json2 + "]";
-//                    } else {
-//                        json = new Gson().toJson(empty);
-//                    }
+                case "GetUserNotifications": {
+                    String sessionid = request.getParameter("data");
+                    int userid = UserManager.GetUserIDBySessionID(sessionid);
+                    ArrayList<Integer> ids = UserManager.getUserNotifications(userid);
+                    HashMap<Integer, HashMap<String, String>> notifications = new HashMap<>();
+                    if (!ids.isEmpty()) {
+                        for (int id : ids) {
+                            HashMap<String, String> det = UserManager.GetNotificationDetails(id);
+                            notifications.put(id, det);
+                        }
+                        json1 = new Gson().toJson(notifications);
+                        json2 = new Gson().toJson(ids.size());
+                        json = "[" + json1 + "," + json2 + "]";
+                    } else {
+                        json = new Gson().toJson(empty);
+                    }
                     break;
                 }
-                case "GetMessageCounts": {
-//                    String[] params = request.getParameterValues("data");
-//                    String[] data = null;
-//                    for (String param : params) {
-//                        data = param.split(",");
-//                    }
-//                    String userid = data[0].trim();
-//                    int userId = Integer.parseInt(userid);
-//                    ArrayList<Integer> IIDS = new ArrayList<>();
-//                    ArrayList<Integer> SIDS = new ArrayList<>();
-//                    IIDS = UserManager.getInboxMessageIDs(userId);
-//                    SIDS = UserManager.getSentMessageIDs(userId);
-//                    json1 = new Gson().toJson(IIDS.size());
-//                    json2 = new Gson().toJson(SIDS.size());
-//                    json = "[" + json1 + "," + json2 + "]";
-                    break;
-                }
-                case "GetMessageDetails": {
-//                    int messageid = Integer.parseInt(request.getParameter("data"));
-//                    HashMap<String, String> msgdetails = UserManager.GetMessageDetails(messageid);
-//                    json = new Gson().toJson(msgdetails);
-                    break;
-                }
-                case "NewMessage": {
-//                    String[] data = request.getParameterValues("data[]");
-//                    String userid = data[0].trim();
-//                    String contactid = data[1].trim();
-//                    String subject = data[2].trim();
-//                    String body = data[3].trim();
-//                    int userId = Integer.parseInt(userid);
-//                    int contactId = Integer.parseInt(contactid);
-//                    result = UserManager.sendMemberMessage(userId, body, subject, contactId);
-//                    json = new Gson().toJson(result);
-                    break;
-                }
-                case "GetSearchUserDetails": {
-                    String UserInput = request.getParameter("data");
-                    HashMap<String, String> details = UserManager.getSearchResult(UserInput, 0);
-                    json = new Gson().toJson(details);
+                case "GetAllNotifications": {
+                    ArrayList<Integer> ids = UserManager.getAllNotifications();
+                    HashMap<Integer, HashMap<String, String>> notifications = new HashMap<>();
+                    if (!ids.isEmpty()) {
+                        for (int id : ids) {
+                            HashMap<String, String> det = UserManager.GetNotificationDetails(id);
+                            notifications.put(id, det);
+                        }
+                        json1 = new Gson().toJson(notifications);
+                        json2 = new Gson().toJson(ids.size());
+                        json = "[" + json1 + "," + json2 + "]";
+                    } else {
+                        json = new Gson().toJson(empty);
+                    }
                     break;
                 }
 
-                case "GetMemberCounts": {
-//                    ArrayList<Integer> OnlineIDs = new ArrayList<>();
-//                    ArrayList<Integer> MemberIDs = new ArrayList<>();
-//                    ArrayList<Integer> OfflineIDs = new ArrayList<>();
-//                    ArrayList<String> NewMemberIDs = new ArrayList<>();
-//                    OnlineIDs = UserManager.getOnlineIDs();
-//                    MemberIDs = UserManager.getMemberIDs();
-//                    OfflineIDs = UserManager.getOfflineIDs();
-//                    NewMemberIDs = UserManager.getNewMemberIDs();
-//                    json1 = new Gson().toJson(OnlineIDs.size());
-//                    json2 = new Gson().toJson(MemberIDs.size());
-//                    json3 = new Gson().toJson(OfflineIDs.size());
-//                    json4 = new Gson().toJson(NewMemberIDs.size());
-//                    json = "[" + json1 + "," + json2 + "," + json3 + "," + json4 + "]";
-                    break;
-                }
             }
             response.setContentType("application/json");
             response.setCharacterEncoding("UTF-8");

@@ -28,12 +28,6 @@
                     <span>Payment</span>
                 </a>
             </li>
-            <li class="treeview">
-                <a href="#nav-wallet-tab" id="wallet-tab">
-                    <i class="fa fa-credit-card"></i>
-                    <span>Wallet</span>
-                </a>
-            </li>
             <li class="treeview admin_view hide" >
                 <a href="#nav-subscribers-tab"  id="subscribers-tab">
                     <i class="fa fa-users"></i>

@@ -57,16 +57,60 @@ public class TicketServlet extends HttpServlet {
                 case "GetUserTickets": {
                     String sessionid = request.getParameter("data");
                     int userid = UserManager.GetUserIDBySessionID(sessionid);
+                    int TicketBought = 0;
+                    int PaidForTickets = 0;
+                    int FreeTickets = 0;
                     ArrayList<Integer> ids = TicketManager.GetUserTickets(userid);
-                    HashMap<Integer, HashMap<String, String>> tickets = new HashMap<>();
+                    HashMap<Integer, HashMap<String, Object>> tickets = new HashMap<>();
                     if (!ids.isEmpty()) {
                         for (int id : ids) {
-                            HashMap<String, String> det = TicketManager.GetTicketDetails(id);
+                            HashMap<String, Object> det = TicketManager.GetTicketDetails(id);
+                            int fticket = TicketManager.GetTicketFreeTicketByID(id);
+                            FreeTickets = FreeTickets + fticket;
+                            int pticket = TicketManager.GetTicketPaidForTicketByID(id);
+                            PaidForTickets = PaidForTickets + pticket;
+                            int bticket = TicketManager.GetTicketBoughtByID(id);
+                            TicketBought = TicketBought + bticket;
                             tickets.put(id, det);
                         }
                         json1 = new Gson().toJson(tickets);
-                        json2 = new Gson().toJson(ids.size());
-                        json = "[" + json1 + "," + json2 + "]";
+                        json2 = new Gson().toJson(TicketBought);
+                        json3 = new Gson().toJson(PaidForTickets);
+                        json4 = new Gson().toJson(FreeTickets);
+                        json = "[" + json1 + "," + json2 + "," + json3 + "," + json4 + "]";
+                    } else {
+                        json = new Gson().toJson(empty);
+                    }
+                    break;
+                }
+                case "GetAllTickets": {
+                    int TicketBought = 0;
+                    int PaidForTickets = 0;
+                    int FreeTickets = 0;
+                    ArrayList<Integer> ids = TicketManager.GetAllTickets();
+                    HashMap<Integer, HashMap<String, Object>> tickets = new HashMap<>();
+                    if (!ids.isEmpty()) {
+                        for (int id : ids) {
+                            HashMap<String, Object> det = TicketManager.GetTicketDetails(id);
+                            int fticket = TicketManager.GetTicketFreeTicketByID(id);
+                            FreeTickets = FreeTickets + fticket;
+                            int pticket = TicketManager.GetTicketPaidForTicketByID(id);
+                            PaidForTickets = PaidForTickets + pticket;
+                            int bticket = TicketManager.GetTicketBoughtByID(id);
+                            TicketBought = TicketBought + bticket;
+                            tickets.put(id, det);
+                        }
+                        int singleTicket = TicketManager.GetSingleTickets();
+                        int fiveInOneTicket = TicketManager.GetFiveInOneTickets();
+                        int tenInOneTicket = TicketManager.GetTenInOneTickets();
+                        json1 = new Gson().toJson(tickets);
+                        json2 = new Gson().toJson(TicketBought);
+                        json3 = new Gson().toJson(PaidForTickets);
+                        json4 = new Gson().toJson(FreeTickets);
+                        String json5 = new Gson().toJson(singleTicket);
+                        String json6 = new Gson().toJson(fiveInOneTicket);
+                        String json7 = new Gson().toJson(tenInOneTicket);
+                        json = "[" + json1 + "," + json2 + "," + json3 + "," + json4 + "," + json5 + "," + json6 + "," + json7 + "]";
                     } else {
                         json = new Gson().toJson(empty);
                     }

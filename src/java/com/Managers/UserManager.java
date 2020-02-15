@@ -51,48 +51,66 @@ public class UserManager {
         }
         return result;
     }
-
+    
     public static ArrayList<Integer> GetAllUsers() throws ClassNotFoundException, SQLException, UnsupportedEncodingException {
         ArrayList<Integer> IDs = new ArrayList<>();
-        IDs = DBManager.GetIntArrayList(Tables.UsersTable.ID, Tables.UsersTable.Table, "");
+        IDs = DBManager.GetIntArrayList(Tables.UsersTable.ID, Tables.UsersTable.Table, "where " + Tables.UsersTable.UserType + " != 'Admin'");
         return IDs;
     }
 
     public static HashMap<String, String> GetUserDetails(int UserID) throws ClassNotFoundException, SQLException, UnsupportedEncodingException {
-        HashMap<String, String> FavDetails = new HashMap<>();
         HashMap<String, String> Details = new HashMap<>();
-        FavDetails = DBManager.GetTableData(Tables.UsersTable.Table, "where " + Tables.UsersTable.ID + " = " + UserID);
-        FavDetails.putAll(Details);
-        return FavDetails;
+        Details = DBManager.GetTableData(Tables.UsersTable.Table, "where " + Tables.UsersTable.ID + " = " + UserID);
+        String referralid = Details.get(Tables.UsersTable.ReferralUserID);
+        String UserName = getUserName(UserID);
+        Details.put("UserName", UserName);
+        int ReferralUserID = Integer.parseInt(referralid);
+        String ReferralUserName = getUserName(ReferralUserID);
+        Details.put("ReferralUserName", ReferralUserName);
+        String dt = (String) Details.get(Tables.UsersTable.DateRegistered);
+        String date = UtilityManager.readDate(dt);
+        Details.put(Tables.UsersTable.DateRegistered, date);
+        int TicketBought = 0;
+        ArrayList<Integer> ids = TicketManager.GetUserTickets(UserID);
+        if (!ids.isEmpty()) {
+            for (int id : ids) {
+                int bticket = TicketManager.GetTicketBoughtByID(id);
+                TicketBought = TicketBought + bticket;
+            }
+        }
+        Details.put("NumberOfTicketsBourght", "" + TicketBought);
+        return Details;
     }
 
-//    public static ArrayList<Integer> getInboxMessageIDs(int meid) throws ClassNotFoundException, SQLException, UnsupportedEncodingException {
-//        ArrayList<Integer> ids = new ArrayList<>();
-//        ids = DBManager.GetIntArrayList(Tables.MessagesTable.ID, Tables.MessagesTable.Table, "where " + Tables.MessagesTable.ToMemberID + " = " + meid);
-//        return ids;
-//    }
-//
-//    public static ArrayList<Integer> getSentMessageIDs(int meid) throws ClassNotFoundException, SQLException, UnsupportedEncodingException {
-//        ArrayList<Integer> ids = new ArrayList<>();
-//        ids = DBManager.GetIntArrayList(Tables.MessagesTable.ID, Tables.MessagesTable.Table, "where " + Tables.MessagesTable.FromMemberID + " = " + meid);
-//        return ids;
-//    }
-//    public static HashMap<String, String> GetMessageDetails(int MsgID) throws ClassNotFoundException, SQLException, UnsupportedEncodingException {
-//        HashMap<String, String> msgdetails = DBManager.GetTableData(Tables.MessagesTable.Table, "where " + Tables.MessagesTable.ID + " = " + MsgID);
-//        int FromUserID = Integer.parseInt(msgdetails.get("from_member_id"));
-//        String sendername = getUserName(FromUserID);
-//        msgdetails.put("SenderName", sendername);
-//        int ToUserID = Integer.parseInt(msgdetails.get("to_member_id"));
-//        String recievername = getUserName(ToUserID);
-//        msgdetails.put("RecieverName", recievername);
-//        String Msgdate = DBManager.GetString("date", "messages", "where id =" + MsgID);
-//        String msgdate = Msgdate.substring(0, Msgdate.length() - 10);
-//        String msgtime = Msgdate.substring(10, Msgdate.length() - 2);
-//        msgdetails.put("msgdate", msgdate);
-//        msgdetails.put("msgtime", msgtime);
-//        msgdetails.put("id", "" + MsgID);
-//        return msgdetails;
-//    }
+    public static ArrayList<Integer> getUserNotifications(int UserID) throws ClassNotFoundException, SQLException, UnsupportedEncodingException {
+        ArrayList<Integer> ids = new ArrayList<>();
+        ids = DBManager.GetIntArrayList(Tables.NotificationsTable.ID, Tables.NotificationsTable.Table, "where " + Tables.NotificationsTable.ToUserID + " = " + UserID);
+        return ids;
+    }
+
+    public static ArrayList<Integer> getAllNotifications() throws ClassNotFoundException, SQLException, UnsupportedEncodingException {
+        ArrayList<Integer> ids = new ArrayList<>();
+        ids = DBManager.GetIntArrayList(Tables.NotificationsTable.ID, Tables.NotificationsTable.Table, "");
+        return ids;
+    }
+
+    public static HashMap<String, String> GetNotificationDetails(int MsgID) throws ClassNotFoundException, SQLException, UnsupportedEncodingException {
+        HashMap<String, String> msgdetails = DBManager.GetTableData(Tables.NotificationsTable.Table, "where " + Tables.NotificationsTable.ID + " = " + MsgID);
+        int FromUserID = Integer.parseInt(msgdetails.get(Tables.NotificationsTable.FromUserID));
+        String sendername = getUserName(FromUserID);
+        msgdetails.put("SenderName", sendername);
+        int ToUserID = Integer.parseInt(msgdetails.get(Tables.NotificationsTable.ToUserID));
+        String recievername = getUserName(ToUserID);
+        msgdetails.put("ReceiverName", recievername);
+        String Msgdate = msgdetails.get(Tables.NotificationsTable.Date);
+        String msgdate = UtilityManager.readDate(Msgdate);
+        String Msgtime = msgdetails.get(Tables.NotificationsTable.Time);
+        String msgtime = UtilityManager.readTime(Msgtime);
+        msgdetails.put(Tables.NotificationsTable.Date, msgdate);
+        msgdetails.put(Tables.NotificationsTable.Time, msgtime);
+        return msgdetails;
+    }
+
     public static String getUserName(int UserID) throws ClassNotFoundException, SQLException, UnsupportedEncodingException {
         String Name = "", FirstName, LastName;
         FirstName = DBManager.GetString(Tables.UsersTable.FirstName, Tables.UsersTable.Table, "where " + Tables.UsersTable.ID + " = " + UserID);
@@ -237,7 +255,7 @@ public class UserManager {
 
         String msgbdy = "Congratulations!!! Your account has been created successfully for the PeinMoney Event.";
         sendMemberMessage(1, msgbdy, "PeinMoney Subscriber Account Created", UserID);
-        result = WalletManager.CreateWallet(UserID);
+        result = PaymentsManager.CreateWallet(UserID);
         return result;
     }
 
@@ -282,5 +300,4 @@ public class UserManager {
         return userid;
     }
 
-    
 }

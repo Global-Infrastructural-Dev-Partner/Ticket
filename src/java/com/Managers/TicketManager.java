@@ -13,6 +13,7 @@ import java.sql.Time;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Properties;
 import javax.mail.Message;
 import javax.mail.MessagingException;
@@ -93,28 +94,8 @@ public class TicketManager {
         String UserName = UserManager.getUserName(UserID);
         String currentDate = "" + UtilityManager.CurrentDate();
         String currentTime = "" + UtilityManager.CurrentTime();
-        htmlBuilder.append("<!DOCTYPE html> <html>");
-        htmlBuilder.append("<body>"
-                + "<h2 style='color:#d85a33'> Dear " + UserName + ",</h2>"
-                + "<div style='margin-bottom:1em'> "
-                + "<h4>Congratulations!!! </h4>"
-                + "<p>Your have successfully paid for a ticket for the PeinMoney Event."
-                + "<strong><u>Ticket Details</u> </strong><br/>"
-                + "Ticket Number:" + TicketNumber
-                + "<br/><strong>Ticket Type:</strong>" + TicketType
-                + "<br/><strong>Ticket Amount:</strong>" + TicketAmount
-                + "<br/><strong>Payment Date:</strong>" + UtilityManager.readDate(currentDate)
-                + "<br/><strong>Payment Time:</strong>" + UtilityManager.readTime(currentTime)
-                + "<br/>"
-                + "<br/><strong>Event Date:</strong> 25th March, 2020"
-                + "<br/><strong>Event Time:</strong> 10am Prompt"
-                + "<br/><strong>Event Venue:</strong>Hotel De Oriental Lekki Phase 1</p>"
-                + "</div>"
-                + "<div style='text-align:center'>"
-                + "<hr style='width:35em'>"
-                + "<p>Thank you for buying a ticket</p>"
-                + "<p>If you need any further assistance, please contact us by email at support@eventticket.com or call 0809 460 5555, or visit <a href='http://www.eventticket.com/'>http://www.eventticket.com/</a> </p>"
-                + "</div></body>");
+        htmlBuilder.append("<!DOCTYPE html>");
+        htmlBuilder.append("<body><h4> Dear ").append(UserName).append(",</h4><div style='margin-bottom:1em'> <h4>Congratulations!!! </h4><p>Your have successfully paid for a ticket for the PeinMoney Event.<strong><u>Ticket Details</u> </strong><br/>Ticket Number:").append(TicketNumber).append("<br/><strong>Ticket Type:</strong>").append(TicketType).append("<br/><strong>Ticket Amount:</strong>").append(TicketAmount).append("<br/><strong>Payment Date:</strong>").append(UtilityManager.readDate(currentDate)).append("<br/><strong>Payment Time:</strong>").append(UtilityManager.readTime(currentTime)).append("<br/><br/><strong>Event Date:</strong> 25th March, 2020<br/><strong>Event Time:</strong> 10am Prompt<br/><strong>Event Venue:</strong>Hotel De Oriental Lekki Phase 1</p></div><div style='text-align:center'><hr style='width:35em'><p>Thank you for buying a ticket</p><p>If you need any further assistance, please contact us by email at support@eventticket.com or call 0809 460 5555, or visit <a href='http://www.eventticket.com/'>http://www.eventticket.com/</a> </p></div></body>");
         htmlBuilder.append("</html>");
         String Body = htmlBuilder.toString();
         try {
@@ -196,19 +177,17 @@ public class TicketManager {
         result = DBManager.GetInt(Tables.TicketTypeTable.ID, Tables.TicketTypeTable.Table, "where " + Tables.TicketTypeTable.Name + " = '" + TicketTypeName + "'");
         return result;
     }
-    
+
     public static ArrayList<Integer> GetUserTickets(int UserID) throws ClassNotFoundException, SQLException, UnsupportedEncodingException {
         ArrayList<Integer> IDs = new ArrayList<>();
         IDs = DBManager.GetIntArrayList(Tables.TicketsTable.ID, Tables.TicketsTable.Table, "where " + Tables.TicketsTable.UserID + " = " + UserID);
         return IDs;
     }
 
-    public static int GetUserTotalFreeTickets(int UserID) throws ClassNotFoundException, SQLException, UnsupportedEncodingException {
+    public static ArrayList<Integer> GetUserTotalFreeTickets(int UserID) throws ClassNotFoundException, SQLException, UnsupportedEncodingException {
         ArrayList<Integer> IDs = new ArrayList<>();
-        int freeTickets = 0;
         IDs = DBManager.GetIntArrayList(Tables.TicketsTable.FreeTickets, Tables.TicketsTable.Table, "where " + Tables.TicketsTable.UserID + " = " + UserID);
-
-        return freeTickets;
+        return IDs;
     }
 
     public static ArrayList<Integer> GetUserTotalPaidForTickets(int UserID) throws ClassNotFoundException, SQLException, UnsupportedEncodingException {
@@ -217,12 +196,95 @@ public class TicketManager {
         return IDs;
     }
 
-    public static HashMap<String, String> GetTicketDetails(int TicketID) throws ClassNotFoundException, SQLException, UnsupportedEncodingException {
-        HashMap<String, String> Details = new HashMap<>();
-        HashMap<String, String> hisDetails = new HashMap<>();
-        Details = DBManager.GetTableData(Tables.TicketsTable.Table, "where " + Tables.TicketsTable.ID + " = " + TicketID);
-        hisDetails = DBManager.GetTableData(Tables.TicketHistoryTable.Table, "where " + Tables.TicketHistoryTable.ID + " = " + TicketID);
-        Details.putAll(hisDetails);
+    public static int GetTicketFreeTicketByID(int TicketID) throws ClassNotFoundException, SQLException, UnsupportedEncodingException {
+        int Tickets = 0;
+        Tickets = DBManager.GetInt(Tables.TicketsTable.FreeTickets, Tables.TicketsTable.Table, "where " + Tables.TicketsTable.ID + " = " + TicketID);
+        return Tickets;
+    }
+
+    public static int GetTicketPaidForTicketByID(int TicketID) throws ClassNotFoundException, SQLException, UnsupportedEncodingException {
+        int Tickets = 0;
+        Tickets = DBManager.GetInt(Tables.TicketsTable.TicketPaidFor, Tables.TicketsTable.Table, "where " + Tables.TicketsTable.ID + " = " + TicketID);
+        return Tickets;
+    }
+
+    public static int GetTicketBoughtByID(int TicketID) throws ClassNotFoundException, SQLException, UnsupportedEncodingException {
+        int Tickets = 0;
+        Tickets = DBManager.GetInt(Tables.TicketsTable.NumberOfTicketBought, Tables.TicketsTable.Table, "where " + Tables.TicketsTable.ID + " = " + TicketID);
+        return Tickets;
+    }
+
+    public static HashMap<String, Object> GetTicketDetails(int TicketID) throws ClassNotFoundException, SQLException, UnsupportedEncodingException {
+        HashMap<String, Object> Details = new HashMap<>();
+        Details = DBManager.GetTableObjectData(Tables.TicketsTable.Table, "where " + Tables.TicketsTable.ID + " = " + TicketID);
+        String dt = (String) Details.get(Tables.TicketsTable.Date);
+        String date = UtilityManager.readDate(dt);
+        Details.put(Tables.TicketsTable.Date, date);
+        String tm = (String) Details.get(Tables.TicketsTable.Time);
+        String time = UtilityManager.readTime(tm);
+        Details.put(Tables.TicketsTable.Time, time);
+        Object ticketypeid = Details.get(Tables.TicketsTable.TicketTypeID);
+        int TicketTypeID = Integer.parseInt("" + ticketypeid);
+        String tickettypename = GetTicketTypeNameByID(TicketTypeID);
+        Details.put("TicketName", tickettypename);
+        HashMap<Integer, HashMap<String, Object>> historyDetails = GetTicketHistoryDetails(TicketID);
+        Details.put("historyDetails", historyDetails);
         return Details;
     }
+
+    public static HashMap<Integer, HashMap<String, Object>> GetTicketHistoryDetails(int TicketID) throws ClassNotFoundException, SQLException, UnsupportedEncodingException {
+        HashMap<String, Object> details = new HashMap<>();
+        HashMap<Integer, HashMap<String, Object>> det = new HashMap<>();
+        ArrayList<Integer> IDS = GetTicketHistory(TicketID);
+        if (!IDS.isEmpty()) {
+            for (int id : IDS) {
+                details = DBManager.GetTableObjectData(Tables.TicketHistoryTable.Table, "where " + Tables.TicketHistoryTable.ID + " = " + id);
+                det.put(id, details);
+            }
+        }
+        return det;
+    }
+
+    public static ArrayList<Integer> GetTicketHistory(int TicketID) throws ClassNotFoundException, SQLException, UnsupportedEncodingException {
+        ArrayList<Integer> IDs = new ArrayList<>();
+        IDs = DBManager.GetIntArrayList(Tables.TicketHistoryTable.ID, Tables.TicketHistoryTable.Table, "where " + Tables.TicketHistoryTable.TicketID + " = " + TicketID);
+        return IDs;
+    }
+
+    public static ArrayList<Integer> GetAllTickets() throws ClassNotFoundException, SQLException, UnsupportedEncodingException {
+        ArrayList<Integer> IDs = new ArrayList<>();
+        IDs = DBManager.GetIntArrayList(Tables.TicketsTable.ID, Tables.TicketsTable.Table, "");
+        return IDs;
+    }
+
+    public static int GetSingleTickets() throws ClassNotFoundException, SQLException, UnsupportedEncodingException {
+        int Tickets = 0;
+        ArrayList<Integer> IDs = new ArrayList<>();
+        IDs = DBManager.GetIntArrayList(Tables.TicketsTable.ID, Tables.TicketsTable.Table, "where " + Tables.TicketsTable.TicketTypeID + " = " + 1);
+        Tickets = IDs.size();
+        return Tickets;
+    }
+
+    public static int GetFiveInOneTickets() throws ClassNotFoundException, SQLException, UnsupportedEncodingException {
+        int Tickets = 0;
+        ArrayList<Integer> IDs = new ArrayList<>();
+        IDs = DBManager.GetIntArrayList(Tables.TicketsTable.ID, Tables.TicketsTable.Table, "where " + Tables.TicketsTable.TicketTypeID + " = " + 2);
+        Tickets = IDs.size();
+        return Tickets;
+    }
+
+    public static int GetTenInOneTickets() throws ClassNotFoundException, SQLException, UnsupportedEncodingException {
+        int Tickets = 0;
+        ArrayList<Integer> IDs = new ArrayList<>();
+        IDs = DBManager.GetIntArrayList(Tables.TicketsTable.ID, Tables.TicketsTable.Table, "where " + Tables.TicketsTable.TicketTypeID + " = " + 3);
+        Tickets = IDs.size();
+        return Tickets;
+    }
+    
+     public static int GetTicketTypeIDByTicketID(int TicketID) throws ClassNotFoundException, SQLException, UnsupportedEncodingException {
+        int id = 0;
+        id = DBManager.GetInt(Tables.TicketsTable.TicketTypeID, Tables.TicketsTable.Table, "where " + Tables.TicketsTable.ID + " = " + TicketID);
+        return id;
+    }
+
 }

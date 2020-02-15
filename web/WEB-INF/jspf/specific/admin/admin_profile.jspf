@@ -64,33 +64,18 @@
                     <ul class="nav nav-tabs" id="nav-tab">
                         <li class="active"><a id="nav-tickets-tab" href="#nav-tickets"  data-toggle="tab">Tickets</a></li>
                         <li><a  id="nav-payments-tab"  href="#nav-payments" data-toggle="tab">Payments</a></li>
-                        <li><a  id="nav-wallet-tab"  href="#nav-wallet" data-toggle="tab">Wallet</a></li>
                         <li><a  id="nav-subscribers-tab"  href="#nav-subscribers" data-toggle="tab">Subscribers</a></li>
                         <li><a  id="nav-notifications-tab" href="#nav-notifications" data-toggle="tab">Notifications</a></li>
                     </ul>
                     <div class="tab-content" id="nav-tab">
                         <div class="active tab-pane" id="nav-tickets">
                             <div class="row">
-                                <div class="col-lg-4 col-xs-6">
-                                    <!-- small box -->
-                                    <div class="small-box bg-aqua">
-                                        <div class="inner">
-                                            <h3>169,950</h3>
-
-                                            <p>Total No of Tickets</p>
-                                        </div>
-                                        <div class="icon">
-                                            <i class="ion ion-bag"></i>
-                                        </div>
-                                        <a href="#" class="small-box-footer"><i class="fa fa-arrow-circle-right"></i></a>
-                                    </div>
-                                </div>
                                 <!-- ./col -->
                                 <div class="col-lg-4 col-xs-6">
                                     <!-- small box -->
                                     <div class="small-box bg-green">
                                         <div class="inner">
-                                            <h3>120,000</h3>
+                                            <h3 id="allTotalTicketCount">0</h3>
 
                                             <p>Total No of Tickets Sold</p>
                                         </div>
@@ -105,7 +90,7 @@
                                     <!-- small box -->
                                     <div class="small-box bg-yellow">
                                         <div class="inner">
-                                            <h3>32,000</h3>
+                                            <h3 id="allTotalTicketPaidForCount">0</h3>
 
                                             <p>Total No of Tickets Paid For</p>
                                         </div>
@@ -116,14 +101,11 @@
                                     </div>
                                 </div>
                                 <!-- ./col -->
-                            </div>
-
-                            <div class="row">
                                 <div class="col-lg-4 col-xs-6">
                                     <!-- small box -->
                                     <div class="small-box bg-red">
                                         <div class="inner">
-                                            <h3>2,000</h3>
+                                            <h3 id="allTotalTicketFreeCount">0</h3>
 
                                             <p>Total No of Tickets Given For Free</p>
                                         </div>
@@ -133,14 +115,32 @@
                                         <a href="#" class="small-box-footer"><i class="fa fa-arrow-circle-right"></i></a>
                                     </div>
                                 </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-lg-4 col-xs-6">
+                                    <!-- small box -->
+                                    <div class="small-box bg-aqua">
+                                        <div class="inner">
+                                            <h3 id="allTotalSingleTicketCount">0</h3>
+
+                                            <p>Total No of Single Ticket(s) Sold</p>
+                                        </div>
+                                        <div class="icon">
+                                            <i class="ion ion-bag"></i>
+                                        </div>
+                                        <a href="#" class="small-box-footer"><i class="fa fa-arrow-circle-right"></i></a>
+                                    </div>
+                                </div>
+
                                 <!-- ./col -->
                                 <div class="col-lg-4 col-xs-6">
                                     <!-- small box -->
                                     <div class="small-box bg-aqua">
                                         <div class="inner">
-                                            <h3>169,950</h3>
+                                            <h3 id="allTotalFiveInOneTicketCount">0</h3>
 
-                                            <p>Total No of Tickets 5 in 1 Sold</p>
+                                            <p>Total No of 5-In-1 Ticket(s) Sold</p>
                                         </div>
                                         <div class="icon">
                                             <i class="ion ion-bag"></i>
@@ -153,9 +153,9 @@
                                     <!-- small box -->
                                     <div class="small-box bg-green">
                                         <div class="inner">
-                                            <h3>120,000</h3>
+                                            <h3 id="allTotalTenInOneTicketCount">0</h3>
 
-                                            <p>Total No of Tickets 10 in 1 Sold</p>
+                                            <p>Total No of 10-In-1 Ticket(s) Sold</p>
                                         </div>
                                         <div class="icon">
                                             <i class="ion ion-stats-bars"></i>
@@ -172,81 +172,33 @@
                                         <!-- /.box-header -->
                                         <div class="box-body table-responsive no-padding">
                                             <table class="table table-hover">
-                                                <tr>
+                                                <tr> 
                                                     <th>Serial No</th>
-                                                    <th>User Name</th>
                                                     <th>Ticket Type</th>
                                                     <th>No of Ticket<br> Bought</th>
                                                     <th>Amount Paid</th>
-                                                    <th>Date</th>
-                                                    <th>Time</th>
                                                     <th>Ticket Paid For</th>
                                                     <th>Free Ticket</th>
+                                                    <th>Date</th>
+                                                    <th>Time</th>
                                                     <th>Ticket Detail</th>
                                                 </tr>
-                                                <tr>
-                                                    <td>--------</td>
-                                                    <td>--------</td>
-                                                    <td>--------</td>
-                                                    <td>--------</td>
-                                                    <td>--------</td>
-                                                    <td>--------</td>
-                                                    <td>22: 13 am</td>
-                                                    <td>John Doe</td>
-                                                    <td>11-7-2014</td>
-                                                    <td><a href="#"><span class="label label-success" data-toggle="modal"
-                                                                          data-target="#modal-default">Detail</span></a></td>
-                                                </tr>
-                                                <tr>
-                                                    <td>--------</td>
-                                                    <td>--------</td>
-                                                    <td>--------</td>
-                                                    <td>--------</td>
-                                                    <td>--------</td>
-                                                    <td>--------</td>
-                                                    <td>22: 13 am</td>
-                                                    <td>Alexander Pierce</td>
-                                                    <td>11-7-2014</td>
-                                                    <td><a href="#"><span class="label label-success" data-toggle="modal"
-                                                                          data-target="#modal-default">Detail</span></a></td>
-                                                </tr>
-                                                <tr>
-                                                    <td>--------</td>
-                                                    <td>--------</td>
-                                                    <td>--------</td>
-                                                    <td>--------</td>
-                                                    <td>--------</td>
-                                                    <td>--------</td>
-                                                    <td>22: 13 am</td>
-                                                    <td>Bob Doe</td>
-                                                    <td>11-7-2014</td>
-                                                    <td><a href="#"><span class="label label-success" data-toggle="modal"
-                                                                          data-target="#modal-default">Detail</span></a></td>
-                                                </tr>
-                                                <tr>
-                                                    <td>--------</td>
-                                                    <td>--------</td>
-                                                    <td>--------</td>
-                                                    <td>--------</td>
-                                                    <td>--------</td>
-                                                    <td>--------</td>
-                                                    <td>22: 13 am</td>
-                                                    <td>Mike Doe</td>
-                                                    <td>11-7-2014</td>
-                                                    <td><a href="#"><span class="label label-success" data-toggle="modal"
-                                                                          data-target="#modal-default">Detail</span></a></td>
-                                                </tr>
+                                                <tbody  id="AllTicketList">
+                                                    <tr class="clone hide">
+                                                        <td class="ticket_count">s/n</td>
+                                                        <td class="ticket_tickettype">--------</td>
+                                                        <td class="ticket_ticketbought">--------</td>
+                                                        <td class="ticket_amountpaid">--------</td>
+                                                        <td class="ticket_paidforticket">-----</td>
+                                                        <td class="ticket_freeticket">--------</td>
+                                                        <td class="ticket_date">--------</td>
+                                                        <td class="ticket_time">--------</td>
+                                                        <td class="ticket_detailsbtn"><a href="#"><span class="label label-success" data-toggle="modal"
+                                                                                                        data-target="#modal-default">Detail</span></a></td>
+                                                    </tr>
+                                                </tbody>
+
                                             </table>
-                                        </div>
-                                        <!-- /.box-body -->
-                                        <div class="box-footer clearfix">
-                                            <ul class="pagination pagination-sm no-margin pull-right">
-                                                <li><a href="#">&laquo;</a></li>
-                                                <li><a href="#">1</a></li>
-                                                <li><a href="#">2</a></li>
-                                                <li><a href="#">3</a></li>
-                                                <li><a href="#">&raquo;</a></li>
-                                            </ul>
                                         </div>
                                     </div>
                                     <!-- /.box -->
@@ -256,7 +208,7 @@
                         <div class="modal fade" id="modal-default">
                             <div class="modal-dialog">
                                 <div class="modal-content">
-                                    <div class="modal-header">
+                                    <div class="modal-header bg-blue">
                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                             <span aria-hidden="true">&times;</span></button>
                                         <h4 class="modal-title">Ticket Details</h4>
@@ -266,24 +218,14 @@
                                             <table class="table table-hover">
                                                 <tr>
                                                     <th>Serial No</th>
-                                                    <th>Ticket No</th>
+                                                    <th>Ticket Number</th>
                                                 </tr>
-                                                <tr>
-                                                    <td>--------</td>
-                                                    <td>--------</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>--------</td>
-                                                    <td>--------</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>--------</td>
-                                                    <td>--------</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>--------</td>
-                                                    <td>--------</td>
-                                                </tr>
+                                                <tbody  id="AllTicketHistoryList">
+                                                    <tr class="histclone hide">
+                                                        <td class="ticket_hcount">s/n</td>
+                                                        <td class="ticket_hnumber">--------</td>
+                                                    </tr>
+                                                </tbody>
                                             </table>
                                         </div>
                                     </div>
@@ -300,73 +242,66 @@
 
                         <!-- /.tab-pane -->
                         <div class="tab-pane" id="nav-payments">
+                            <div class="row"> 
+                                <div class="col-lg-6 col-xs-6">
+                                    <!-- small box -->
+                                    <div class="small-box bg-aqua">
+                                        <div class="inner">
+                                            <h3 id="allTotalPaymentCount">0</h3>
+
+                                            <p>Total Number of Payments / <br> Transactions</p>
+                                        </div>
+                                        <div class="icon">
+                                            <i class="ion ion-bag"></i>
+                                        </div>
+                                        <a href="#" class="small-box-footer"><i class="fa fa-arrow-circle-right"></i></a>
+                                    </div>
+                                </div>
+                                <!-- ./col -->
+                                <div class="col-lg-6 col-xs-6">
+                                    <!-- small box -->
+                                    <div class="small-box bg-blue-active">
+                                        <div class="inner">
+                                            <h3 id="allTotalPaymentAmountCount">0</h3>
+
+                                            <p>Total Amount <br>Gotten</p>
+                                        </div>
+                                        <div class="icon">
+                                            <i class="ion ion-stats-bars"></i>
+                                        </div>
+                                        <a href="#" class="small-box-footer"><i class="fa fa-arrow-circle-right"></i></a>
+                                    </div>
+                                </div>
+                            </div>
                             <div class="row">
                                 <div class="col-xs-12">
                                     <div class="box">
-                                        <!-- /.box-header -->
+                                        <!-- /.box-header --> 
                                         <div class="box-body table-responsive no-padding">
                                             <table class="table table-hover">
                                                 <tr>
                                                     <th>Serial No</th>
                                                     <th>User Name</th>
                                                     <th>Amount Paid</th>
+                                                    <th>Ticket Type</th>
+                                                    <th>No of Ticket<br> Bought</th>
                                                     <th>Date</th>
                                                     <th>Time</th>
-                                                    <th>Ticket Type</th>
-                                                    <th>Ticket No</th>
-                                                    <th>No of Ticket<br> Bought</th>
                                                 </tr>
-                                                <tr>
-                                                    <td>--------</td>
-                                                    <td>--------</td>
-                                                    <td>--------</td>
-                                                    <td>--------</td>
-                                                    <td>22: 13 am</td>
-                                                    <td>John Doe</td>
-                                                    <td>11-7-2014</td>
-                                                    <td><span class="label label-success">Approved</span></td>
-                                                </tr>
-                                                <tr>
-                                                    <td>--------</td>
-                                                    <td>--------</td>
-                                                    <td>--------</td>
-                                                    <td>--------</td>
-                                                    <td>22: 13 am</td>
-                                                    <td>Alexander Pierce</td>
-                                                    <td>11-7-2014</td>
-                                                    <td><span class="label label-warning">Pending</span></td>
-                                                </tr>
-                                                <tr>
-                                                    <td>--------</td>
-                                                    <td>--------</td>
-                                                    <td>--------</td>
-                                                    <td>--------</td>
-                                                    <td>22: 13 am</td>
-                                                    <td>Bob Doe</td>
-                                                    <td>11-7-2014</td>
-                                                    <td><span class="label label-primary">Approved</span></td>
-                                                </tr>
-                                                <tr>
-                                                    <td>--------</td>
-                                                    <td>--------</td>
-                                                    <td>--------</td>
-                                                    <td>--------</td>
-                                                    <td>22: 13 am</td>
-                                                    <td>Mike Doe</td>
-                                                    <td>11-7-2014</td>
-                                                    <td><span class="label label-danger">Denied</span></td>
-                                                </tr>
+                                                <tbody  id="AllPaymentList">
+                                                    <tr class="payClone hide">
+                                                        <td class="pay_count">--------</td>
+                                                        <td class="pay_username">--------</td>
+                                                        <td class="pay_amount">--------</td>
+                                                        <td class="pay_tickettype">--------</td>
+                                                        <td class="pay_ticketbought">--------</td>
+                                                        <td class="pay_date">--------</td>
+                                                        <td class="pay_time">--------</td>
+                                                    </tr>
+
+                                                </tbody>
+
                                             </table>
-                                        </div>
-                                        <!-- /.box-body -->
-                                        <div class="box-footer clearfix">
-                                            <ul class="pagination pagination-sm no-margin pull-right">
-                                                <li><a href="#">&laquo;</a></li>
-                                                <li><a href="#">1</a></li>
-                                                <li><a href="#">2</a></li>
-                                                <li><a href="#">3</a></li>
-                                                <li><a href="#">&raquo;</a></li>
-                                            </ul>
                                         </div>
                                     </div>
                                     <!-- /.box -->
@@ -375,107 +310,19 @@
                         </div>
                         <!-- /.tab-pane -->
 
-
-
-
-
-
-                        <div class="tab-pane" id="nav-wallet">
-                            <div class="row">
-                                <div class="col-lg-4 col-xs-6">
-                                    <!-- small box -->
-                                    <div class="info-box">
-                                        <span class="info-box-icon bg-aqua"><i class="ion ion-ios-gear-outline"></i></span>
-
-                                        <div class="info-box-content">
-                                            <span class="info-box-text">Amount in All Wallet</span>
-                                            <span class="info-box-number">&#8358; 12,000</span>
-                                        </div>
-                                        <!-- /.info-box-content -->
-                                    </div>
-                                </div>
-                                <!-- ./col -->
-                                <div class="col-lg-4 col-xs-6">
-                                    <!-- small box -->
-                                    <div class="info-box">
-                                        <span class="info-box-icon bg-red"><i class="ion ion-ios-gear-outline"></i></span>
-
-                                        <div class="info-box-content">
-                                            <span class="info-box-text">Amount in Admin Wallet</span>
-                                            <span class="info-box-number">&#8358; 122,000</span>
-                                        </div>
-                                        <!-- /.info-box-content -->
-                                    </div>
-                                </div>
-                                <!-- ./col -->
-                            </div>
-
-                            <div class="row">
-                                <div class="col-xs-12">
-                                    <div class="box">
-                                        <!-- /.box-header -->
-                                        <div class="box-body table-responsive no-padding">
-                                            <table class="table table-hover">
-                                                <tr>
-                                                    <th>Serial No</th>
-                                                    <th>User Name</th>
-                                                    <th>Balances</th>
-                                                </tr>
-                                                <tr>
-                                                    <td>22: 13 am</td>
-                                                    <td>John Doe</td>
-                                                    <td>11-7-2014</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>22: 13 am</td>
-                                                    <td>Alexander Pierce</td>
-                                                    <td>11-7-2014</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>22: 13 am</td>
-                                                    <td>Bob Doe</td>
-                                                    <td>11-7-2014</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>22: 13 am</td>
-                                                    <td>Mike Doe</td>
-                                                    <td>11-7-2014</td>
-                                                </tr>
-                                            </table>
-                                        </div>
-                                        <!-- /.box-body -->
-                                        <div class="box-footer clearfix">
-                                            <ul class="pagination pagination-sm no-margin pull-right">
-                                                <li><a href="#">&laquo;</a></li>
-                                                <li><a href="#">1</a></li>
-                                                <li><a href="#">2</a></li>
-                                                <li><a href="#">3</a></li>
-                                                <li><a href="#">&raquo;</a></li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                    <!-- /.box -->
-                                </div>
-                            </div>
-                        </div>
-
-
-
-
-
                         <div class="tab-pane" id="nav-subscribers">
                             <div class="row">
-                                <div class="col-lg-4 col-xs-6">
+                                <div class="col-lg-12 col-xs-12">
                                     <!-- small box -->
                                     <div class="info-box bg-yellow">
-                                        <span class="info-box-icon"><i class="ion ion-ios-pricetag-outline"></i></span>
+                                        <span class="info-box-icon"><i class="ion ion-ios-person"></i></span>
 
                                         <div class="info-box-content">
                                             <span class="info-box-text">Subscribers</span>
-                                            <span class="info-box-number">5,200</span>
+                                            <span class="info-box-number" id="totalSubscribers">0</span>
 
                                             <div class="progress">
-                                                <div class="progress-bar" style="width: 50%"></div>
+                                                <div class="progress-bar" style="width: 100%"></div>
                                             </div>
                                             <span class="progress-description">
                                                 Total Number of Subscribers
@@ -498,68 +345,30 @@
                                                     <th>User Name</th>
                                                     <th>Email</th>
                                                     <th>Phone</th>
-                                                    <th>Referral link</th>
+                                                    <th>Referral Code</th>
                                                     <th>Referral</th>
-                                                    <th>No of Referral</th>
-                                                    <th>Registration Date</th>
-                                                    <th>Registration Time</th>
+                                                    <th>No. of Referral</th>
+                                                    <th>No. of Ticket Bought</th>
+                                                    <th>Date</th>
                                                 </tr>
-                                                <tr>
-                                                    <td>--------</td>
-                                                    <td>--------</td>
-                                                    <td>--------</td>
-                                                    <td>--------</td>
-                                                    <td>--------</td>
-                                                    <td>--------</td>
-                                                    <td>22: 13 am</td>
-                                                    <td>John Doe</td>
-                                                    <td>11-7-2014</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>--------</td>
-                                                    <td>--------</td>
-                                                    <td>--------</td>
-                                                    <td>--------</td>
-                                                    <td>--------</td>
-                                                    <td>--------</td>
-                                                    <td>22: 13 am</td>
-                                                    <td>Alexander Pierce</td>
-                                                    <td>11-7-2014</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>--------</td>
-                                                    <td>--------</td>
-                                                    <td>--------</td>
-                                                    <td>--------</td>
-                                                    <td>--------</td>
-                                                    <td>--------</td>
-                                                    <td>22: 13 am</td>
-                                                    <td>Bob Doe</td>
-                                                    <td>11-7-2014</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>--------</td>
-                                                    <td>--------</td>
-                                                    <td>--------</td>
-                                                    <td>--------</td>
-                                                    <td>--------</td>
-                                                    <td>--------</td>
-                                                    <td>22: 13 am</td>
-                                                    <td>Mike Doe</td>
-                                                    <td>11-7-2014</td>
-                                                </tr>
+                                                <tbody  id="UserList">
+                                                    <tr class="userclone hide">
+                                                        <td class="user_count">s/n</td>
+                                                        <td class="user_username">name</td>
+                                                        <td class="user_email">email</td>
+                                                        <td class="user_phone">Phone</td>
+                                                        <td class="user_refcode">code</td>
+                                                        <td class="user_referral">Referral</td>
+                                                        <td class="user_refcount">Count</td>
+                                                        <td class="user_ticketbought">Count</td>
+                                                        <td class="user_date">Count</td>
+                                                    </tr>
+                                                </tbody>
+
                                             </table>
                                         </div>
                                         <!-- /.box-body -->
-                                        <div class="box-footer clearfix">
-                                            <ul class="pagination pagination-sm no-margin pull-right">
-                                                <li><a href="#">&laquo;</a></li>
-                                                <li><a href="#">1</a></li>
-                                                <li><a href="#">2</a></li>
-                                                <li><a href="#">3</a></li>
-                                                <li><a href="#">&raquo;</a></li>
-                                            </ul>
-                                        </div>
+
                                     </div>
                                     <!-- /.box -->
                                 </div>
@@ -573,27 +382,14 @@
 
                         <div class="tab-pane" id="nav-notifications">
                             <div class="row">
-                                <div class="col-lg-4 col-xs-6">
+                                <div class="col-lg-12 col-xs-12">
                                     <!-- small box -->
                                     <div class="info-box">
                                         <span class="info-box-icon bg-aqua"><i class="ion ion-ios-gear-outline"></i></span>
 
                                         <div class="info-box-content">
-                                            <span class="info-box-text">Amount in All Wallet</span>
-                                            <span class="info-box-number">&#8358; 12,000</span>
-                                        </div>
-                                        <!-- /.info-box-content -->
-                                    </div>
-                                </div>
-                                <!-- ./col -->
-                                <div class="col-lg-4 col-xs-6">
-                                    <!-- small box -->
-                                    <div class="info-box">
-                                        <span class="info-box-icon bg-red"><i class="ion ion-ios-gear-outline"></i></span>
-
-                                        <div class="info-box-content">
-                                            <span class="info-box-text">Amount in Admin Wallet</span>
-                                            <span class="info-box-number">&#8358; 122,000</span>
+                                            <span class="info-box-text">Total Number of Notifications</span>
+                                            <span class="info-box-number" id="allTotalNotification">0</span>
                                         </div>
                                         <!-- /.info-box-content -->
                                     </div>
@@ -609,40 +405,24 @@
                                             <table class="table table-hover">
                                                 <tr>
                                                     <th>Serial No</th>
-                                                    <th>User Name</th>
-                                                    <th>Balances</th>
+                                                    <th>Receiver's Name</th>
+                                                    <th>Subject</th>
+                                                    <th>Body</th>
+                                                    <th>Date</th>
+                                                    <th>Time</th>
                                                 </tr>
-                                                <tr>
-                                                    <td>22: 13 am</td>
-                                                    <td>John Doe</td>
-                                                    <td>11-7-2014</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>22: 13 am</td>
-                                                    <td>Alexander Pierce</td>
-                                                    <td>11-7-2014</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>22: 13 am</td>
-                                                    <td>Bob Doe</td>
-                                                    <td>11-7-2014</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>22: 13 am</td>
-                                                    <td>Mike Doe</td>
-                                                    <td>11-7-2014</td>
-                                                </tr>
+                                                <tbody  id="AllNotificationList">
+                                                    <tr class="noticlone hide">
+                                                        <td class="noti_count">s/n</td>
+                                                        <td class="noti_name">Name</td>
+                                                        <td class="noti_subject">Subject</td>
+                                                        <td class="noti_body">Body</td>
+                                                        <td class="noti_date">Date</td>
+                                                        <td class="noti_time">Time</td>
+                                                    </tr>
+                                                </tbody>
+
                                             </table>
-                                        </div>
-                                        <!-- /.box-body -->
-                                        <div class="box-footer clearfix">
-                                            <ul class="pagination pagination-sm no-margin pull-right">
-                                                <li><a href="#">&laquo;</a></li>
-                                                <li><a href="#">1</a></li>
-                                                <li><a href="#">2</a></li>
-                                                <li><a href="#">3</a></li>
-                                                <li><a href="#">&raquo;</a></li>
-                                            </ul>
                                         </div>
                                     </div>
                                     <!-- /.box -->

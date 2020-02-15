@@ -43,6 +43,7 @@
 
     <body class="hold-transition skin-blue sidebar-mini">
         <div class="wrapper">
+            <div class="preloader hide"></div>
             <%@include file="../../../WEB-INF/jspf/general/new/header.jspf" %>
             <%@include file="../../../WEB-INF/jspf/general/new/sidebar.jspf" %>
             <jsp:include page="../../../WEB-INF/static_pages/specific/admin/adm_profile.jsp"></jsp:include>

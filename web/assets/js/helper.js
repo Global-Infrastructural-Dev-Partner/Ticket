@@ -30,10 +30,10 @@ function verifyUser() {
         var page = getCurrentPage();
         if (page === "sub_profile.jsp") {
             extension = "../../../";
-//            window.location = extension + "ControllerServlet?action=Link&type=TimeOut";
+            window.location = extension + "ControllerServlet?action=Link&type=TimeOut";
         } else if (page === "admin_profile.jsp") {
             extension = "../../../";
-//            window.location = extension + "ControllerServlet?action=Link&type=TimeOut";
+            window.location = extension + "ControllerServlet?action=Link&type=TimeOut";
         }
     }
 }

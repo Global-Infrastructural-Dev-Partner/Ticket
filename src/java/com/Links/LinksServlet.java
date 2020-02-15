@@ -60,6 +60,11 @@ public class LinksServlet extends HttpServlet {
                     response.sendRedirect("index.jsp");
                     break;
                 }
+                case "TimeOut": {
+                    session.removeAttribute("sessionid");
+                    response.sendRedirect("pages/general/sessiontimeout.jsp");
+                    break;
+                }
                 default: {
                     response.sendRedirect(request.getHeader("referer"));
                 }
