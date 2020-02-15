@@ -11,6 +11,7 @@ import java.sql.Date;
 import java.sql.SQLException;
 import java.sql.Time;
 import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Properties;
 import javax.mail.Message;
@@ -194,5 +195,34 @@ public class TicketManager {
         int result = 0;
         result = DBManager.GetInt(Tables.TicketTypeTable.ID, Tables.TicketTypeTable.Table, "where " + Tables.TicketTypeTable.Name + " = '" + TicketTypeName + "'");
         return result;
+    }
+    
+    public static ArrayList<Integer> GetUserTickets(int UserID) throws ClassNotFoundException, SQLException, UnsupportedEncodingException {
+        ArrayList<Integer> IDs = new ArrayList<>();
+        IDs = DBManager.GetIntArrayList(Tables.TicketsTable.ID, Tables.TicketsTable.Table, "where " + Tables.TicketsTable.UserID + " = " + UserID);
+        return IDs;
+    }
+
+    public static int GetUserTotalFreeTickets(int UserID) throws ClassNotFoundException, SQLException, UnsupportedEncodingException {
+        ArrayList<Integer> IDs = new ArrayList<>();
+        int freeTickets = 0;
+        IDs = DBManager.GetIntArrayList(Tables.TicketsTable.FreeTickets, Tables.TicketsTable.Table, "where " + Tables.TicketsTable.UserID + " = " + UserID);
+
+        return freeTickets;
+    }
+
+    public static ArrayList<Integer> GetUserTotalPaidForTickets(int UserID) throws ClassNotFoundException, SQLException, UnsupportedEncodingException {
+        ArrayList<Integer> IDs = new ArrayList<>();
+        IDs = DBManager.GetIntArrayList(Tables.TicketsTable.TicketPaidFor, Tables.TicketsTable.Table, "where " + Tables.TicketsTable.UserID + " = " + UserID);
+        return IDs;
+    }
+
+    public static HashMap<String, String> GetTicketDetails(int TicketID) throws ClassNotFoundException, SQLException, UnsupportedEncodingException {
+        HashMap<String, String> Details = new HashMap<>();
+        HashMap<String, String> hisDetails = new HashMap<>();
+        Details = DBManager.GetTableData(Tables.TicketsTable.Table, "where " + Tables.TicketsTable.ID + " = " + TicketID);
+        hisDetails = DBManager.GetTableData(Tables.TicketHistoryTable.Table, "where " + Tables.TicketHistoryTable.ID + " = " + TicketID);
+        Details.putAll(hisDetails);
+        return Details;
     }
 }

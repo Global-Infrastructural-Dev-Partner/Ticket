@@ -66,7 +66,7 @@ public class UserServlet extends HttpServlet {
                         if (UserID != 0) {
                             String sessionid = session.getId();
                             UserManager.UpdateSessionID(sessionid, UserID);
-                            session.setMaxInactiveInterval(2 * 60);
+//                            session.setMaxInactiveInterval(10 * 60);
                             session.setAttribute("sessionid", sessionid);
                             String status = UserManager.getUserStatus(UserID);
                             json = new Gson().toJson(status);
@@ -96,7 +96,7 @@ public class UserServlet extends HttpServlet {
                             if (MemberUserID != 0) {
                                 String sessionid = session.getId();
                                 UserManager.UpdateSessionID(sessionid, MemberUserID);
-                                session.setMaxInactiveInterval(2 * 60);
+                                session.setMaxInactiveInterval(5 * 60);
                                 session.setAttribute("sessionid", sessionid);
                                 String status = UserManager.getUserStatus(MemberUserID);
                                 result = "success";
@@ -169,7 +169,7 @@ public class UserServlet extends HttpServlet {
                                     int TicketTypeID = TicketManager.GetTicketTypeByName(tickettype);
                                     TicketManager.CreateTicket(MemberUserID, Amount, TicketTypeID, NumberOfTickets, reference, transref);
                                     UserManager.UpdateSessionID(sessionid, MemberUserID);
-                                    session.setMaxInactiveInterval(2 * 60);
+                                    session.setMaxInactiveInterval(5 * 60);
                                     session.setAttribute("sessionid", sessionid);
                                     String status = UserManager.getUserStatus(MemberUserID);
                                     result = "success";
@@ -200,7 +200,8 @@ public class UserServlet extends HttpServlet {
 
                 case "GetMemberDetails": {
                     String sessionid = request.getParameter("data");
-                    HashMap<String, String> memberdetails = UserManager.GetUserDetails(sessionid);
+                    int UserID = UserManager.GetUserIDBySessionID(sessionid);
+                    HashMap<String, String> memberdetails = UserManager.GetUserDetails(UserID);
                     json = new Gson().toJson(memberdetails);
                     break;
                 }
@@ -209,7 +210,7 @@ public class UserServlet extends HttpServlet {
                     HashMap<Integer, HashMap<String, String>> users = new HashMap<>();
                     if (!ids.isEmpty()) {
                         for (int id : ids) {
-                            HashMap<String, String> det = UserManager.GetUserDetails("" + id);
+                            HashMap<String, String> det = UserManager.GetUserDetails( id);
                             users.put(id, det);
                         }
 

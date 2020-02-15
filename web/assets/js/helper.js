@@ -8,7 +8,7 @@ var isMobile = false;
 var currentSelection, myNicEditor;
 $(document).ready(function () {
     performPageActions();
-    
+
 });
 function getCurrentPage() {
 //returns the current page the user is on
@@ -99,13 +99,14 @@ function cleanArray(actual) {
     return newArray;
 }
 function showLoader() {
-    $(".preloader").removeClass("d-none");
+    $(".preloader").removeClass("d-none hide");
     $(".preloader").show();
 }
 function hideLoader() {
-    $(".preloader").addClass("d-none");
+    $(".preloader").addClass("d-none hide");
     $(".preloader").hide();
 }
+
 function formatNumber(n) {
     // format number 1000000 to 1,234,567
     return n.replace(/\D/g, "").replace(/\B(?=(\d{3})+(?!\d))/g, ",");

@@ -15,6 +15,7 @@
         <!-- Tell the browser to be responsive to screen width -->
         <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
         <!-- Bootstrap 3.3.7 -->
+        <link href="../../../assets/css/appCSS.css" rel="stylesheet" type="text/css"/>
         <link href="../../../assets/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
         <!-- Font Awesome -->
         <link href="../../../assets/css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
@@ -43,6 +44,7 @@
 
     <body class="hold-transition skin-blue sidebar-mini">
         <div class="wrapper">
+            <div class="preloader hide"></div>
             <%@include file="../../../WEB-INF/jspf/general/new/header.jspf" %>
             <%@include file="../../../WEB-INF/jspf/general/new/sidebar.jspf" %>
             <jsp:include page="../../../WEB-INF/static_pages/specific/subscriber/sub_profile.jsp"></jsp:include>
@@ -65,6 +67,8 @@
         <script src="../../../assets/js/appScript.js" type="text/javascript"></script>
         <script src="../../../assets/js/helper.js" type="text/javascript"></script>
         <script src="../../../assets/js/sweetalert2.min.js" type="text/javascript"></script>
+
+        <script src="https://js.paystack.co/v1/inline.js"></script>
         <!-- page script -->
     </body>
 

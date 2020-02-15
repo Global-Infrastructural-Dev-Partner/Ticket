@@ -52,20 +52,15 @@ public class UserManager {
         return result;
     }
 
-//    public static String UpdateUserStatus(int userid, String status) throws ClassNotFoundException, SQLException, UnsupportedEncodingException {
-//        String result = DBManager.UpdateStringData(Tables.UsersTable.Table, Tables.UsersTable.Status, status, "where " + Tables.UsersTable.ID + " = " + userid);
-//        return result;
-//    }
     public static ArrayList<Integer> GetAllUsers() throws ClassNotFoundException, SQLException, UnsupportedEncodingException {
         ArrayList<Integer> IDs = new ArrayList<>();
         IDs = DBManager.GetIntArrayList(Tables.UsersTable.ID, Tables.UsersTable.Table, "");
         return IDs;
     }
 
-    public static HashMap<String, String> GetUserDetails(String SessionID) throws ClassNotFoundException, SQLException, UnsupportedEncodingException {
+    public static HashMap<String, String> GetUserDetails(int UserID) throws ClassNotFoundException, SQLException, UnsupportedEncodingException {
         HashMap<String, String> FavDetails = new HashMap<>();
         HashMap<String, String> Details = new HashMap<>();
-        int UserID = GetUserIDBySessionID(SessionID);
         FavDetails = DBManager.GetTableData(Tables.UsersTable.Table, "where " + Tables.UsersTable.ID + " = " + UserID);
         FavDetails.putAll(Details);
         return FavDetails;
@@ -287,4 +282,5 @@ public class UserManager {
         return userid;
     }
 
+    
 }

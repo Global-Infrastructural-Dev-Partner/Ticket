@@ -5,10 +5,11 @@
  */
 
 
-var sessionid, userOnlineReferralCode;
+var sessionid, userOnlineReferralCode, username, useremail;
 var extension = "";
 function performPageActions() {
     verifyUser();
+    sessionid = $("#sessionid").val();
     var page = getCurrentPage();
     if (page === "index.jsp" || page === "") {
         var headerImage = "assets/img/logo-2.png";
@@ -26,6 +27,7 @@ function performPageActions() {
         extension = "../../";
     } else if (page === "sub_profile.jsp") {
         extension = "../../../";
+        subscriberPageFunctions();
     } else if (page === "admin_profile.jsp") {
         extension = "../../../";
     } else {
@@ -34,12 +36,10 @@ function performPageActions() {
         var footerImage1 = "../../assets/img/logo.png";
         $(".footerImage").attr("src", footerImage1);
     }
-    sessionid = $("#sessionid").val();
+
     userOnlineReferralCode = $("#userOnlineReferralCode").val();
     if (userOnlineReferralCode) {
         $("#regrefcode").val(userOnlineReferralCode);
-    } else {
-
     }
     btnEvents();
     AppFunctions();
@@ -49,7 +49,7 @@ function GetExtension() {
     return extension;
 }
 function AppFunctions() {
-    GetData("User", "GetMemberDetails", "LoadMemberDetails", sessionid);
+
 }
 
 function btnEvents() {
@@ -200,6 +200,20 @@ function btnEvents() {
         PreparePaymentInfo(newQty, "Ten-In-One", 10);
     });
 
+
+
+    $("#buySingleTicket").click(function () {
+        buySingleTicket("Single");
+    });
+    $("#buyFiveTickets").click(function () {
+        var newQty = 10000;
+        PaystackPay(newQty, "Five-In-One", 6);
+    });
+    $("#buyTenTickets").click(function () {
+        var newQty = 20000;
+        PaystackPay(newQty, "Ten-In-One", 10);
+    });
+
     $(".copyRefLinkBtn").click(function () {
         /* Get the text field */
         var copyText = $(".copyreflink").text();
@@ -216,6 +230,39 @@ function btnEvents() {
     });
 }
 
+function buySingleTicket(paymenttype) {
+    const swalWithBootstrapButtons = Swal.mixin({
+        customClass: {
+            confirmButton: 'btn btn-success',
+            cancelButton: 'btn btn-danger'
+        },
+        buttonsStyling: false
+    });
+
+    swalWithBootstrapButtons.fire({
+        title: 'Buy Ticket?',
+        text: "Enter the number of Tickets.",
+        icon: 'info',
+        input: 'text',
+        showCancelButton: true,
+        confirmButtonText: 'Yes',
+        cancelButtonText: 'No',
+        reverseButtons: true,
+    }).then((result) => {
+        if (result.value) {
+            var newQty = parseInt(result.value) * 2000;
+            PaystackPay(newQty, paymenttype, result.value);
+        } else if (result.dismiss === Swal.DismissReason.cancel) {
+            swalWithBootstrapButtons.fire('Cancelled', 'You work is safe :)', 'success');
+        }
+    });
+}
+
+
+function subscriberPageFunctions() {
+    GetData("User", "GetMemberDetails", "LoadMemberDetails", sessionid);
+    GetData("Ticket", "GetUserTickets", "LoadUserTickets", sessionid);
+}
 
 function PreparePaymentInfo(newQty, paymenttype, numberofticket) {
     Swal.mixin({
@@ -286,6 +333,39 @@ function PreparePaymentInfo(newQty, paymenttype, numberofticket) {
             });
         }
     });
+}
+
+
+function PaystackPay(amount, paymenttype, numberofticket) {
+    var handler = PaystackPop.setup({
+        key: 'pk_test_9c32fd37430710c4b34c9376c8133c7925e899a7',
+        email: useremail,
+        amount: amount + "00",
+        ref: '' + Math.floor((Math.random() * 1000000000) + 1), // generates a pseudo-unique reference. Please replace with a reference you generated. Or remove the line entirely so our API will generate one for you
+        metadata: {
+            custom_fields: [
+                {
+                    display_name: "Customer Name",
+                    variable_name: "Customer Name",
+                    value: username
+                },
+                {
+                    display_name: "Payment Type",
+                    variable_name: "Payment Type",
+                    value: paymenttype + " Ticket"
+                }
+            ]
+        },
+        callback: function (response) {
+            var data = [paymenttype, amount, numberofticket, response.reference, response.trans, sessionid];
+            showLoader();
+            GetData("Ticket", "BuyTicket", "LoadBuyTicket", data);
+        },
+        onClose: function () {
+            Swal.fire('Cancelled!', 'Nothing has been saved, you can try again later.', 'info');
+        }
+    });
+    handler.openIframe();
 }
 
 
@@ -428,16 +508,15 @@ function DisplayRegistration(data) {
 }
 
 function DisplayMemberDetails(data) {
-//    alert(JSON.stringify(data));
-//    if (data !== "none") {
-    var utype = data["usertype"];
-    if (utype === "Admin") {
-        $(".admin_view").removeClass("hide");
-        $(".admin_view").show();
-    } else {
-        $(".admin_view").addClass("hide");
-        $(".admin_view").hide();
-    }
+    if (data !== "none") {
+        var utype = data["usertype"];
+        if (utype === "Admin") {
+            $(".admin_view").removeClass("hide");
+            $(".admin_view").show();
+        } else {
+            $(".admin_view").addClass("hide");
+            $(".admin_view").hide();
+        }
 //        var image_url = extension + "global_assets/img/ProfilePicture/user-" + data["userID"] + ".png";
 //        if (imageExists(image_url) === false) {
 //            image_url = extension + "global_assets/img/ProfilePicture/user-0.png";
@@ -446,96 +525,18 @@ function DisplayMemberDetails(data) {
 //        $(".bgUserImage").css("background-image", "url('" + extension + "global_assets/img/ProfilePicture/user-" + data["userID"] + ".png')");
 //        $(".bgUserImage").css("background-repeat", "no-repeat");
 //        $(".bgUserImage").css("background-position", "center center");
-    $(".user-name").text(data["firstname"] + " " + data["lastname"]);
-    $(".user-firstname").text(data["firstname"]);
-    $(".user-lastname").text(data["lastname"]);
-    $(".user-email").text(data["email"]);
-    $(".user-phone").text(data["phone"]);
-    $(".user-referral_link").text(data["referral_link"]);
-    $(".user-referral_count").text(data["referral_count"]);
-//        $(".UserStatus").text(data["status"]);
-//        $(".UserofflineID").text(data["offlineID"]);
-//        localStorage.UserPass = data["password"];
-//        localStorage.phone = data["phone_number"];
-//        localStorage.email = data["email"];
-    $(".user-type").text(data["usertype"]);
-//        $(".UserGender").text(data["sex"]);
-//        $(".UserDateJoined").text(data["date_joined"]);
-//        $(".UserDOB").text(data["dob"]);
-//        $(".UserName").text(data["user_name"]);
-//        loginuseremail = data["email"];
-//        username = data["user_name"];
-//        $(".bizName").text(data["Name"]);
-//        $(".bizIndustry").text(data["BusinessIndustry"]);
-//        $(".bizType").text(data["BusinessType"]);
-//        $(".bizEmail").text(data["email"]);
-//        $(".bizPhone").text(data["phone_number"]);
-//        $(".bizDateFound").text(data["DateFounded"]);
-//        $(".bizCACNumber").text(data["CACNumber"]);
-//        $(".BizDesc").text(data["Description"]);
-//        $(".BizWebAddress").text(data["Website"]);
-//        $(".BankName").text(data["BankName"]);
-//        $(".AccountType").text(data["accountType"]);
-//        $(".AccountBVN").text(data["bvnNumber"]);
-//        $(".AccountNumber").text(data["accountNumber"]);
-//        var acctNumber = data["accountNumber"];
-//        if (acctNumber === undefined || acctNumber === "undefined") {
-//            $("#addbkinfo").removeClass("hide");
-//            $("#addbkinfo").show();
-//            $(".bankInfo").addClass("hide");
-//            $(".bankInfo").hide();
-//        } else {
-//            $("#addbkinfo").addClass("hide");
-//            $("#addbkinfo").hide();
-//            $(".bankInfo").removeClass("hide");
-//            $(".bankInfo").show();
-//        }
-//        var parent = $(".user-addresses");
-//        var childclone = parent.find(".clone");
-//        var res = data["addresses"];
-//        var count = 0;
-//        $.each(res, function (id, item) {
-//            var newchild = childclone.clone();
-//            newchild.removeClass("clone");
-//            count++;
-//            newchild.find(".address-sn").text(count);
-//            newchild.find(".addressPickUp").text(item["addressPickUp"]);
-//            newchild.find(".addressType").text(item["addresstype"] + " Address");
-//            newchild.find(".UserAddress").text(item["fulladdress"]);
-//            var btnDelete = newchild.find(".btnDeleteAdd");
-//            btnDelete.click(function () {
-//                data = item["id"];
-//                swal({
-//                    title: 'Are you sure?',
-//                    text: "You won't be able to revert this!",
-//                    type: 'warning',
-//                    showCancelButton: true,
-//                    confirmButtonText: 'Yes, delete it!',
-//                    cancelButtonText: 'No, cancel!',
-//                    confirmButtonClass: 'btn btn-success',
-//                    cancelButtonClass: 'btn btn-danger',
-//                    buttonsStyling: false
-//                }).then(function (dismiss) {
-//                    if (dismiss.value) {
-//                        GetData("Address", "DeleteUserAddress", "LoadAddress", data);
-//                    } else {
-//                        swal({
-//                            title: 'Safe',
-//                            text: "Your address is safe!",
-//                            type: 'success',
-//                            showCancelButton: false,
-//                            confirmButtonText: 'Ok!',
-//                            confirmButtonClass: 'btn btn-success',
-//                            buttonsStyling: false
-//                        });
-//                    }
-//                });
-//            });
-//            newchild.appendTo(parent);
-//        });
-//        $(".useraddressCount").text(count);
-//        childclone.hide();
-    // }
+        $(".user-name").text(data["firstname"] + " " + data["lastname"]);
+        $(".user-firstname").text(data["firstname"]);
+        $(".user-lastname").text(data["lastname"]);
+        $(".user-email").text(data["email"]);
+        $(".user-phone").text(data["phone"]);
+        $(".user-referral_code").text(data["referral_code"]);
+        $(".user-referral_count").text(data["referral_count"]);
+        $(".user-type").text(data["usertype"]);
+        $(".user_dateregistered").text(data["date_registered"]);
+        username = data["firstname"] + " " + data["lastname"];
+        useremail = data["email"];
+    }
 }
 
 function DisplayRegistrationAndPayment(data) {
@@ -582,7 +583,48 @@ function DisplayRegistrationAndPayment(data) {
     }
 }
 
+function DisplayBuyTicket(data) {
+    hideLoader();
+    if (data === "success") {
+        const swalWithBootstrapButtons = Swal.mixin({
+            customClass: {
+                confirmButton: 'btn btn-success'
+            },
+            buttonsStyling: false
+        });
+        swalWithBootstrapButtons.fire({
+            title: 'Buy Ticket',
+            text: "Successful!",
+            icon: 'info',
+            showCancelButton: false,
+            confirmButtonText: 'Ok!'
+        }).then((result) => {
 
+        });
+    } else {
+        const swalWithBootstrapButtons = Swal.mixin({
+            customClass: {
+                confirmButton: 'btn btn-primary'
+            },
+            buttonsStyling: false
+        });
+        swalWithBootstrapButtons.fire({
+            title: 'Uh Oh?',
+            text: "Something went wrong, if you card was debited, please contact PienMoney",
+            icon: 'info',
+            showCancelButton: false,
+            confirmButtonText: 'Ok'
+        }).then((result) => {
+            window.location = extension + "ControllerServlet?action=Link&type=Register";
+        });
+    }
+}
+
+
+
+function DisplayUserTickets(data) {
+//    alert("hey" +JSON.stringify(data));
+}
 function linkToFunction(action, params) {
     switch (action) {
         case "LoadUserLogin":
@@ -603,6 +645,16 @@ function linkToFunction(action, params) {
         case "LoadRegistrationAndPayment":
         {
             DisplayRegistrationAndPayment(params);
+            break;
+        }
+        case "LoadUserTickets":
+        {
+            DisplayUserTickets(params);
+            break;
+        }
+        case "LoadBuyTicket":
+        {
+            DisplayBuyTicket(params);
             break;
         }
     }

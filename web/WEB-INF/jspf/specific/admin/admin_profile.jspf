@@ -24,23 +24,35 @@
                         <img class="profile-user-img img-responsive img-circle" src="../../../assets/img/user7-128x128.jpg"
                              alt="User profile picture">
 
-                        <h3 class="profile-username text-center">Nina Mcintire</h3>
+                        <h3 class="profile-username text-center user-name">Loading Name</h3>
 
-                        <p class="text-muted text-center">Software Engineer</p>
+                        <p class="text-muted text-center user-type">Loading Type</p>
 
                         <ul class="list-group list-group-unbordered">
                             <li class="list-group-item">
-                                <b>Followers</b> <a class="pull-right">1,322</a>
+                                <b class="user-firstname">Loading First Name</b>
                             </li>
                             <li class="list-group-item">
-                                <b>Following</b> <a class="pull-right">543</a>
+                                <b class="user-lastname">Loading LastName</b>
                             </li>
                             <li class="list-group-item">
-                                <b>Friends</b> <a class="pull-right">13,287</a>
+                                <b class="user-email">Loading Email</b> 
+                            </li>
+                            <li class="list-group-item">
+                                <b class="user-phone">Loading Phone Number</b> 
+                            </li>
+                            <li class="list-group-item">
+                                <b class="user-referral_code">Loading Referral Code</b> 
+                            </li>
+                            <li class="list-group-item">
+                                <b class="user-referral_count">Loading Referral Count</b> Registration(s) with Referral Code
+                            </li>
+                            <li class="list-group-item">
+                                <b class="user_dateregistered">Loading Date Registered</b>
                             </li>
                         </ul>
 
-                        <a href="#" class="btn btn-primary btn-block"><b>Follow</b></a>
+                        <!--<a href="#" class="btn btn-primary btn-block"><b>Follow</b></a>-->
                     </div>
                     <!-- /.box-body -->
                 </div>
