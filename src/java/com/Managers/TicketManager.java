@@ -7,13 +7,10 @@ package com.Managers;
 
 import com.Tables.Tables;
 import java.io.UnsupportedEncodingException;
-import java.sql.Date;
 import java.sql.SQLException;
-import java.sql.Time;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.Properties;
 import javax.mail.Message;
 import javax.mail.MessagingException;
@@ -126,9 +123,9 @@ public class TicketManager {
         return result;
     }
 
-    public static void SendEmail(String To, String Body, String Subject) {
+    public static String SendEmail(String To, String Body, String Subject) {
         String from = "info@thewealthmarket.com";
-
+        String result = "false";
         final String username = "info@thewealthmarket.com";//change accordingly
         final String password = "@TheWM1234";//change accordingly
 //        String host = "localhost";
@@ -161,9 +158,11 @@ public class TicketManager {
             // Send message
             Transport.send(message);
             System.out.println("Sent message successfully....");
+            result = "success";
         } catch (MessagingException e) {
             throw new RuntimeException(e);
         }
+        return result;
     }
 
     public static String GetTicketTypeNameByID(int TicketTypeID) throws ClassNotFoundException, SQLException, UnsupportedEncodingException {
@@ -280,8 +279,8 @@ public class TicketManager {
         Tickets = IDs.size();
         return Tickets;
     }
-    
-     public static int GetTicketTypeIDByTicketID(int TicketID) throws ClassNotFoundException, SQLException, UnsupportedEncodingException {
+
+    public static int GetTicketTypeIDByTicketID(int TicketID) throws ClassNotFoundException, SQLException, UnsupportedEncodingException {
         int id = 0;
         id = DBManager.GetInt(Tables.TicketsTable.TicketTypeID, Tables.TicketsTable.Table, "where " + Tables.TicketsTable.ID + " = " + TicketID);
         return id;

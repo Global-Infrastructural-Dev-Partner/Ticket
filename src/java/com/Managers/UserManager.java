@@ -51,7 +51,7 @@ public class UserManager {
         }
         return result;
     }
-    
+
     public static ArrayList<Integer> GetAllUsers() throws ClassNotFoundException, SQLException, UnsupportedEncodingException {
         ArrayList<Integer> IDs = new ArrayList<>();
         IDs = DBManager.GetIntArrayList(Tables.UsersTable.ID, Tables.UsersTable.Table, "where " + Tables.UsersTable.UserType + " != 'Admin'");
@@ -214,48 +214,47 @@ public class UserManager {
 
     public static String UpdateCreateUser(int UserID, String UserReferralCode, String ReferralUserCode, int ReferralUserID) throws ClassNotFoundException, SQLException, UnsupportedEncodingException, ParseException {
         String result = "";
-        StringBuilder htmlBuilder = new StringBuilder();
+
         if (!ReferralUserCode.equals("")) {
             int refCount = DBManager.GetInt(Tables.UsersTable.ReferralCount, Tables.UsersTable.Table, "where " + Tables.UsersTable.ID + " = " + ReferralUserID);
             int newrefCount = 0;
             if (refCount == 10) {
-                result = TicketManager.CreateTicket(UserID, 0, 3, 1, "Free-Ticket-Reference", "Free-Ticket-Code");
+                result = TicketManager.CreateTicket(UserID, 0, 4, 1, "Free-Ticket-Reference", "Free-Ticket-Code");
                 DBManager.UpdateIntData(Tables.UsersTable.ReferralCount, newrefCount, Tables.UsersTable.Table, "where " + Tables.UsersTable.ID + " = " + ReferralUserID);
             } else {
                 refCount++;
                 DBManager.UpdateIntData(Tables.UsersTable.ReferralCount, refCount, Tables.UsersTable.Table, "where " + Tables.UsersTable.ID + " = " + ReferralUserID);
             }
-            String UserName = UserManager.getUserName(ReferralUserID);
-            String UserEmail = UserManager.getUserEmail(ReferralUserID);
-            htmlBuilder.append("<!DOCTYPE html>");
-            htmlBuilder.append("<body><h4> Dear ").append(UserName).append(",</h4><div style='margin-bottom:1em'> <h4>Congratulations!!! </h4><p>Your Referal Code has been used for registration for the PeinMoney Event.<br/>Number of registration(s) with your Referal Code :<strong> ").append(refCount).append("</strong><br/>Your Referral Code:<strong> ").append(ReferralUserCode).append("</strong></div><div style='text-align:center'><hr style='width:35em'><p>Thank you for sharing your Referral Code.</p><p>If you need any further assistance, please contact us by email at support@eventticket.com or call 0809 460 5555, or visit <a href='http://www.eventticket.com/'>http://www.eventticket.com/</a> </p></div></body>");
-            htmlBuilder.append("</html>");
-            String Body = htmlBuilder.toString();
-            try {
-                TicketManager.SendEmail(UserEmail, Body, "Referral Account Created - PeinMoney Event");
-            } catch (Exception ex) {
-
-            }
+            PrepareEmailMessage(ReferralUserID, ReferralUserCode);
+        }
+        result = PaymentsManager.CreateWallet(UserID);
+        String msgbdy = "Congratulations!!! Your account has been created successfully for the PeinMoney Event.";
+        sendMemberMessage(1, msgbdy, "PeinMoney Subscriber Account Created", UserID);
+        try {
+            PrepareEmailMessage(UserID, UserReferralCode);
+        } catch (UnsupportedEncodingException | ClassNotFoundException | SQLException ex) {
         }
 
+        return result;
+    }
+
+    public static String PrepareEmailMessage(int UserID, String ReferralCode) throws ClassNotFoundException, SQLException, UnsupportedEncodingException {
+        String result = "";
+        StringBuilder htmlBuilder = new StringBuilder();
         String UserName = UserManager.getUserName(UserID);
         String UserEmail = UserManager.getUserEmail(UserID);
         String UserPassword = UserManager.getUserPassword(UserID);
 //            String ReferalEmailLink = "https://4d31160b.ngrok.io/Ticket/Register?type=Referral&userOnlineReferralCode=" + UserReferralCode;
         htmlBuilder.append("<!DOCTYPE html>");
         htmlBuilder.append("<html>");
-        htmlBuilder.append("<body><h4> Dear ").append(UserName).append(",</h4><div style='margin-bottom:1em'> <h4>Congratulations!!! </h4><p>Your account has been created successfully for the PeinMoney Event. </br><br/><strong><u>Login Details:</u> </strong><br/>Email:<strong> ").append(UserEmail).append("</strong></br><br/>Password:<strong> ").append(UserPassword).append("</strong></br><br/>Referral Code:<strong>  ").append(UserReferralCode).append("</strong> </p></div><div style='text-align:center'><hr style='width:35em'><p>Thank you for registering.</p><p>If you need any further assistance, please contact us by email at support@eventticket.com or call 0809 460 5555, or visit <a href='http://www.eventticket.com/'>http://www.eventticket.com/</a> </p></div></body>");
+        htmlBuilder.append("<body><h4> Dear ").append(UserName).append(",</h4><div style='margin-bottom:1em'> <h4>Congratulations!!! </h4><p>Your account has been created successfully for the PeinMoney Event. </br><br/><strong><u>Login Details:</u> </strong><br/>Email:<strong> ").append(UserEmail).append("</strong></br><br/>Password:<strong> ").append(UserPassword).append("</strong></br><br/>Referral Code:<strong>  ").append(ReferralCode).append("</strong> </p></div><div style='text-align:center'><hr style='width:35em'><p>Thank you for registering.</p><p>If you need any further assistance, please contact us by email at support@eventticket.com or call 0809 460 5555, or visit <a href='http://www.eventticket.com/'>http://www.eventticket.com/</a> </p></div></body>");
         htmlBuilder.append("</html>");
         String Body = htmlBuilder.toString();
         try {
-            TicketManager.SendEmail(UserEmail, Body, "Subscriber Account Created - PeinMoney Event");
+            result = TicketManager.SendEmail(UserEmail, Body, "Subscriber Account Created - PeinMoney Event");
         } catch (Exception ex) {
-
+            ex.getMessage();
         }
-
-        String msgbdy = "Congratulations!!! Your account has been created successfully for the PeinMoney Event.";
-        sendMemberMessage(1, msgbdy, "PeinMoney Subscriber Account Created", UserID);
-        result = PaymentsManager.CreateWallet(UserID);
         return result;
     }
 

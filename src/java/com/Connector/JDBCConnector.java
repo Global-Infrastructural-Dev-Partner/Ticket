@@ -15,7 +15,7 @@ import java.sql.SQLException;
  * @author ndfmac
  */
 public class JDBCConnector {
-     //Local connection
+    //Local connection
 //    private static final String JDBC_LOADER = "com.mysql.jdbc.Driver";
 //    private static final String URL = "jdbc:mysql://localhost:3306/ticketdb"; //New Web
 //    private static final String LOGIN = "root";
@@ -23,11 +23,10 @@ public class JDBCConnector {
 
     //For Remote Connnection   === Set For Remote Connection in FilePathManager
     private static final String JDBC_LOADER = "com.mysql.jdbc.Driver";
-    private static final String URL = "jdbc:mysql://localhost:3306/thewealt_wealthmarketdb";
-    private static final String LOGIN = "thewealt_WMUser1";
-    private static final String PASSWORD = "@thewealthmarket123";
-    
-    
+    private static final String URL = "jdbc:mysql://localhost:3306/ticketdb";
+    private static final String LOGIN = "root";
+    private static final String PASSWORD = "@DOwm123";
+
     private Connection connection;
 
     public JDBCConnector() throws ClassNotFoundException, SQLException, UnsupportedEncodingException {
@@ -38,5 +37,5 @@ public class JDBCConnector {
     public Connection getConnection() throws SQLException {
         return connection;
     }
-    
+
 }
