@@ -16,16 +16,16 @@ import java.sql.SQLException;
  */
 public class JDBCConnector {
      //Local connection
-    private static final String JDBC_LOADER = "com.mysql.jdbc.Driver";
-    private static final String URL = "jdbc:mysql://localhost:3306/ticketdb"; //New Web
-    private static final String LOGIN = "root";
-    private static final String PASSWORD = "root";
+//    private static final String JDBC_LOADER = "com.mysql.jdbc.Driver";
+//    private static final String URL = "jdbc:mysql://localhost:3306/ticketdb"; //New Web
+//    private static final String LOGIN = "root";
+//    private static final String PASSWORD = "root";
 
     //For Remote Connnection   === Set For Remote Connection in FilePathManager
-//    private static final String JDBC_LOADER = "com.mysql.jdbc.Driver";
-//    private static final String URL = "jdbc:mysql://localhost:3306/thewealt_recommendationdb"; //New Web
-//    private static final String LOGIN = "thewealt_WMUser1";
-//    private static final String PASSWORD = "@thewealthmarket123";
+    private static final String JDBC_LOADER = "com.mysql.jdbc.Driver";
+    private static final String URL = "jdbc:mysql://localhost:3306/thewealt_wealthmarketdb";
+    private static final String LOGIN = "thewealt_WMUser1";
+    private static final String PASSWORD = "@thewealthmarket123";
     
     
     private Connection connection;

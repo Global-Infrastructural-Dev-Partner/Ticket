@@ -17,7 +17,7 @@
 
           <p>
             We could not find the page you were looking for.
-            Meanwhile, you may <a  href="${pageContext.request.contextPath}/ControllerServlet?action=Link&type=Index">return to the home page</a> or try a new session.
+            Meanwhile, you may <a  href="${pageContext.request.contextPath}/ControllerServlet?action=Link&type=Index">return to the home page</a> and try a new session.
           </p>
         </div>
         <!-- /.error-content -->
