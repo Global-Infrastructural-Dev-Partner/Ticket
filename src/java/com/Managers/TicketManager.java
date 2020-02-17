@@ -92,11 +92,11 @@ public class TicketManager {
         String currentDate = "" + UtilityManager.CurrentDate();
         String currentTime = "" + UtilityManager.CurrentTime();
         htmlBuilder.append("<!DOCTYPE html>");
-        htmlBuilder.append("<body><h4> Dear ").append(UserName).append(",</h4><div style='margin-bottom:1em'> <h4>Congratulations!!! </h4><p>Your have successfully paid for a ticket for the PeinMoney Event.<strong><u>Ticket Details</u> </strong><br/>Ticket Number:").append(TicketNumber).append("<br/><strong>Ticket Type:</strong>").append(TicketType).append("<br/><strong>Ticket Amount:</strong>").append(TicketAmount).append("<br/><strong>Payment Date:</strong>").append(UtilityManager.readDate(currentDate)).append("<br/><strong>Payment Time:</strong>").append(UtilityManager.readTime(currentTime)).append("<br/><br/><strong>Event Date:</strong> 25th March, 2020<br/><strong>Event Time:</strong> 10am Prompt<br/><strong>Event Venue:</strong>Hotel De Oriental Lekki Phase 1</p></div><div style='text-align:center'><hr style='width:35em'><p>Thank you for buying a ticket</p><p>If you need any further assistance, please contact us by email at support@eventticket.com or call 0809 460 5555, or visit <a href='http://www.eventticket.com/'>http://www.eventticket.com/</a> </p></div></body>");
+        htmlBuilder.append("<body><h4> Dear ").append(UserName).append(",</h4><div style='margin-bottom:1em'> <h4>Congratulations!!! </h4><p>Your have successfully paid for a ticket for the PeinMoney Event.<br/><br/><strong><u>Ticket Details</u> </strong><br/>Ticket Number:").append(TicketNumber).append("<br/><strong>Ticket Type:</strong>").append(TicketType).append("<br/><strong>Ticket Amount:</strong>").append(TicketAmount).append("<br/><strong>Payment Date:</strong>").append(UtilityManager.readDate(currentDate)).append("<br/><strong>Payment Time:</strong>").append(UtilityManager.readTime(currentTime)).append("<br/><br/><strong>Event Date:</strong> 25th March, 2020<br/><strong>Event Time:</strong> 10am Prompt<br/><strong>Event Venue:</strong>Hotel De Oriental Lekki Phase 1</p></div><div style='text-align:center'><hr style='width:35em'><p>Thank you for buying a ticket</p><p>If you need any further assistance, please contact us by email at support@eventticket.com or call 0809 460 5555, or visit <a href='http://www.eventticket.com/'>http://www.eventticket.com/</a> </p></div></body>");
         htmlBuilder.append("</html>");
         String Body = htmlBuilder.toString();
         try {
-            SendEmail(Email, Body, "Event Ticket");
+            result = "";//SendEmail(Email, Body, "Event Ticket");
         } catch (Exception ex) {
 
         }
@@ -123,7 +123,7 @@ public class TicketManager {
         return result;
     }
 
-    public static String SendEmail(String To, String Body, String Subject) {
+    public static String SendEmail2(String To, String Body, String Subject) {
         String from = "info@thewealthmarket.com";
         String result = "false";
         final String username = "info@thewealthmarket.com";//change accordingly

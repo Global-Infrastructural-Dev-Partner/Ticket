@@ -251,7 +251,7 @@ public class UserManager {
         htmlBuilder.append("</html>");
         String Body = htmlBuilder.toString();
         try {
-            result = TicketManager.SendEmail(UserEmail, Body, "Subscriber Account Created - PeinMoney Event");
+            result = "";//TicketManager.SendEmail(UserEmail, Body, "Subscriber Account Created - PeinMoney Event");
         } catch (Exception ex) {
             ex.getMessage();
         }

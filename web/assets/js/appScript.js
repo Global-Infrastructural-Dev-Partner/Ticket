@@ -617,7 +617,7 @@ function DisplayBuyTicket(data) {
             showCancelButton: false,
             confirmButtonText: 'Ok'
         }).then((result) => {
-            window.location = extension + "ControllerServlet?action=Link&type=Register";
+          
         });
     }
 }
