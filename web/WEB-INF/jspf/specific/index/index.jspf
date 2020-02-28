@@ -64,7 +64,7 @@
 
     <div class="auto-container">
         <div class="content-box">
-            <span class="title">March  25, 2020</span>
+            <span class="title">March  25th, 2020</span>
             <h2> PeinMoney <br>Event 2020</h2>
             <div class="time-counter">
                 <div class="time-countdown clearfix" data-countdown="03/25/2020"></div>
@@ -134,8 +134,8 @@
             <div class="content-column col-lg-6 col-md-12 col-sm-12">
                 <div class="inner-column">
                     <div class="sec-title">
-                        <span class="title mt-6">INFLUENCER</span>
-                        <h2>Welcome to the World Digital Conference 2020</h2>
+                        <span class="title mt-6">INFLUENCERS</span>
+                        <h2>Welcome to PienMoney Event 2020</h2>
                         <div class="text">Dolor sit amet consectetur elit sed do eiusmod tempor incd idunt
                             labore et dolore magna aliqua enim ad minim veniam quis nostrud exercitation ullamco
                             laboris nisi ut aliquip exea commodo consequat.</div>
@@ -182,13 +182,13 @@
                         <ul class="tab-buttons clearfix">
                             <li class="tab-btn active-btn" data-tab="#tab1">Time</li>
                             <li class="tab-btn" data-tab="#tab2">Venue</li>
-<!--                            <li class="tab-btn" data-tab="#tab3">How to</li>-->
+                            <!--                            <li class="tab-btn" data-tab="#tab3">How to</li>-->
                         </ul>
 
                         <div class="tabs-content">
                             <!--Tab-->
                             <div class="tab active-tab" id="tab1">
-                                <h4><span class="icon far fa-calendar"></span> Decenber 25, 2019</h4>
+                                <h4><span class="icon far fa-calendar"></span> March  25th, 2020</h4>
                                 <div class="text">10.00 AM - 05.00 PM</div>
                                 <ul class="info-list">
                                     <li><span class="icon icon_profile"></span> PeinMoney</li>
@@ -204,7 +204,7 @@
                                 <h4><span class="icon fa fa-map-marker-alt"></span>Oriental hotel, Victoris Island, Lagos.
                                 </h4>
                                 <div class="text">From Ajah take a bus going to CMS, Drop at Law School Bus/stop,
-                                then you can ask for oriental hotel</div>
+                                    then you can ask for oriental hotel</div>
                             </div>
 
                         </div>
@@ -313,7 +313,7 @@
                             <li class="true">Win An Award</li>
                         </ul>
                         <div class="btn-box">
-                            <a href="#" class="theme-btn" id="Buy10in1Ticket">BUY Ticket</a>
+                            <a href="#" class="theme-btn" id="Buy10in1Ticket">Buy Ticket</a>
                         </div>
                     </div>
                 </div>
@@ -568,21 +568,21 @@
 <!--End Sponsors Section-->
 
 <!-- FAQ's Section -->
-<section class="faq-section" id="faq">
+<!--<section class="faq-section hide d-none" id="faq">
     <div class="auto-container">
-        <!-- Sec Title -->
+         Sec Title 
         <div class="sec-title">
             <span class="title">FAQ'S</span>
             <h2>General Questions</h2>
         </div>
 
         <div class="row clearfix">
-            <!-- Content Column -->
+             Content Column 
             <div class="content-column col-lg-6 col-md-12 col-sm-12">
                 <div class="inner-column">
-                    <!--Accordian Box-->
+                    Accordian Box
                     <ul class="accordion-box">
-                        <!--Block-->
+                        Block
                         <li class="accordion block wow fadeInUp">
                             <div class="acc-btn">
                                 <div class="icon-outer"><span class="icon icon-plus fa fa-angle-down"></span>
@@ -597,7 +597,7 @@
                             </div>
                         </li>
 
-                        <!--Block-->
+                        Block
                         <li class="accordion block active-block wow fadeInUp">
                             <div class="acc-btn active">
                                 <div class="icon-outer"><span class="icon icon-plus fa fa-angle-down"></span>
@@ -612,7 +612,7 @@
                             </div>
                         </li>
 
-                        <!--Block-->
+                        Block
                         <li class="accordion block wow fadeInUp">
                             <div class="acc-btn">
                                 <div class="icon-outer"><span class="icon icon-plus fa fa-angle-down"></span>
@@ -630,12 +630,12 @@
                 </div>
             </div>
 
-            <!-- Content Column -->
+             Content Column 
             <div class="content-column col-lg-6 col-md-12 col-sm-12">
                 <div class="inner-column">
-                    <!--Accordian Box-->
+                    Accordian Box
                     <ul class="accordion-box">
-                        <!--Block-->
+                        Block
                         <li class="accordion block active-block wow fadeInUp">
                             <div class="acc-btn active">
                                 <div class="icon-outer"><span class="icon icon-plus fa fa-angle-down"></span>
@@ -650,7 +650,7 @@
                             </div>
                         </li>
 
-                        <!--Block-->
+                        Block
                         <li class="accordion block wow fadeInUp">
                             <div class="acc-btn">
                                 <div class="icon-outer"><span class="icon icon-plus fa fa-angle-down"></span>
@@ -665,7 +665,7 @@
                             </div>
                         </li>
 
-                        <!--Block-->
+                        Block
                         <li class="accordion block wow fadeInUp">
                             <div class="acc-btn">
                                 <div class="icon-outer"><span class="icon icon-plus fa fa-angle-down"></span>
@@ -684,7 +684,7 @@
             </div>
         </div>
     </div>
-</section>
+</section>-->
 <!-- End FAQ's Section -->
 
 <!-- Contact Us Section -->
@@ -700,8 +700,24 @@
                         <div class="sec-title light">
                             <div class="icon-box"><span class="icon flaticon-rocket-ship"></span></div>
                             <h2>Contact Us</h2>
-                            <div class="text">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
-                                eiusmtempor incididunt labore et dolore magna.</div>
+
+                            <div class="text">
+                                <div>Phone: 
+                                    <p><a href="tel://09054444474">+234 905 444 4474</a></p>
+                                </div>
+                                <div class="mt-2">Email Address: 
+                                    <p><a href="mailto:rsvp@peinmoney.com">rsvp@peinmoney.com</a></p>
+                                </div>
+                                <div class="mt-2">Website: 
+                                    <p><a href="https://peinmoney.com/" target="blank">www.peinmoney.com</a></p>
+                                </div>
+                                <div class="mt-1">For Sponsorship: 
+                                    <p class="text-white">Send an Email to <a
+                                            href="mailto:sponsor@peinmoney.com">sponsor@peinmoney.com</a>
+                                    </p>
+                                </div>
+
+                            </div>
                         </div>
                     </div>
                 </div>
